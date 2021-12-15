@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">TheMovie</string>
-    <string name="tab_text_1">Popular</string>
-    <string name="tab_text_2">Top 250</string>
-    <string name="tab_text_3">Favorite</string>
+    <string name="tab_text_0">Popular</string>
+    <string name="tab_text_1">Top 250</string>
+    <string name="tab_text_2">Favorite</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
