@@ -24,10 +24,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        createSectionsAdapter()
+    }
+
+    private fun createSectionsAdapter() {
         val sectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager, lifecycle)
         val viewPager: ViewPager2 = binding.viewPager
         viewPager.adapter = sectionsPagerAdapter
+
         val tabs: TabLayout = binding.tabs
+        setTabTitles(tabs, viewPager)
+    }
+
+    private fun setTabTitles(tabs: TabLayout, viewPager: ViewPager2) {
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             when (position) {
                 0 -> tab.text = getString(R.string.tab_text_0)

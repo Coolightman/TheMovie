@@ -11,7 +11,9 @@ import com.coolightman.themovie.presentation.fragment.MoviesTop250Fragment
 class SectionsPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fm, lifecycle) {
 
-    override fun getItemCount(): Int = 3
+    companion object {
+        private const val NUM_TABS = 3
+    }
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
@@ -21,4 +23,6 @@ class SectionsPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
             else -> throw RuntimeException("Illegal Pager Adapter number $position")
         }
     }
+
+    override fun getItemCount(): Int = NUM_TABS
 }
