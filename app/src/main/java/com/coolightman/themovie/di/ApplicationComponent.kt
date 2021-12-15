@@ -5,7 +5,8 @@ import com.coolightman.themovie.presentation.activity.MainActivity
 import dagger.BindsInstance
 import dagger.Component
 
-@Component
+@ApplicationScope
+@Component(modules = [ViewModelModule::class])
 interface ApplicationComponent {
 
     fun inject(activity: MainActivity)

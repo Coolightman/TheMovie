@@ -12,5 +12,5 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(MovieViewModel::class)
     @Binds
-    fun bindExampleViewModel(impl: MovieViewModel): ViewModel
+    fun bindMovieViewModel(impl: MovieViewModel): ViewModel
 }
