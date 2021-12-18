@@ -62,4 +62,15 @@ class Converters {
         return Gson().fromJson(json, itemType)
     }
 
+    @TypeConverter
+    fun listShortMoviesToJson(movies: List<ShortMovieDbModel>): String {
+        return Gson().toJson(movies)
+    }
+
+    @TypeConverter
+    fun jsonToListShortMovies(json: String): List<ShortMovieDbModel> {
+        val itemType = object : TypeToken<List<ShortMovieDbModel>>() {}.type
+        return Gson().fromJson(json, itemType)
+    }
+
 }
