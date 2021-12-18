@@ -33,7 +33,7 @@ abstract class MovieDatabase : RoomDatabase() {
 
     companion object {
         private var database: MovieDatabase? = null
-        private const val DATABASE_NAME = "TheMovie.db"
+        private const val DATABASE_NAME = "MovieDatabase.db"
 
         fun getDatabase(context: Context): MovieDatabase {
             synchronized(MovieDatabase::class) {

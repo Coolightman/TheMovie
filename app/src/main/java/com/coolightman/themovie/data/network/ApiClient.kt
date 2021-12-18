@@ -4,8 +4,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
+
     private var retrofit: Retrofit? = null
-    private const val API_URL = "google.com"//TODO
+    private const val API_URL = "https://kinopoiskapiunofficial.tech/api/v2.2/films/"
 
     private fun getClient(): Retrofit {
         synchronized(ApiClient::class) {
@@ -19,7 +20,7 @@ object ApiClient {
         }
     }
 
-    fun getMovieApiService(): MovieApiService {
-        return getClient().create(MovieApiService::class.java)
+    fun getMovieApiService(): ApiService {
+        return getClient().create(ApiService::class.java)
     }
 }
