@@ -8,7 +8,7 @@ import androidx.room.Query
 import com.coolightman.themovie.data.database.dbModel.ShortFavoriteDbModel
 
 @Dao
-interface FavoriteDao {
+interface ShortFavoriteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(shortFavorite: ShortFavoriteDbModel)
