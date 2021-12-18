@@ -1,14 +1,17 @@
 package com.coolightman.themovie.presentation.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.coolightman.themovie.App
 import com.coolightman.themovie.R
+import com.coolightman.themovie.data.network.ApiClient
 import com.coolightman.themovie.databinding.ActivityMainBinding
 import com.coolightman.themovie.presentation.adapter.SectionsPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +28,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         createSectionsAdapter()
+        doSome()
+    }
+
+    private fun doSome() {
+        val apiService = ApiClient.getMovieApiService()
+        CoroutineScope(Dispatchers.IO).launch {
+            val page = apiService.loadPageOfTop250Movies(2)
+            Log.d("API", page.toString())
+        }
     }
 
     private fun createSectionsAdapter() {
@@ -45,4 +57,5 @@ class MainActivity : AppCompatActivity() {
             }
         }.attach()
     }
+
 }
