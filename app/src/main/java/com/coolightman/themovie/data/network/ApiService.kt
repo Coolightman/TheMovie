@@ -1,8 +1,10 @@
 package com.coolightman.themovie.data.network
 
+import com.coolightman.themovie.data.network.dto.MovieDto
 import com.coolightman.themovie.data.network.dto.MoviesPageDto
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -16,6 +18,7 @@ interface ApiService {
         private const val TYPE_VALUE_POPULAR = "TOP_100_POPULAR_FILMS"
         private const val TYPE_VALUE_TOP_250 = "TOP_250_BEST_FILMS"
         private const val PARAM_PAGE = "page"
+        private const val PARAM_MOVIE_ID = "id"
 
         private const val headerAccept = "$HEADER_ACCEPT_NAME: $HEADER_ACCEPT_VALUE"
         private const val headerKey = "$HEADER_API_NAME: $HEADER_API_VALUE"
@@ -34,5 +37,9 @@ interface ApiService {
         @Query(PARAM_PAGE) page: Int,
         @Query(PARAM_TYPE) type: String = TYPE_VALUE_TOP_250
     ): MoviesPageDto
+
+    @Headers(headerAccept, headerKey)
+    @GET("{id}")
+    suspend fun loadMovie(@Path(PARAM_MOVIE_ID) movieId: Long): MovieDto
 
 }

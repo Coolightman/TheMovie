@@ -36,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             val page = apiService.loadPageOfTop250Movies(2)
             Log.d("API", page.toString())
+            val movie = apiService.loadMovie(1356)
+            Log.d("API", movie.toString())
         }
     }
 
