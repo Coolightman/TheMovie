@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun doSome() {
-        val apiService = ApiClient.getMovieApiService()
+        val apiService = ApiClient.getApiService()
         CoroutineScope(Dispatchers.IO).launch {
             val page = apiService.loadPageOfTop250Movies(2)
             Log.d("API", page.toString())

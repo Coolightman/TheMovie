@@ -14,7 +14,7 @@ import com.coolightman.themovie.data.database.dbModel.*
         FactsDbModel::class,
         FramesDbModel::class,
         MovieDbModel::class,
-        ShortFavoriteDbModel::class,
+        FavoriteDbModel::class,
         ShortMovieDbModel::class,
         SimilarMoviesDbModel::class,
         VideosDbModel::class
@@ -26,7 +26,7 @@ abstract class MovieDatabase : RoomDatabase() {
     abstract fun factsDao(): FactsDao
     abstract fun framesDao(): FramesDao
     abstract fun movieDao(): MovieDao
-    abstract fun shortFavoriteDao(): ShortFavoriteDao
+    abstract fun favoriteDao(): FavoriteDao
     abstract fun shortMovieDao(): ShortMovieDao
     abstract fun similarMoviesDao(): SimilarMoviesDao
     abstract fun videosDao(): VideosDao

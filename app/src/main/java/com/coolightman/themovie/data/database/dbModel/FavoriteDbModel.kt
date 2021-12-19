@@ -2,11 +2,9 @@ package com.coolightman.themovie.data.database.dbModel
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.coolightman.themovie.domain.entity.Country
-import com.coolightman.themovie.domain.entity.Genre
 
 @Entity
-data class MovieDbModel(
+data class FavoriteDbModel(
     @PrimaryKey
     val movieId: Long,
     val titleOriginal: String?,
