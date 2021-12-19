@@ -38,6 +38,14 @@ class MainActivity : AppCompatActivity() {
             Log.d("API", page.toString())
             val movie = apiService.loadMovie(1356)
             Log.d("API", movie.toString())
+            val facts = apiService.loadFacts(301)
+            Log.d("API", facts.toString())
+            val frames = apiService.loadFrames(301)
+            Log.d("API", frames.toString())
+            val videos = apiService.loadVideos(301)
+            Log.d("API", videos.toString())
+            val similars = apiService.loadSimilars(301)
+            Log.d("API", similars.toString())
         }
     }
 
