@@ -1,6 +1,7 @@
 package com.coolightman.themovie.data.mapper
 
 import com.coolightman.themovie.data.database.dbModel.CountryDbModel
+import com.coolightman.themovie.data.database.dbModel.FavoriteDbModel
 import com.coolightman.themovie.data.database.dbModel.GenreDbModel
 import com.coolightman.themovie.data.database.dbModel.MovieDbModel
 import com.coolightman.themovie.data.network.dto.CountryDto
@@ -22,7 +23,6 @@ class MovieMapper {
         posterPreview = dto.posterUrlPreview,
         poster = dto.posterUrl,
         isFavorite = false,
-        favoriteDate = null,
         releaseDate = dto.year.toString(),
         duration = formatLength(dto.filmLength),
         description = dto.description,
@@ -41,6 +41,50 @@ class MovieMapper {
         posterPreview = dbModel.posterPreview,
         poster = dbModel.poster,
         isFavorite = dbModel.isFavorite,
+        releaseDate = dbModel.releaseDate,
+        duration = dbModel.duration,
+        description = dbModel.description,
+        genres = dbModel.genres.map { genresDbModelToEntity(it) },
+        countries = dbModel.countries.map { countriesDbModelToEntity(it) },
+        webUrl = dbModel.webUrl,
+        topPopularPlace = dbModel.topPopularPlace.toString(),
+        top250Place = dbModel.top250Place.toString()
+    )
+
+    fun mapMovieDbModelToFavoriteDbModel(dbModel: MovieDbModel) = FavoriteDbModel(
+        movieId = dbModel.movieId,
+        nameOriginal = dbModel.nameOriginal,
+        nameRu = dbModel.nameRu,
+        slogan = dbModel.slogan,
+        rating = dbModel.rating,
+        ratingCount = dbModel.ratingCount,
+        posterPreview = dbModel.posterPreview,
+        poster = dbModel.poster,
+        favoriteDate = getStamp(),
+        releaseDate = dbModel.releaseDate,
+        duration = dbModel.duration,
+        description = dbModel.description,
+        genres = dbModel.genres,
+        countries = dbModel.countries,
+        webUrl = dbModel.webUrl,
+        topPopularPlace = dbModel.topPopularPlace,
+        top250Place = dbModel.top250Place
+    )
+
+    private fun getStamp(): Long {
+        return System.currentTimeMillis()
+    }
+
+    fun mapFavoriteDbModelToEntity(dbModel: FavoriteDbModel) = Movie(
+        movieId = dbModel.movieId,
+        nameOriginal = dbModel.nameOriginal,
+        nameRu = dbModel.nameRu,
+        slogan = dbModel.slogan,
+        rating = dbModel.rating,
+        ratingCount = dbModel.ratingCount,
+        posterPreview = dbModel.posterPreview,
+        poster = dbModel.poster,
+        isFavorite = true,
         releaseDate = dbModel.releaseDate,
         duration = dbModel.duration,
         description = dbModel.description,

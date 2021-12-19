@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.coolightman.themovie.App
 import com.coolightman.themovie.R
+import com.coolightman.themovie.data.mapper.MovieMapper
 import com.coolightman.themovie.data.network.ApiClient
 import com.coolightman.themovie.databinding.ActivityMainBinding
 import com.coolightman.themovie.presentation.adapter.SectionsPagerAdapter
@@ -34,18 +35,17 @@ class MainActivity : AppCompatActivity() {
     private fun doSome() {
         val apiService = ApiClient.getApiService()
         CoroutineScope(Dispatchers.IO).launch {
-            val page = apiService.loadPageOfTop250Movies(2)
-            Log.d("API", page.toString())
-            val movie = apiService.loadMovie(1356)
-            Log.d("API", movie.toString())
-            val facts = apiService.loadFacts(301)
-            Log.d("API", facts.toString())
-            val frames = apiService.loadFrames(301)
-            Log.d("API", frames.toString())
-            val videos = apiService.loadVideos(301)
-            Log.d("API", videos.toString())
-            val similars = apiService.loadSimilars(301)
-            Log.d("API", similars.toString())
+            val movieDto = apiService.loadMovie(301)
+            Log.d("TEST", movieDto.toString())
+            val movieDbModel = MovieMapper().mapDtoToDbModel(movieDto)
+            movieDbModel.isFavorite = true
+            Log.d("TEST", movieDbModel.toString())
+            val movie = MovieMapper().mapDbModelToEntity(movieDbModel)
+            Log.d("TEST", movie.toString())
+            val favoriteDbModel = MovieMapper().mapMovieDbModelToFavoriteDbModel(movieDbModel)
+            Log.d("TEST", favoriteDbModel.toString())
+            val movieFavorite = MovieMapper().mapFavoriteDbModelToEntity(favoriteDbModel)
+            Log.d("TEST", movieFavorite.toString())
         }
     }
 

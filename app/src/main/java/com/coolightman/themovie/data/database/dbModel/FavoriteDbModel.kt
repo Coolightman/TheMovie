@@ -14,7 +14,6 @@ data class FavoriteDbModel(
     val ratingCount: Int?,
     val posterPreview: String?,
     val poster: String?,
-    val isFavorite: Boolean,
     val favoriteDate: Long?,
     val releaseDate: String?,
     val duration: String?,
