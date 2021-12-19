@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class SimilarMoviesDbModel(
+data class SimilarsDbModel(
     @PrimaryKey
     val movieId: Long,
     val items: List<ShortMovieDbModel>

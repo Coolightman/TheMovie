@@ -9,11 +9,11 @@ import com.coolightman.themovie.domain.entity.Genre
 data class MovieDbModel(
     @PrimaryKey
     val movieId: Long,
-    val titleOriginal: String?,
-    val titleRu: String?,
+    val nameOriginal: String?,
+    val nameRu: String?,
     val slogan: String?,
     val rating: String?,
-    val ratingCount: String?,
+    val ratingCount: Int?,
     val posterPreview: String?,
     val poster: String?,
     val isFavorite: Boolean,
@@ -24,6 +24,6 @@ data class MovieDbModel(
     val genres: List<GenreDbModel>,
     val countries: List<CountryDbModel>,
     val webUrl: String?,
-    val topPopularPlace: Int,
-    val top250Place: Int
+    var topPopularPlace: Int = 0,
+    var top250Place: Int = 0
 )

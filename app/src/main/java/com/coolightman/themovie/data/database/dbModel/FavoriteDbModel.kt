@@ -7,11 +7,11 @@ import androidx.room.PrimaryKey
 data class FavoriteDbModel(
     @PrimaryKey
     val movieId: Long,
-    val titleOriginal: String?,
-    val titleRu: String?,
+    val nameOriginal: String?,
+    val nameRu: String?,
     val slogan: String?,
     val rating: String?,
-    val ratingCount: String?,
+    val ratingCount: Int?,
     val posterPreview: String?,
     val poster: String?,
     val isFavorite: Boolean,
