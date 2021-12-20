@@ -21,6 +21,6 @@ class FrameMapper {
     )
 
     fun mapDbModelToListOfFrame(dbModel: FramesDbModel): List<Frame> {
-        return dbModel.items.map { Frame(it.image, it.imagePreview) }
+        return dbModel.items.map { Frame(image = it.image, imagePreview = it.imagePreview) }
     }
 }
