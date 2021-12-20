@@ -1,12 +1,10 @@
 package com.coolightman.themovie.data.mapper
 
-import com.coolightman.themovie.data.database.dbModel.CountryDbModel
-import com.coolightman.themovie.data.database.dbModel.FavoriteDbModel
-import com.coolightman.themovie.data.database.dbModel.GenreDbModel
-import com.coolightman.themovie.data.database.dbModel.MovieDbModel
+import com.coolightman.themovie.data.database.dbModel.*
 import com.coolightman.themovie.data.network.dto.CountryDto
 import com.coolightman.themovie.data.network.dto.GenreDto
 import com.coolightman.themovie.data.network.dto.MovieDto
+import com.coolightman.themovie.data.network.dto.MoviesPageDto
 import com.coolightman.themovie.domain.entity.Country
 import com.coolightman.themovie.domain.entity.Genre
 import com.coolightman.themovie.domain.entity.Movie
@@ -94,6 +92,10 @@ class MovieMapper {
         topPopularPlace = dbModel.topPopularPlace.toString(),
         top250Place = dbModel.top250Place.toString()
     )
+
+    fun mapMoviesPageDtoToDbModel(dto: MoviesPageDto): List<ShortMovieDbModel>{
+        return dto.movies.map { ShortMovieMapper().mapDtoToDbModel(it) }
+    }
 
     private fun formatLength(length: Int?): String {
         length?.let {
