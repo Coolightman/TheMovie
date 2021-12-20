@@ -9,8 +9,7 @@ data class ShortMovieDbModel(
     val movieId: Long,
     val rating: String?,
     val posterPreview: String?,
-    val isFavorite: Boolean,
-    val favoriteDate: Long,
+    var isFavorite: Boolean = false,
     val topPopularPlace: Int = 0,
     val top250Place: Int = 0
 )
