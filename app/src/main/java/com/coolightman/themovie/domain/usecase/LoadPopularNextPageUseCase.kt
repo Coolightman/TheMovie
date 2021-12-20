@@ -1,8 +1,9 @@
 package com.coolightman.themovie.domain.usecase
 
 import com.coolightman.themovie.domain.repository.PageRepository
+import javax.inject.Inject
 
-class LoadPopularNextPageUseCase(
+class LoadPopularNextPageUseCase @Inject constructor(
     private val repository: PageRepository
 ) {
     operator fun invoke() = repository.loadPopularNextPage()
