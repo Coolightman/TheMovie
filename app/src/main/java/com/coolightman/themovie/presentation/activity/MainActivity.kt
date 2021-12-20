@@ -37,15 +37,6 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             val movieDto = apiService.loadMovie(301)
             Log.d("TEST", movieDto.toString())
-            val movieDbModel = MovieMapper().mapDtoToDbModel(movieDto)
-            movieDbModel.isFavorite = true
-            Log.d("TEST", movieDbModel.toString())
-            val movie = MovieMapper().mapDbModelToEntity(movieDbModel)
-            Log.d("TEST", movie.toString())
-            val favoriteDbModel = MovieMapper().mapMovieDbModelToFavoriteDbModel(movieDbModel)
-            Log.d("TEST", favoriteDbModel.toString())
-            val movieFavorite = MovieMapper().mapFavoriteDbModelToEntity(favoriteDbModel)
-            Log.d("TEST", movieFavorite.toString())
         }
     }
 
