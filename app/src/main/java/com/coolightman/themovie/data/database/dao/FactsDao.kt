@@ -17,8 +17,8 @@ interface FactsDao {
     fun getFactsLiveData(movieId: Long): LiveData<FactsDbModel>
 
     @Query("select exists(select * from factsdbmodel where movieId = :movieId)")
-    fun exists(movieId: Long): Boolean
+    suspend fun exists(movieId: Long): Boolean
 
     @Query("delete from factsdbmodel")
-    fun clearTable()
+    suspend fun clearTable()
 }

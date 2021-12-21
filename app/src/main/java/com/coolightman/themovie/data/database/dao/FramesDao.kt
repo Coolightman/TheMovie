@@ -11,14 +11,14 @@ import com.coolightman.themovie.data.database.dbModel.FramesDbModel
 interface FramesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFrames(frames: FramesDbModel)
+    suspend fun insertFrames(frames: FramesDbModel)
 
     @Query("select * from framesdbmodel where movieId = :movieId")
     fun getFramesLiveData(movieId: Long): LiveData<FramesDbModel>
 
     @Query("select exists(select * from framesdbmodel where movieId = :movieId)")
-    fun exists(movieId: Long): Boolean
+    suspend fun exists(movieId: Long): Boolean
 
     @Query("delete from framesdbmodel")
-    fun clearTable()
+    suspend fun clearTable()
 }

@@ -11,17 +11,17 @@ import com.coolightman.themovie.data.database.dbModel.MovieDbModel
 interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(movie: MovieDbModel)
+    suspend fun insert(movie: MovieDbModel)
 
     @Query("select * from moviedbmodel where movieId = :movieId")
-    fun getMovie(movieId: Long): MovieDbModel?
+    suspend fun getMovie(movieId: Long): MovieDbModel?
 
     @Query("select * from moviedbmodel where movieId = :movieId")
     fun getMovieLiveData(movieId: Long): LiveData<MovieDbModel>
 
     @Query("select exists(select * from moviedbmodel where movieId = :movieId)")
-    fun exists(movieId: Long): Boolean
+    suspend fun exists(movieId: Long): Boolean
 
     @Query("delete from moviedbmodel")
-    fun clearTable()
+    suspend fun clearTable()
 }

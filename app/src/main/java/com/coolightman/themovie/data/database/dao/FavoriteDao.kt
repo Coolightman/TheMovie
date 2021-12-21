@@ -11,11 +11,11 @@ import com.coolightman.themovie.data.database.dbModel.FavoriteDbModel
 interface FavoriteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(favorite: FavoriteDbModel)
+    suspend fun insert(favorite: FavoriteDbModel)
 
     @Query("select * from favoritedbmodel order by favoriteDate")
     fun getFavorites(): LiveData<List<FavoriteDbModel>>
 
     @Query("delete from favoritedbmodel")
-    fun clearTable()
+    suspend fun clearTable()
 }

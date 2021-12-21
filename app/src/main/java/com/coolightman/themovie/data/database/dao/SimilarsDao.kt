@@ -11,14 +11,14 @@ import com.coolightman.themovie.data.database.dbModel.SimilarsDbModel
 interface SimilarsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertSimilars(similars: SimilarsDbModel)
+    suspend fun insertSimilars(similars: SimilarsDbModel)
 
     @Query("select * from similarsdbmodel where movieId = :movieId")
     fun getSimilarMoviesLiveData(movieId: Long): LiveData<SimilarsDbModel>
 
     @Query("select exists(select * from similarsdbmodel where movieId = :movieId)")
-    fun exists(movieId: Long): Boolean
+    suspend fun exists(movieId: Long): Boolean
 
     @Query("delete from similarsdbmodel")
-    fun clearTable()
+    suspend fun clearTable()
 }
