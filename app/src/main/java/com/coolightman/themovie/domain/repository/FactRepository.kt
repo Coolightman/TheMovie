@@ -5,5 +5,5 @@ import com.coolightman.themovie.domain.entity.Fact
 
 interface FactRepository {
 
-    fun getMovieFacts(movieId: Long): LiveData<List<Fact>>
+    suspend fun getMovieFacts(movieId: Long): LiveData<List<Fact>>
 }

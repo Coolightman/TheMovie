@@ -5,5 +5,5 @@ import com.coolightman.themovie.domain.entity.Frame
 
 interface FrameRepository {
 
-    fun getMovieFrames(movieId: Long): LiveData<List<Frame>>
+    suspend fun getMovieFrames(movieId: Long): LiveData<List<Frame>>
 }
