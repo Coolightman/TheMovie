@@ -7,7 +7,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-interface DataModule {
+object DataModule {
 
     @Provides
     fun provideMovieDatabase(context: Context) = Room.databaseBuilder(

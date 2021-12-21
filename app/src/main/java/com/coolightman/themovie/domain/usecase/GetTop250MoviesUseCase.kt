@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetTop250MoviesUseCase @Inject constructor(
     private val repository: MovieRepository
 ) {
-    operator fun invoke() = repository.getTop250Movies()
+    suspend operator fun invoke() = repository.getTop250Movies()
 }

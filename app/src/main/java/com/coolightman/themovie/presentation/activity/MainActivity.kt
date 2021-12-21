@@ -1,14 +1,26 @@
 package com.coolightman.themovie.presentation.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.AbstractSavedStateViewModelFactory
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.coolightman.themovie.App
 import com.coolightman.themovie.R
+import com.coolightman.themovie.data.database.dao.VideosDao
+import com.coolightman.themovie.data.repository.VideoRepositoryImpl
 import com.coolightman.themovie.databinding.ActivityMainBinding
+import com.coolightman.themovie.domain.usecase.GetMovieVideosUseCase
 import com.coolightman.themovie.presentation.adapter.SectionsPagerAdapter
+import com.coolightman.themovie.presentation.viewmodel.MovieViewModel
+import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 

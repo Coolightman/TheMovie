@@ -6,5 +6,5 @@ import javax.inject.Inject
 class LoadTop250NextPageUseCase @Inject constructor(
     private val repository: PageRepository
 ) {
-    operator fun invoke() = repository.loadTop250NextPage()
+    suspend operator fun invoke() = repository.loadTop250NextPage()
 }
