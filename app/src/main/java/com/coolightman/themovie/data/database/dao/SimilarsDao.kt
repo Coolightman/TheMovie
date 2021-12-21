@@ -16,6 +16,9 @@ interface SimilarsDao {
     @Query("select * from similarsdbmodel where movieId = :movieId")
     fun getSimilarMoviesLiveData(movieId: Long): LiveData<SimilarsDbModel>
 
+    @Query("select exists(select * from similarsdbmodel where movieId = :movieId)")
+    fun exists(movieId: Long): Boolean
+
     @Query("delete from similarsdbmodel")
     fun clearTable()
 }

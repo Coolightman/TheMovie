@@ -16,6 +16,9 @@ interface FramesDao {
     @Query("select * from framesdbmodel where movieId = :movieId")
     fun getFramesLiveData(movieId: Long): LiveData<FramesDbModel>
 
+    @Query("select exists(select * from framesdbmodel where movieId = :movieId)")
+    fun exists(movieId: Long): Boolean
+
     @Query("delete from framesdbmodel")
     fun clearTable()
 }

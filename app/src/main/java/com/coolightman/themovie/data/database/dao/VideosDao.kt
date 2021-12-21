@@ -16,6 +16,9 @@ interface VideosDao {
     @Query("select * from videosdbmodel where movieId = :movieId")
     fun getVideosLiveData(movieId: Long): LiveData<VideosDbModel>
 
+    @Query("select exists(select * from videosdbmodel where movieId = :movieId)")
+    fun exists(movieId: Long): Boolean
+
     @Query("delete from videosdbmodel")
     fun clearTable()
 }

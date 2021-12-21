@@ -1,18 +1,14 @@
 package com.coolightman.themovie.presentation.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.coolightman.themovie.App
 import com.coolightman.themovie.R
-import com.coolightman.themovie.data.mapper.MovieMapper
-import com.coolightman.themovie.data.network.ApiClient
 import com.coolightman.themovie.databinding.ActivityMainBinding
 import com.coolightman.themovie.presentation.adapter.SectionsPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,11 +29,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun doSome() {
-        val apiService = ApiClient.getApiService()
-        CoroutineScope(Dispatchers.IO).launch {
-            val movieDto = apiService.loadMovie(301)
-            Log.d("TEST", movieDto.toString())
-        }
+
     }
 
     private fun createSectionsAdapter() {
