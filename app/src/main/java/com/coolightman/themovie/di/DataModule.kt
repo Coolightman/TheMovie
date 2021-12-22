@@ -9,11 +9,13 @@ import dagger.Provides
 @Module
 object DataModule {
 
+    private const val DB_NAME = "MovieDatabase.db"
+
     @Provides
     fun provideMovieDatabase(context: Context) = Room.databaseBuilder(
         context,
         MovieDatabase::class.java,
-        "MovieDatabase.db"
+        DB_NAME
     ).build()
 
     @Provides

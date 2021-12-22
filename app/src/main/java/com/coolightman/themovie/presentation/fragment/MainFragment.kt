@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.FragmentMainBinding
 import com.coolightman.themovie.presentation.adapter.SectionsPagerAdapter
+import com.coolightman.themovie.presentation.viewmodel.MainViewModel
+import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import javax.inject.Inject
 
 class MainFragment : Fragment() {
 

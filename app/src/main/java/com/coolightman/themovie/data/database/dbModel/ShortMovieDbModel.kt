@@ -10,6 +10,6 @@ data class ShortMovieDbModel(
     val rating: String?,
     val posterPreview: String?,
     var isFavorite: Boolean = false,
-    val topPopularPlace: Int = 0,
-    val top250Place: Int = 0
+    var topPopularPlace: Int = 0,
+    var top250Place: Int = 0
 )

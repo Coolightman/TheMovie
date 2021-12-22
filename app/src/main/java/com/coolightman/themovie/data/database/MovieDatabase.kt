@@ -28,22 +28,4 @@ abstract class MovieDatabase : RoomDatabase() {
     abstract fun shortMovieDao(): ShortMovieDao
     abstract fun similarsDao(): SimilarsDao
     abstract fun videosDao(): VideosDao
-
-//    companion object {
-//        private var database: MovieDatabase? = null
-//        private const val DATABASE_NAME = "MovieDatabase.db"
-//
-//        fun getDatabase(context: Context): MovieDatabase {
-//            synchronized(MovieDatabase::class) {
-//                database?.let { return it }
-//                val instance = Room.databaseBuilder(
-//                    context.applicationContext,
-//                    MovieDatabase::class.java,
-//                    DATABASE_NAME
-//                ).fallbackToDestructiveMigration().build()
-//                database = instance
-//                return instance
-//            }
-//        }
-//    }
 }
