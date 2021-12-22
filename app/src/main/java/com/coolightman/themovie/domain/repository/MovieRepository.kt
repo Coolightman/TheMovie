@@ -7,8 +7,8 @@ import com.coolightman.themovie.domain.entity.ShortMovie
 
 interface MovieRepository {
 
-    suspend fun getPopularMovies(): LiveData<List<ShortMovie>>
-    suspend fun getTop250Movies(): LiveData<List<ShortMovie>>
-    suspend fun getFavoriteMovies(): LiveData<List<Movie>>
-    suspend fun getMovieInfo(movieId: Long): LiveData<Movie>
+    fun getPopularMovies(): LiveData<List<ShortMovie>>
+    fun getTop250Movies(): LiveData<List<ShortMovie>>
+    fun getFavoriteMovies(): LiveData<List<Movie>>
+    fun getMovieInfo(movieId: Long): LiveData<Movie>
 }

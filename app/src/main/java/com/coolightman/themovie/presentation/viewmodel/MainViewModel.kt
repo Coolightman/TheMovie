@@ -1,15 +1,16 @@
 package com.coolightman.themovie.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.coolightman.themovie.domain.usecase.GetMovieVideosUseCase
+import com.coolightman.themovie.domain.usecase.*
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    private val useCase: GetMovieVideosUseCase
+    private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
+    private val getTop250MoviesUseCase: GetTop250MoviesUseCase,
+    private val getFavoriteMoviesUseCase: GetFavoriteMoviesUseCase,
+    private val loadPopularNextPageUseCase: LoadPopularNextPageUseCase,
+    private val loadTop250NextPageUseCase: LoadTop250NextPageUseCase
 ) : ViewModel() {
 
-//    suspend fun getMovieVideos(movieId: Long): LiveData<List<Video>>{
-//        return useCase.invoke(movieId)
-//    }
-
+    fun getPopularMovies() = getPopularMoviesUseCase()
 }

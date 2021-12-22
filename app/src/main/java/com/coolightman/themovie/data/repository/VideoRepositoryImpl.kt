@@ -13,7 +13,7 @@ class VideoRepositoryImpl @Inject constructor(
 
     private val api = ApiClient.getApiService()
 
-    override suspend fun getMovieVideos(movieId: Long): LiveData<List<Video>> {
+    override fun getMovieVideos(movieId: Long): LiveData<List<Video>> {
         TODO("Not yet implemented")
     }
 }

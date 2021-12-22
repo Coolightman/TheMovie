@@ -10,7 +10,7 @@ class FactRepositoryImpl @Inject constructor(
     private val factsDao: FactsDao
 ) : FactRepository {
 
-    override suspend fun getMovieFacts(movieId: Long): LiveData<List<Fact>> {
+    override fun getMovieFacts(movieId: Long): LiveData<List<Fact>> {
         TODO("Not yet implemented")
     }
 }

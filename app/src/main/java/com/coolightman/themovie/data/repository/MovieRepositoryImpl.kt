@@ -11,19 +11,19 @@ class MovieRepositoryImpl @Inject constructor(
     private val movieDao: MovieDao
 ) : MovieRepository {
 
-    override suspend fun getPopularMovies(): LiveData<List<ShortMovie>> {
+    override fun getPopularMovies(): LiveData<List<ShortMovie>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getTop250Movies(): LiveData<List<ShortMovie>> {
+    override fun getTop250Movies(): LiveData<List<ShortMovie>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getFavoriteMovies(): LiveData<List<Movie>> {
+    override fun getFavoriteMovies(): LiveData<List<Movie>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getMovieInfo(movieId: Long): LiveData<Movie> {
+    override fun getMovieInfo(movieId: Long): LiveData<Movie> {
         TODO("Not yet implemented")
     }
 }

@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetMovieFramesUseCase @Inject constructor(
     private val repository: FrameRepository
 ) {
-    suspend operator fun invoke(movieId: Long) = repository.getMovieFrames(movieId)
+    operator fun invoke(movieId: Long) = repository.getMovieFrames(movieId)
 }

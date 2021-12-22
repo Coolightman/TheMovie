@@ -10,7 +10,7 @@ class FrameRepositoryImpl @Inject constructor(
     private val framesDao: FramesDao
 ) : FrameRepository {
 
-    override suspend fun getMovieFrames(movieId: Long): LiveData<List<Frame>> {
+    override fun getMovieFrames(movieId: Long): LiveData<List<Frame>> {
         TODO("Not yet implemented")
     }
 }

@@ -10,7 +10,7 @@ class SimilarRepositoryImpl @Inject constructor(
     private val similarsDao: SimilarsDao
 ) : SimilarRepository {
 
-    override suspend fun getMovieSimilars(movieId: Long): LiveData<List<ShortMovie>> {
+    override fun getMovieSimilars(movieId: Long): LiveData<List<ShortMovie>> {
         TODO("Not yet implemented")
     }
 }
