@@ -1,7 +1,9 @@
 package com.coolightman.themovie.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.coolightman.themovie.domain.usecase.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
@@ -13,4 +15,13 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun getPopularMovies() = getPopularMoviesUseCase()
+    fun getTop250Movies() = getTop250MoviesUseCase()
+    fun getFavoriteMovies() = getFavoriteMoviesUseCase()
+
+    init {
+        viewModelScope.launch {
+            loadPopularNextPageUseCase()
+            loadTop250NextPageUseCase()
+        }
+    }
 }
