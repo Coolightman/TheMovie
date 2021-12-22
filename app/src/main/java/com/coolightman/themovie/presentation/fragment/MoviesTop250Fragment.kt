@@ -21,6 +21,11 @@ class MoviesTop250Fragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
     companion object {
         fun newInstance() = MoviesTop250Fragment()
     }

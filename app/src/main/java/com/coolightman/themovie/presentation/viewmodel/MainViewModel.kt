@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.coolightman.themovie.domain.usecase.GetMovieVideosUseCase
 import javax.inject.Inject
 
-class MovieViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     private val useCase: GetMovieVideosUseCase
 ) : ViewModel() {
 

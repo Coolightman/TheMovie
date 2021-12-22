@@ -21,6 +21,11 @@ class MoviesFavoriteFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
     companion object {
         fun newInstance() = MoviesFavoriteFragment()
     }

@@ -1,7 +1,7 @@
 package com.coolightman.themovie.di
 
 import androidx.lifecycle.ViewModel
-import com.coolightman.themovie.presentation.viewmodel.MovieViewModel
+import com.coolightman.themovie.presentation.viewmodel.MainViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -10,7 +10,7 @@ import dagger.multibindings.IntoMap
 interface ViewModelModule {
 
     @IntoMap
-    @ViewModelKey(MovieViewModel::class)
+    @ViewModelKey(MainViewModel::class)
     @Binds
-    fun bindMovieViewModel(impl: MovieViewModel): ViewModel
+    fun bindMainViewModel(impl: MainViewModel): ViewModel
 }
