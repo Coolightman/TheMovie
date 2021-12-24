@@ -18,7 +18,7 @@ class MovieRepositoryImpl @Inject constructor(
 ) : MovieRepository {
 
     override fun getPopularMovies(): LiveData<List<ShortMovie>> {
-        return Transformations.map(shortMovieDao.getPopulars()){ list ->
+        return Transformations.map(shortMovieDao.getPopulars()) { list ->
             list.map { ShortMovieMapper().mapDbModelToEntity(it) }
         }
     }

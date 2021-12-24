@@ -3,7 +3,6 @@ package com.coolightman.themovie.di
 import android.content.Context
 import com.coolightman.themovie.presentation.activity.MainActivity
 import com.coolightman.themovie.presentation.fragment.MoviesPopularFragment
-import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
 import dagger.BindsInstance
 import dagger.Component
 
@@ -11,9 +10,9 @@ import dagger.Component
 @Component(
     modules = [
         ViewModelModule::class,
-        DomainModule::class,
-        DataModule::class,
-        NetworkModule::class
+        RepositoryModule::class,
+        NetworkModule::class,
+        DatabaseModule::class
     ]
 )
 interface ApplicationComponent {

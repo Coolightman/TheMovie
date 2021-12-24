@@ -7,10 +7,13 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-object DataModule {
+class DatabaseModule {
 
-    private const val DB_NAME = "MovieDatabase.db"
+    companion object {
+        private const val DB_NAME = "MovieDatabase.db"
+    }
 
+    @ApplicationScope
     @Provides
     fun provideMovieDatabase(context: Context) = Room.databaseBuilder(
         context,

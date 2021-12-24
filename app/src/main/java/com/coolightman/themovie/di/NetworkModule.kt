@@ -7,10 +7,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
-object NetworkModule {
+class NetworkModule {
 
-    private const val API_URL = "https://kinopoiskapiunofficial.tech/api/v2.2/films/"
+    companion object {
+        private const val API_URL = "https://kinopoiskapiunofficial.tech/api/v2.2/films/"
+    }
 
+    @ApplicationScope
     @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
@@ -19,6 +22,7 @@ object NetworkModule {
             .build()
     }
 
+    @ApplicationScope
     @Provides
     fun provideApi(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
