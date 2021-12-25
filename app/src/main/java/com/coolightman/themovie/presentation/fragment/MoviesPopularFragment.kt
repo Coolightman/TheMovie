@@ -27,6 +27,7 @@ class MoviesPopularFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onAttach(context: Context) {
+//        piece of shit
         DaggerApplicationComponent.factory().create(context).inject(this)
         super.onAttach(context)
     }
