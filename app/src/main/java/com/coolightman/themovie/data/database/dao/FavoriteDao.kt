@@ -1,6 +1,5 @@
 package com.coolightman.themovie.data.database.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -14,7 +13,7 @@ interface FavoriteDao {
     suspend fun insert(favorite: FavoriteDbModel)
 
     @Query("select * from favoritedbmodel order by favoriteDate")
-    fun getFavorites(): LiveData<List<FavoriteDbModel>>
+    suspend fun getFavorites(): List<FavoriteDbModel>
 
     @Query("delete from favoritedbmodel")
     suspend fun clearTable()

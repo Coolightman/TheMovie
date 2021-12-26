@@ -14,10 +14,7 @@ interface MovieDao {
     suspend fun insert(movie: MovieDbModel)
 
     @Query("select * from moviedbmodel where movieId = :movieId")
-    suspend fun getMovie(movieId: Long): MovieDbModel?
-
-    @Query("select * from moviedbmodel where movieId = :movieId")
-    fun getMovieLiveData(movieId: Long): LiveData<MovieDbModel>
+    suspend fun getMovie(movieId: Long): MovieDbModel
 
     @Query("select exists(select * from moviedbmodel where movieId = :movieId)")
     suspend fun exists(movieId: Long): Boolean
