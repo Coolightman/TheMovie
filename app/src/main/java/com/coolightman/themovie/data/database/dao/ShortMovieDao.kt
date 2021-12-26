@@ -1,5 +1,6 @@
 package com.coolightman.themovie.data.database.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -13,13 +14,13 @@ interface ShortMovieDao {
     suspend fun insertList(shortMovies: List<ShortMovieDbModel>)
 
     @Query("select * from shortmoviedbmodel where topPopularPlace > 0 order by topPopularPlace")
-    suspend fun getPopulars(): List<ShortMovieDbModel>
+    fun getPopulars(): LiveData<List<ShortMovieDbModel>>
 
     @Query("select COUNT(movieId) from shortmoviedbmodel where topPopularPlace > 0")
     suspend fun getPopularCount(): Int
 
     @Query("select * from shortmoviedbmodel where top250Place > 0 order by top250Place")
-    suspend fun getTop250(): List<ShortMovieDbModel>
+    fun getTop250(): LiveData<List<ShortMovieDbModel>>
 
     @Query("select COUNT(movieId) from shortmoviedbmodel where top250Place > 0")
     suspend fun getTop250Count(): Int
