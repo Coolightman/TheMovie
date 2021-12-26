@@ -11,21 +11,8 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    private val component by lazy {
-        (application as App).component
-    }
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val viewModel = viewModel
     }
 }

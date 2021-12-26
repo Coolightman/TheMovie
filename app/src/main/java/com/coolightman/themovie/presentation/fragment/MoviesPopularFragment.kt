@@ -13,16 +13,11 @@ import com.coolightman.themovie.databinding.FragmentMoviesPopularBinding
 import com.coolightman.themovie.domain.entity.ShortMovie
 import com.coolightman.themovie.presentation.adapter.ShortMovieAdapter
 import com.coolightman.themovie.presentation.viewmodel.MainViewModel
-import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
-import javax.inject.Inject
 
 class MoviesPopularFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
     private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+        (requireParentFragment() as MainFragment).viewModel
     }
 
     private var _binding: FragmentMoviesPopularBinding? = null

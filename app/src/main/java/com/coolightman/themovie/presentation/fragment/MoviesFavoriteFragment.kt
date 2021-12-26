@@ -13,13 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.coolightman.themovie.databinding.FragmentMoviesFavoriteBinding
 import com.coolightman.themovie.domain.entity.Movie
 import com.coolightman.themovie.presentation.adapter.FavoriteMovieAdapter
-import com.coolightman.themovie.presentation.viewmodel.MainViewModel
-import javax.inject.Inject
 
 class MoviesFavoriteFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModel: MainViewModel
+    private val viewModel by lazy {
+        (requireParentFragment() as MainFragment).viewModel
+    }
 
     private var _binding: FragmentMoviesFavoriteBinding? = null
     private val binding get() = _binding!!

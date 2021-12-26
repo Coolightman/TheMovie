@@ -11,13 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.coolightman.themovie.databinding.FragmentMoviesTop250Binding
 import com.coolightman.themovie.domain.entity.ShortMovie
 import com.coolightman.themovie.presentation.adapter.ShortMovieAdapter
-import com.coolightman.themovie.presentation.viewmodel.MainViewModel
-import javax.inject.Inject
 
 class MoviesTop250Fragment : Fragment() {
 
-    @Inject
-    lateinit var viewModel: MainViewModel
+    private val viewModel by lazy {
+        (requireParentFragment() as MainFragment).viewModel
+    }
 
     private var _binding: FragmentMoviesTop250Binding? = null
     private val binding get() = _binding!!

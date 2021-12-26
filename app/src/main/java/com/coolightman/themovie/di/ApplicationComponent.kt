@@ -20,7 +20,7 @@ import dagger.Component
 @ApplicationScope
 interface ApplicationComponent {
 
-    fun inject(activity: MainActivity)
+    fun inject(mainFragment: MainFragment)
 
     @Component.Factory
     interface ApplicationComponentFactory {
