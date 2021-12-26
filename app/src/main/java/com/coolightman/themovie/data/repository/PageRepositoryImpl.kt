@@ -18,11 +18,17 @@ class PageRepositoryImpl @Inject constructor(
         for (movie in dbList) {
             movie.topPopularPlace = dbList.indexOf(movie) + 1
         }
-        Log.d("MYLOG", dbList.toString())
+        Log.d("MYLOG_loadPopPage", dbList.toString())
         shortMovieDao.insertList(dbList)
     }
 
     override suspend fun loadTop250NextPage() {
-
+        val page = apiService.loadPageOfTop250Movies(1)
+        val dbList = MovieMapper().mapMoviesPageDtoToDbModel(page)
+        for (movie in dbList) {
+            movie.top250Place = dbList.indexOf(movie) + 1
+        }
+        Log.d("MYLOG_loadTop250Page", dbList.toString())
+        shortMovieDao.insertList(dbList)
     }
 }
