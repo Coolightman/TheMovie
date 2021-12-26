@@ -3,14 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.fragment.MoviesFavoriteFragment">
 
-    <TextView
-        android:id="@+id/tv_favorite_title"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_favorite_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text ="Favorite movies"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/short_movie_item"
+        tools:spanCount="3" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_clue_empty_adapter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
         android:gravity="center"
-        tools:text ="Favorite movies"/>
+        android:visibility="gone"
+        android:text="@string/tv_clue_favorites_empty"
+        android:textSize="16sp" />
 
 </FrameLayout>

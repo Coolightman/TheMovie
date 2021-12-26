@@ -1,19 +1,18 @@
 package com.coolightman.themovie.presentation.adapter
 
 import android.view.LayoutInflater
-import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
 import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.ShortMovieItemBinding
-import com.coolightman.themovie.domain.entity.ShortMovie
+import com.coolightman.themovie.domain.entity.Movie
 import com.google.android.material.textview.MaterialTextView
 
-class ShortMovieAdapter(
-    private val clickListener: (ShortMovie) -> Unit
-) : ListAdapter<ShortMovie, ShortMovieViewHolder>(ShortMovieDiffCallback()) {
+class FavoriteMovieAdapter(
+    private val clickListener: (Movie) -> Unit
+) : ListAdapter<Movie, ShortMovieViewHolder>(MovieDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShortMovieViewHolder {
         val binding = ShortMovieItemBinding
@@ -27,13 +26,12 @@ class ShortMovieAdapter(
             with(holder.binding) {
                 setImage(this, movie)
                 setRating(this, movie)
-                setFavorite(this, movie)
                 root.setOnClickListener { clickListener(movie) }
             }
         }
     }
 
-    private fun setImage(binding: ShortMovieItemBinding, movie: ShortMovie) {
+    private fun setImage(binding: ShortMovieItemBinding, movie: Movie) {
         Glide.with(binding.root.context)
             .load(movie.posterPreview)
             .placeholder(R.drawable.placeholder_image)
@@ -41,7 +39,7 @@ class ShortMovieAdapter(
             .into(binding.imgPreview)
     }
 
-    private fun setRating(binding: ShortMovieItemBinding, movie: ShortMovie) {
+    private fun setRating(binding: ShortMovieItemBinding, movie: Movie) {
         val rating = movie.rating
         rating?.let {
             val ratingTextView = binding.tvRating
@@ -57,10 +55,5 @@ class ShortMovieAdapter(
             rating.contains(Regex("^[56]")) -> view.setBackgroundResource(R.drawable.rounded_corner_grey)
             rating.contains(Regex("^[2-4]")) -> view.setBackgroundResource(R.drawable.rounded_corner_red)
         }
-    }
-
-    private fun setFavorite(binding: ShortMovieItemBinding, movie: ShortMovie) {
-        if (movie.isFavorite) binding.imgFavorite.visibility = VISIBLE
-        else binding.imgFavorite.visibility = GONE
     }
 }
