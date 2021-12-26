@@ -2,13 +2,13 @@ package com.coolightman.themovie.presentation.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.coolightman.themovie.databinding.FragmentMoviesPopularBinding
 import com.coolightman.themovie.di.DaggerApplicationComponent
@@ -65,8 +65,17 @@ class MoviesPopularFragment : Fragment() {
     private fun createAdapter() {
         shortMovieAdapter = ShortMovieAdapter { onMovieClick(it) }
         binding.rvPopularMovies.adapter = shortMovieAdapter
+        binding.rvPopularMovies.layoutManager =
+            GridLayoutManager(requireContext(), getColumnCount())
         shortMovieAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+    }
+
+    private fun getColumnCount(): Int {
+        val displayWidth = resources.displayMetrics.widthPixels
+        val columns = displayWidth / IMAGE_WIDTH
+        return if (columns > MIN_COLUMN) columns
+        else MIN_COLUMN
     }
 
     private fun onMovieClick(movie: ShortMovie) {
@@ -80,5 +89,8 @@ class MoviesPopularFragment : Fragment() {
 
     companion object {
         fun newInstance() = MoviesPopularFragment()
+
+        private const val IMAGE_WIDTH = 360
+        private const val MIN_COLUMN = 2
     }
 }
