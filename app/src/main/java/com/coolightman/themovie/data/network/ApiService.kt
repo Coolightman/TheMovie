@@ -27,14 +27,14 @@ interface ApiService {
 
     @Headers(headerAccept, headerKey)
     @GET("top")
-    suspend fun loadPageOfPopularMovies(
+    suspend fun loadPagePopularMovies(
         @Query(PARAM_PAGE) page: Int,
         @Query(PARAM_TYPE) type: String = TYPE_VALUE_POPULAR
     ): MoviesPageDto
 
     @Headers(headerAccept, headerKey)
     @GET("top")
-    suspend fun loadPageOfTop250Movies(
+    suspend fun loadPageTop250Movies(
         @Query(PARAM_PAGE) page: Int,
         @Query(PARAM_TYPE) type: String = TYPE_VALUE_TOP_250
     ): MoviesPageDto
