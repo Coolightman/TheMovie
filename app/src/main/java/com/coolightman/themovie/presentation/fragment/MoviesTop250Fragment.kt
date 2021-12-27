@@ -34,7 +34,7 @@ class MoviesTop250Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         createObserver()
-        createAdapter()
+        createRecyclerView()
     }
 
     private fun createObserver() {
@@ -42,16 +42,34 @@ class MoviesTop250Fragment : Fragment() {
             it?.let {
                 if (it.isNotEmpty()) {
                     shortMovieAdapter.submitList(it)
+                } else {
+                    viewModel.loadTop250NextPage()
                 }
             }
         }
     }
 
+    private fun createRecyclerView() {
+        val recycler = binding.rvTop250Movies
+        createAdapter()
+        recycler.adapter = shortMovieAdapter
+        recycler.layoutManager = GridLayoutManager(requireContext(), getColumnCount())
+        createInfinityScrollListener(recycler)
+    }
+
+    private fun createInfinityScrollListener(recycler: RecyclerView) {
+        recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView.canScrollVertically(1) && dy != 0){
+                    viewModel.loadTop250NextPage()
+                }
+            }
+        })
+    }
+
     private fun createAdapter() {
         shortMovieAdapter = ShortMovieAdapter { onMovieClick(it) }
-        binding.rvTop250Movies.adapter = shortMovieAdapter
-        binding.rvTop250Movies.layoutManager =
-            GridLayoutManager(requireContext(), getColumnCount())
         shortMovieAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
@@ -74,6 +92,7 @@ class MoviesTop250Fragment : Fragment() {
 
     companion object {
         fun newInstance() = MoviesTop250Fragment()
+
         private const val IMAGE_WIDTH = 360
         private const val MIN_COLUMN = 2
     }

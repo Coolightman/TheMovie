@@ -24,9 +24,14 @@ class MainViewModel @Inject constructor(
     fun getTop250Movies() = getTop250MoviesUseCase()
     fun getFavoriteMovies() = getFavoriteMoviesUseCase()
 
-    init {
+    fun loadPopularNextPage(){
         viewModelScope.launch(handler) {
             loadPopularNextPageUseCase()
+        }
+    }
+
+    fun loadTop250NextPage(){
+        viewModelScope.launch(handler) {
             loadTop250NextPageUseCase()
         }
     }

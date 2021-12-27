@@ -34,7 +34,7 @@ class MoviesPopularFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         createObserver()
-        createAdapter()
+        createRecyclerView()
     }
 
     private fun createObserver() {
@@ -42,16 +42,34 @@ class MoviesPopularFragment : Fragment() {
             it?.let {
                 if (it.isNotEmpty()) {
                     shortMovieAdapter.submitList(it)
+                } else {
+                    viewModel.loadPopularNextPage()
                 }
             }
         }
     }
 
+    private fun createRecyclerView() {
+        val recycler = binding.rvPopularMovies
+        createAdapter()
+        recycler.adapter = shortMovieAdapter
+        recycler.layoutManager = GridLayoutManager(requireContext(), getColumnCount())
+        createInfinityScrollListener(recycler)
+    }
+
+    private fun createInfinityScrollListener(recycler: RecyclerView) {
+        recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView.canScrollVertically(1) && dy != 0){
+                    viewModel.loadPopularNextPage()
+                }
+            }
+        })
+    }
+
     private fun createAdapter() {
         shortMovieAdapter = ShortMovieAdapter { onMovieClick(it) }
-        binding.rvPopularMovies.adapter = shortMovieAdapter
-        binding.rvPopularMovies.layoutManager =
-            GridLayoutManager(requireContext(), getColumnCount())
         shortMovieAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
