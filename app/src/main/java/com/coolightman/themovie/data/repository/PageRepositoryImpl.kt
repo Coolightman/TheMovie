@@ -21,16 +21,19 @@ class PageRepositoryImpl @Inject constructor(
     }
 
     override suspend fun loadPopularNextPage() {
-        val currentPage = shortMovieDao.getPopularCount() / AMOUNT_MOVIES_PER_PAGE
+        val currentPage = getPopularCurrentPageNumber()
         if (currentPage < TOP_POPULAR_TOTAL_PAGES) {
             loadPagePopularMovies(currentPage + 1)
         }
     }
 
+    private suspend fun getPopularCurrentPageNumber() =
+        shortMovieDao.getPopularCount() / AMOUNT_MOVIES_PER_PAGE
+
     private suspend fun loadPagePopularMovies(pageNumber: Int) {
         val pageDto = apiService.loadPagePopularMovies(pageNumber)
         val dbList = MovieMapper().mapMoviesPageDtoToDbModel(pageDto)
-        val updatedList = addTopPopularNumbers(dbList, pageNumber)
+        val updatedList = addTopPopularNumber(dbList, pageNumber)
         Log.d("MYLOG_loadPopPage", updatedList.toString())
         shortMovieDao.insertList(updatedList)
     }
@@ -46,27 +49,39 @@ class PageRepositoryImpl @Inject constructor(
     private suspend fun loadPageTop250Movies(pageNumber: Int) {
         val pageDto = apiService.loadPageTop250Movies(pageNumber)
         val dbList = MovieMapper().mapMoviesPageDtoToDbModel(pageDto)
-        val updatedList = addTop250Numbers(dbList, pageNumber)
+        val updatedList = addTop250Number(dbList, pageNumber)
         Log.d("MYLOG_loadTop250Page", updatedList.toString())
         shortMovieDao.insertList(updatedList)
     }
 
-    private fun addTopPopularNumbers(
+    private suspend fun addTopPopularNumber(
         dbList: List<ShortMovieDbModel>,
         pageNumber: Int
     ): List<ShortMovieDbModel> {
         for (movie in dbList) {
             movie.topPopularPlace = dbList.indexOf(movie) + 1 + (pageNumber - 1) * 20
+            movie.top250Place = getTop250PlaceFromDb(movie.movieId)
         }
         return dbList
     }
 
-    private fun addTop250Numbers(
+    private suspend fun getTop250PlaceFromDb(movieId: Long): Int {
+        val movieDbModel = shortMovieDao.getShortMovie(movieId)
+        return movieDbModel?.top250Place ?: 0
+    }
+
+    private suspend fun getTopPopularPlaceFromDb(movieId: Long): Int {
+        val movieDbModel = shortMovieDao.getShortMovie(movieId)
+        return movieDbModel?.topPopularPlace ?: 0
+    }
+
+    private suspend fun addTop250Number(
         dbList: List<ShortMovieDbModel>,
         pageNumber: Int
     ): List<ShortMovieDbModel> {
         for (movie in dbList) {
             movie.top250Place = dbList.indexOf(movie) + 1 + (pageNumber - 1) * 20
+            movie.topPopularPlace = getTopPopularPlaceFromDb(movie.movieId)
         }
         return dbList
     }
