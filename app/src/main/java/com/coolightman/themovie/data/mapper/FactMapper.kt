@@ -4,9 +4,11 @@ import com.coolightman.themovie.data.database.dbModel.FactDbModel
 import com.coolightman.themovie.data.database.dbModel.FactsDbModel
 import com.coolightman.themovie.data.network.dto.FactDto
 import com.coolightman.themovie.data.network.dto.FactsDto
+import com.coolightman.themovie.di.ApplicationScope
 import com.coolightman.themovie.domain.entity.Fact
 import javax.inject.Inject
 
+@ApplicationScope
 class FactMapper @Inject constructor() {
 
     fun mapDtoToDbModel(dto: FactsDto, movieId: Long) = FactsDbModel(

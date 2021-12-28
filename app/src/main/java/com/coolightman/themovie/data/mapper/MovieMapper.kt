@@ -5,11 +5,13 @@ import com.coolightman.themovie.data.network.dto.CountryDto
 import com.coolightman.themovie.data.network.dto.GenreDto
 import com.coolightman.themovie.data.network.dto.MovieDto
 import com.coolightman.themovie.data.network.dto.MoviesPageDto
+import com.coolightman.themovie.di.ApplicationScope
 import com.coolightman.themovie.domain.entity.Country
 import com.coolightman.themovie.domain.entity.Genre
 import com.coolightman.themovie.domain.entity.Movie
 import javax.inject.Inject
 
+@ApplicationScope
 class MovieMapper @Inject constructor() {
 
     fun mapDtoToDbModel(dto: MovieDto) = MovieDbModel(

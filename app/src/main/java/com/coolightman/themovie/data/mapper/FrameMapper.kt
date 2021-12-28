@@ -4,9 +4,11 @@ import com.coolightman.themovie.data.database.dbModel.FrameDbModel
 import com.coolightman.themovie.data.database.dbModel.FramesDbModel
 import com.coolightman.themovie.data.network.dto.FrameDto
 import com.coolightman.themovie.data.network.dto.FramesDto
+import com.coolightman.themovie.di.ApplicationScope
 import com.coolightman.themovie.domain.entity.Frame
 import javax.inject.Inject
 
+@ApplicationScope
 class FrameMapper @Inject constructor() {
 
     fun mapDtoToDbModel(dto: FramesDto, movieId: Long) = FramesDbModel(
