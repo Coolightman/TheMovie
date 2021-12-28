@@ -40,7 +40,6 @@ class MoviesTop250Fragment : Fragment() {
 
     private fun swipeRefreshListener() {
         binding.swipeRefreshTop250.setOnRefreshListener {
-            shortMovieAdapter.clearAdapter()
             viewModel.refreshTop250Movies()
             binding.swipeRefreshTop250.isRefreshing = false
         }
@@ -49,7 +48,7 @@ class MoviesTop250Fragment : Fragment() {
     private fun createObserver() {
         viewModel.getTop250Movies().observe(viewLifecycleOwner) {
             it?.let {
-                if (it.isNotEmpty()) {
+                if (it.isNotEmpty() && it.size >= MIN_PAGE_SIZE) {
                     shortMovieAdapter.submitList(it)
                 } else {
                     viewModel.loadTop250NextPage()
@@ -71,7 +70,7 @@ class MoviesTop250Fragment : Fragment() {
         recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (!recyclerView.canScrollVertically(1) && dy != 0){
+                if (!recyclerView.canScrollVertically(1) && dy != 0) {
                     viewModel.loadTop250NextPage()
                 }
             }
@@ -105,5 +104,6 @@ class MoviesTop250Fragment : Fragment() {
 
         private const val IMAGE_WIDTH = 360
         private const val MIN_COLUMN = 2
+        private const val MIN_PAGE_SIZE = 20
     }
 }

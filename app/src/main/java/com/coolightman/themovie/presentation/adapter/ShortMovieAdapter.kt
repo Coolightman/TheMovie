@@ -63,9 +63,4 @@ class ShortMovieAdapter(
         if (movie.isFavorite) binding.imgFavorite.visibility = VISIBLE
         else binding.imgFavorite.visibility = GONE
     }
-
-    fun clearAdapter(){
-        val list = emptyList<ShortMovie>()
-        submitList(list)
-    }
 }

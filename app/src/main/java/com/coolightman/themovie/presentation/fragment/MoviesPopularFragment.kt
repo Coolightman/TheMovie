@@ -40,7 +40,6 @@ class MoviesPopularFragment : Fragment() {
 
     private fun swipeRefreshListener() {
         binding.swipeRefreshPopular.setOnRefreshListener {
-            shortMovieAdapter.clearAdapter()
             viewModel.refreshPopularMovies()
             binding.swipeRefreshPopular.isRefreshing = false
         }
@@ -49,7 +48,7 @@ class MoviesPopularFragment : Fragment() {
     private fun createObserver() {
         viewModel.getPopularMovies().observe(viewLifecycleOwner) {
             it?.let {
-                if (it.isNotEmpty()) {
+                if (it.isNotEmpty() && it.size >= MIN_PAGE_SIZE) {
                     shortMovieAdapter.submitList(it)
                 } else {
                     viewModel.loadPopularNextPage()
@@ -63,7 +62,6 @@ class MoviesPopularFragment : Fragment() {
         createAdapter()
         recycler.adapter = shortMovieAdapter
         recycler.layoutManager = GridLayoutManager(requireContext(), getColumnCount())
-        recycler.itemAnimator = null
         createInfinityScrollListener(recycler)
     }
 
@@ -105,5 +103,6 @@ class MoviesPopularFragment : Fragment() {
 
         private const val IMAGE_WIDTH = 360
         private const val MIN_COLUMN = 2
+        private const val MIN_PAGE_SIZE = 20
     }
 }
