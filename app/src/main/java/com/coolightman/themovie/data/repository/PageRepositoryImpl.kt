@@ -10,7 +10,8 @@ import javax.inject.Inject
 
 class PageRepositoryImpl @Inject constructor(
     private val shortMovieDao: ShortMovieDao,
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    private val movieMapper: MovieMapper
 ) : PageRepository {
 
     companion object {
@@ -32,7 +33,7 @@ class PageRepositoryImpl @Inject constructor(
 
     private suspend fun loadPagePopularMovies(pageNumber: Int) {
         val pageDto = apiService.loadPagePopularMovies(pageNumber)
-        val dbList = MovieMapper().mapMoviesPageDtoToDbModel(pageDto)
+        val dbList = movieMapper.mapMoviesPageDtoToDbModel(pageDto)
         val updatedList = addTopPopularNumber(dbList, pageNumber)
         Log.d("MYLOG_loadPopPage", updatedList.toString())
         shortMovieDao.insertList(updatedList)
@@ -48,7 +49,7 @@ class PageRepositoryImpl @Inject constructor(
 
     private suspend fun loadPageTop250Movies(pageNumber: Int) {
         val pageDto = apiService.loadPageTop250Movies(pageNumber)
-        val dbList = MovieMapper().mapMoviesPageDtoToDbModel(pageDto)
+        val dbList = movieMapper.mapMoviesPageDtoToDbModel(pageDto)
         val updatedList = addTop250Number(dbList, pageNumber)
         Log.d("MYLOG_loadTop250Page", updatedList.toString())
         shortMovieDao.insertList(updatedList)

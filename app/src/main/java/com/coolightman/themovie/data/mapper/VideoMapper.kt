@@ -5,8 +5,9 @@ import com.coolightman.themovie.data.database.dbModel.VideosDbModel
 import com.coolightman.themovie.data.network.dto.VideoDto
 import com.coolightman.themovie.data.network.dto.VideosDto
 import com.coolightman.themovie.domain.entity.Video
+import javax.inject.Inject
 
-class VideoMapper {
+class VideoMapper @Inject constructor() {
 
     fun mapDtoToDbModel(dto: VideosDto, movieId: Long) = VideosDbModel(
         movieId = movieId,

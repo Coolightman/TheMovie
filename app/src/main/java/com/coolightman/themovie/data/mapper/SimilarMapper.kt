@@ -5,8 +5,9 @@ import com.coolightman.themovie.data.database.dbModel.SimilarsDbModel
 import com.coolightman.themovie.data.network.dto.ShortMovieDto
 import com.coolightman.themovie.data.network.dto.SimilarsDto
 import com.coolightman.themovie.domain.entity.ShortMovie
+import javax.inject.Inject
 
-class SimilarMapper {
+class SimilarMapper @Inject constructor() {
 
     fun mapDtoToDbModel(dto: SimilarsDto, movieId: Long) = SimilarsDbModel(
         movieId = movieId,

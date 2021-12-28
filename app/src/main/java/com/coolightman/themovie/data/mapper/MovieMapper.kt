@@ -8,8 +8,9 @@ import com.coolightman.themovie.data.network.dto.MoviesPageDto
 import com.coolightman.themovie.domain.entity.Country
 import com.coolightman.themovie.domain.entity.Genre
 import com.coolightman.themovie.domain.entity.Movie
+import javax.inject.Inject
 
-class MovieMapper {
+class MovieMapper @Inject constructor() {
 
     fun mapDtoToDbModel(dto: MovieDto) = MovieDbModel(
         movieId = dto.movieId,

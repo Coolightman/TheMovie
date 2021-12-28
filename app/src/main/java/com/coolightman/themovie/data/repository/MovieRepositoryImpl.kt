@@ -20,24 +20,26 @@ class MovieRepositoryImpl @Inject constructor(
     private val movieDao: MovieDao,
     private val shortMovieDao: ShortMovieDao,
     private val favoriteDao: FavoriteDao,
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    private val shortMovieMapper: ShortMovieMapper,
+    private val movieMapper: MovieMapper
 ) : MovieRepository {
 
     override fun getPopularMovies(): LiveData<List<ShortMovie>> {
         return Transformations.map(shortMovieDao.getPopulars()) { list ->
-            list.map { ShortMovieMapper().mapDbModelToEntity(it) }
+            list.map { shortMovieMapper.mapDbModelToEntity(it) }
         }
     }
 
     override fun getTop250Movies(): LiveData<List<ShortMovie>> {
         return Transformations.map(shortMovieDao.getTop250()) { list ->
-            list.map { ShortMovieMapper().mapDbModelToEntity(it) }
+            list.map { shortMovieMapper.mapDbModelToEntity(it) }
         }
     }
 
     override fun getFavoriteMovies(): LiveData<List<Movie>> {
         return Transformations.map(favoriteDao.getFavorites()) { list ->
-            list.map { MovieMapper().mapFavoriteDbModelToEntity(it) }
+            list.map { movieMapper.mapFavoriteDbModelToEntity(it) }
         }
     }
 
@@ -92,7 +94,7 @@ class MovieRepositoryImpl @Inject constructor(
         return crossWithPopulars
     }
 
-    private fun getJustTop250(top250: List<ShortMovieDbModel>)=
+    private fun getJustTop250(top250: List<ShortMovieDbModel>) =
         top250.filter { movie -> movie.topPopularPlace == 0 }
 
     override suspend fun getMovieInfo(movieId: Long): LiveData<Movie> {
@@ -105,13 +107,13 @@ class MovieRepositoryImpl @Inject constructor(
 
     private suspend fun loadMovieFromApi(movieId: Long) {
         val movieDto = apiService.loadMovie(movieId)
-        val movieDbModel = MovieMapper().mapDtoToDbModel(movieDto)
+        val movieDbModel = movieMapper.mapDtoToDbModel(movieDto)
         movieDao.insert(movieDbModel)
     }
 
     private fun getMovieFromDb(movieId: Long): LiveData<Movie> {
         return Transformations.map(movieDao.getMovie(movieId)) {
-            MovieMapper().mapDbModelToEntity(it)
+            movieMapper.mapDbModelToEntity(it)
         }
     }
 }
