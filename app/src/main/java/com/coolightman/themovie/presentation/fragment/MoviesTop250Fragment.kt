@@ -40,6 +40,7 @@ class MoviesTop250Fragment : Fragment() {
 
     private fun swipeRefreshListener() {
         binding.swipeRefreshTop250.setOnRefreshListener {
+            shortMovieAdapter.clearAdapter()
             viewModel.refreshTop250Movies()
             binding.swipeRefreshTop250.isRefreshing = false
         }

@@ -40,6 +40,7 @@ class MoviesPopularFragment : Fragment() {
 
     private fun swipeRefreshListener() {
         binding.swipeRefreshPopular.setOnRefreshListener {
+            shortMovieAdapter.clearAdapter()
             viewModel.refreshPopularMovies()
             binding.swipeRefreshPopular.isRefreshing = false
         }
