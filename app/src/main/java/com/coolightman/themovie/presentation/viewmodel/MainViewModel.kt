@@ -13,7 +13,9 @@ class MainViewModel @Inject constructor(
     private val getTop250MoviesUseCase: GetTop250MoviesUseCase,
     private val getFavoriteMoviesUseCase: GetFavoriteMoviesUseCase,
     private val loadPopularNextPageUseCase: LoadPopularNextPageUseCase,
-    private val loadTop250NextPageUseCase: LoadTop250NextPageUseCase
+    private val loadTop250NextPageUseCase: LoadTop250NextPageUseCase,
+    private val clearPopularMoviesUseCase: ClearPopularMoviesUseCase,
+    private val clearTop250MoviesUseCase: ClearTop250MoviesUseCase
 ) : ViewModel() {
 
     private val handler = CoroutineExceptionHandler { _, throwable ->
@@ -24,14 +26,35 @@ class MainViewModel @Inject constructor(
     fun getTop250Movies() = getTop250MoviesUseCase()
     fun getFavoriteMovies() = getFavoriteMoviesUseCase()
 
-    fun loadPopularNextPage(){
+
+    fun loadPopularNextPage() {
         viewModelScope.launch(handler) {
             loadPopularNextPageUseCase()
         }
     }
 
-    fun loadTop250NextPage(){
+    fun loadTop250NextPage() {
         viewModelScope.launch(handler) {
+            loadTop250NextPageUseCase()
+        }
+    }
+
+    fun refreshPopularMovies() {
+        viewModelScope.launch(handler) {
+            val job = launch {
+                clearPopularMoviesUseCase()
+            }
+            job.join()
+            loadPopularNextPageUseCase()
+        }
+    }
+
+    fun refreshTop250Movies() {
+        viewModelScope.launch(handler) {
+            val job = launch {
+                clearTop250MoviesUseCase()
+            }
+            job.join()
             loadTop250NextPageUseCase()
         }
     }

@@ -35,6 +35,14 @@ class MoviesTop250Fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         createObserver()
         createRecyclerView()
+        swipeRefreshListener()
+    }
+
+    private fun swipeRefreshListener() {
+        binding.swipeRefreshTop250.setOnRefreshListener {
+            viewModel.refreshTop250Movies()
+            binding.swipeRefreshTop250.isRefreshing = false
+        }
     }
 
     private fun createObserver() {
@@ -54,6 +62,7 @@ class MoviesTop250Fragment : Fragment() {
         createAdapter()
         recycler.adapter = shortMovieAdapter
         recycler.layoutManager = GridLayoutManager(requireContext(), getColumnCount())
+        recycler.itemAnimator = null
         createInfinityScrollListener(recycler)
     }
 

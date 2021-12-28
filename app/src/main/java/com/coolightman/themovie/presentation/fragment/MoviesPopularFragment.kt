@@ -35,6 +35,14 @@ class MoviesPopularFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         createObserver()
         createRecyclerView()
+        swipeRefreshListener()
+    }
+
+    private fun swipeRefreshListener() {
+        binding.swipeRefreshPopular.setOnRefreshListener {
+            viewModel.refreshPopularMovies()
+            binding.swipeRefreshPopular.isRefreshing = false
+        }
     }
 
     private fun createObserver() {
@@ -54,6 +62,7 @@ class MoviesPopularFragment : Fragment() {
         createAdapter()
         recycler.adapter = shortMovieAdapter
         recycler.layoutManager = GridLayoutManager(requireContext(), getColumnCount())
+        recycler.itemAnimator = null
         createInfinityScrollListener(recycler)
     }
 
@@ -61,7 +70,7 @@ class MoviesPopularFragment : Fragment() {
         recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (!recyclerView.canScrollVertically(1) && dy != 0){
+                if (!recyclerView.canScrollVertically(1) && dy != 0) {
                     viewModel.loadPopularNextPage()
                 }
             }

@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".presentation.fragment.MoviesPopularFragment">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_popular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_popular_movies"
         android:layout_width="match_parent"
@@ -17,5 +22,7 @@
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/short_movie_item"
         tools:spanCount="3" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </FrameLayout>
