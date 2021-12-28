@@ -35,65 +35,65 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun clearPopularMovies() {
-        withContext(Dispatchers.IO) {
-            val popularsDb = shortMovieDao.getPopularsList()
-            val justPopularsList = getJustPopulars(popularsDb)
-            deleteJustPopulars(justPopularsList)
-
-            val crossWithTop250List = getCrossWithTop250(popularsDb)
-            shortMovieDao.insertList(crossWithTop250List)
-        }
-    }
-
-    private suspend fun deleteJustPopulars(justPopularsList: List<ShortMovieDbModel>) {
-        val idList = justPopularsList.map { movie -> movie.movieId }
-        shortMovieDao.deleteList(idList)
-    }
-
-    private fun getCrossWithTop250(popularsDb: List<ShortMovieDbModel>): List<ShortMovieDbModel> {
-        val crossWithTop250List = popularsDb.filter { movie -> movie.top250Place != 0 }
-        for (movie in crossWithTop250List) {
-            movie.topPopularPlace = 0
-        }
-        return crossWithTop250List
-    }
-
-    private fun getJustPopulars(popularsDb: List<ShortMovieDbModel>) =
-        popularsDb.filter { movie -> movie.top250Place == 0 }
-
     override fun getFavoriteMovies(): LiveData<List<Movie>> {
         return Transformations.map(favoriteDao.getFavorites()) { list ->
             list.map { MovieMapper().mapFavoriteDbModelToEntity(it) }
         }
     }
 
-    override suspend fun clearTop250Movies() {
+    override suspend fun clearPopularMovies() {
         withContext(Dispatchers.IO) {
-            val top250Db = shortMovieDao.getTop250List()
-            val justTop250List = getJustTop250(top250Db)
-            deleteJustTop250(justTop250List)
+            val populars = shortMovieDao.getPopularsList()
+            val justPopulars = getJustPopulars(populars)
+            deleteJustPopulars(justPopulars)
 
-            val crossWithPopularList = getCrossWithPopulars(top250Db)
-            shortMovieDao.insertList(crossWithPopularList)
+            val crossWithTop250 = getCrossWithTop250(populars)
+            shortMovieDao.insertList(crossWithTop250)
         }
     }
 
-    private suspend fun deleteJustTop250(justTop250List: List<ShortMovieDbModel>) {
-        val idList = justTop250List.map { movie -> movie.movieId }
+    private suspend fun deleteJustPopulars(justPopulars: List<ShortMovieDbModel>) {
+        val idList = justPopulars.map { movie -> movie.movieId }
         shortMovieDao.deleteList(idList)
     }
 
-    private fun getCrossWithPopulars(top250Db: List<ShortMovieDbModel>): List<ShortMovieDbModel> {
-        val crossWithPopularsList = top250Db.filter { movie -> movie.topPopularPlace != 0 }
-        for (movie in crossWithPopularsList) {
-            movie.top250Place = 0
+    private fun getCrossWithTop250(populars: List<ShortMovieDbModel>): List<ShortMovieDbModel> {
+        val crossWithTop250 = populars.filter { movie -> movie.top250Place != 0 }
+        for (movie in crossWithTop250) {
+            movie.topPopularPlace = 0
         }
-        return crossWithPopularsList
+        return crossWithTop250
     }
 
-    private fun getJustTop250(top250Db: List<ShortMovieDbModel>)=
-        top250Db.filter { movie -> movie.topPopularPlace == 0 }
+    private fun getJustPopulars(populars: List<ShortMovieDbModel>) =
+        populars.filter { movie -> movie.top250Place == 0 }
+
+    override suspend fun clearTop250Movies() {
+        withContext(Dispatchers.IO) {
+            val top250 = shortMovieDao.getTop250List()
+            val justTop250 = getJustTop250(top250)
+            deleteJustTop250(justTop250)
+
+            val crossWithPopulars = getCrossWithPopulars(top250)
+            shortMovieDao.insertList(crossWithPopulars)
+        }
+    }
+
+    private suspend fun deleteJustTop250(justTop250: List<ShortMovieDbModel>) {
+        val idList = justTop250.map { movie -> movie.movieId }
+        shortMovieDao.deleteList(idList)
+    }
+
+    private fun getCrossWithPopulars(top250: List<ShortMovieDbModel>): List<ShortMovieDbModel> {
+        val crossWithPopulars = top250.filter { movie -> movie.topPopularPlace != 0 }
+        for (movie in crossWithPopulars) {
+            movie.top250Place = 0
+        }
+        return crossWithPopulars
+    }
+
+    private fun getJustTop250(top250: List<ShortMovieDbModel>)=
+        top250.filter { movie -> movie.topPopularPlace == 0 }
 
     override suspend fun getMovieInfo(movieId: Long): LiveData<Movie> {
         val exists = movieDao.exists(movieId)
