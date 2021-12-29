@@ -41,21 +41,13 @@ class MainViewModel @Inject constructor(
 
     fun refreshPopularMovies() {
         viewModelScope.launch(handler) {
-            val job = launch {
-                clearPopularMoviesUseCase()
-            }
-            job.join()
-            loadPopularNextPageUseCase()
+            clearPopularMoviesUseCase()
         }
     }
 
     fun refreshTop250Movies() {
         viewModelScope.launch(handler) {
-            val job = launch {
-                clearTop250MoviesUseCase()
-            }
-            job.join()
-            loadTop250NextPageUseCase()
+            clearTop250MoviesUseCase()
         }
     }
 }

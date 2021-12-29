@@ -47,13 +47,8 @@ class MoviesPopularFragment : Fragment() {
 
     private fun createObserver() {
         viewModel.getPopularMovies().observe(viewLifecycleOwner) {
-            it?.let {
-                if (it.isNotEmpty() && it.size >= MIN_PAGE_SIZE) {
-                    shortMovieAdapter.submitList(it)
-                } else {
-                    viewModel.loadPopularNextPage()
-                }
-            }
+            shortMovieAdapter.submitList(it)
+            if (it.isEmpty()){ viewModel.loadPopularNextPage()}
         }
     }
 
@@ -103,6 +98,5 @@ class MoviesPopularFragment : Fragment() {
 
         private const val IMAGE_WIDTH = 360
         private const val MIN_COLUMN = 2
-        private const val MIN_PAGE_SIZE = 20
     }
 }

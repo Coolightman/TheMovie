@@ -41,14 +41,7 @@ class MoviesFavoriteFragment : Fragment() {
 
     private fun createObserver() {
         viewModel.getFavoriteMovies().observe(viewLifecycleOwner) {
-            it?.let {
-                if (it.isNotEmpty()) {
-                    showClueAboutEmptyAdapter(false)
-                    favoriteMovieAdapter.submitList(it)
-                } else {
-                    showClueAboutEmptyAdapter(true)
-                }
-            }
+            favoriteMovieAdapter.submitList(it)
         }
     }
 
