@@ -47,8 +47,11 @@ class MoviesTop250Fragment : Fragment() {
 
     private fun createObserver() {
         viewModel.getTop250Movies().observe(viewLifecycleOwner) {
-            shortMovieAdapter.submitList(it)
-            if (it.isEmpty()){ viewModel.loadTop250NextPage()}
+            if (it.isNotEmpty()) {
+                shortMovieAdapter.submitList(it)
+            } else {
+                viewModel.loadTop250NextPage()
+            }
         }
     }
 

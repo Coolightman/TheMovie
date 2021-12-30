@@ -47,8 +47,11 @@ class MoviesPopularFragment : Fragment() {
 
     private fun createObserver() {
         viewModel.getPopularMovies().observe(viewLifecycleOwner) {
-            shortMovieAdapter.submitList(it)
-            if (it.isEmpty()){ viewModel.loadPopularNextPage()}
+            if (it.isNotEmpty()) {
+                shortMovieAdapter.submitList(it)
+            } else {
+                viewModel.loadPopularNextPage()
+            }
         }
     }
 
