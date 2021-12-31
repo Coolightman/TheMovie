@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.FragmentMoviesPopularBinding
 import com.coolightman.themovie.domain.entity.ShortMovie
 import com.coolightman.themovie.presentation.adapter.ShortMovieAdapter
@@ -75,7 +75,7 @@ class MoviesPopularFragment : Fragment() {
     }
 
     private fun createAdapter() {
-        shortMovieAdapter = ShortMovieAdapter { onMovieClick(it) }
+        shortMovieAdapter = ShortMovieAdapter { onClickMovie(it) }
         shortMovieAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
@@ -87,8 +87,13 @@ class MoviesPopularFragment : Fragment() {
         else MIN_COLUMN
     }
 
-    private fun onMovieClick(movie: ShortMovie) {
-        Toast.makeText(requireContext(), "${movie.movieId}", Toast.LENGTH_SHORT).show()
+    private fun onClickMovie(movie: ShortMovie) {
+        val fragment = MovieDetailFragment.newInstance(movie.movieId)
+        requireParentFragment().parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.main_container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onDestroy() {

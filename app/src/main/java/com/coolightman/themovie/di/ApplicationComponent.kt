@@ -2,10 +2,7 @@ package com.coolightman.themovie.di
 
 import android.content.Context
 import com.coolightman.themovie.presentation.activity.MainActivity
-import com.coolightman.themovie.presentation.fragment.MainFragment
-import com.coolightman.themovie.presentation.fragment.MoviesFavoriteFragment
-import com.coolightman.themovie.presentation.fragment.MoviesPopularFragment
-import com.coolightman.themovie.presentation.fragment.MoviesTop250Fragment
+import com.coolightman.themovie.presentation.fragment.*
 import dagger.BindsInstance
 import dagger.Component
 
@@ -21,6 +18,7 @@ import dagger.Component
 interface ApplicationComponent {
 
     fun inject(mainFragment: MainFragment)
+    fun inject(movieDetailFragment: MovieDetailFragment)
 
     @Component.Factory
     interface ApplicationComponentFactory {

@@ -5,4 +5,5 @@
     android:name="com.coolightman.themovie.presentation.fragment.MainFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.activity.MainActivity" />
+    tools:context=".presentation.activity.MainActivity"
+    tools:layout="@layout/fragment_main" />
