@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coolightman.themovie.domain.usecase.*
-import com.coolightman.themovie.util.ParseException.parseException
+import com.coolightman.themovie.util.ParseCoroutineException
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,12 +18,13 @@ class MainViewModel @Inject constructor(
     private val loadPopularNextPageUseCase: LoadPopularNextPageUseCase,
     private val loadTop250NextPageUseCase: LoadTop250NextPageUseCase,
     private val clearPopularMoviesUseCase: ClearPopularMoviesUseCase,
-    private val clearTop250MoviesUseCase: ClearTop250MoviesUseCase
+    private val clearTop250MoviesUseCase: ClearTop250MoviesUseCase,
+    private val parseCoroutineException: ParseCoroutineException
 ) : ViewModel() {
 
     private val handler = CoroutineExceptionHandler { _, throwable ->
         Log.e("Coroutine exception", throwable.stackTraceToString())
-        val errorMessage = parseException(throwable)
+        val errorMessage = parseCoroutineException.parseException(throwable)
         onError(errorMessage)
     }
 

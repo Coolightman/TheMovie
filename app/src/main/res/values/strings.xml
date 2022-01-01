@@ -6,4 +6,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tv_clue_favorites_empty">Your favorite movies is empty!</string>
+    <string name="error_message_unknown_host_exception">Check INTERNET connection</string>
+    <string name="error_message_socket_timeout_exception">Check INTERNET connection</string>
 </resources>
