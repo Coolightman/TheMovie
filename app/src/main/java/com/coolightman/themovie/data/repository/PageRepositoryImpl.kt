@@ -14,13 +14,6 @@ class PageRepositoryImpl @Inject constructor(
     private val movieMapper: MovieMapper
 ) : PageRepository {
 
-    companion object {
-        private const val TOP_POPULAR_TOTAL_PAGES = 5
-        private const val TOP_250_TOTAL_PAGES = 13
-        private const val AMOUNT_MOVIES_PER_PAGE = 20
-        private const val TOP_250_MAX_MOVIES_COUNT = 250
-    }
-
     override suspend fun loadPopularNextPage() {
         val currentPage = getPopularCurrentPageNumber()
         if (currentPage < TOP_POPULAR_TOTAL_PAGES) {
@@ -85,5 +78,12 @@ class PageRepositoryImpl @Inject constructor(
             movie.topPopularPlace = getTopPopularPlaceFromDb(movie.movieId)
         }
         return dbList
+    }
+
+    companion object {
+        private const val TOP_POPULAR_TOTAL_PAGES = 5
+        private const val TOP_250_TOTAL_PAGES = 13
+        private const val AMOUNT_MOVIES_PER_PAGE = 20
+        private const val TOP_250_MAX_MOVIES_COUNT = 250
     }
 }
