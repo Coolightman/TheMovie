@@ -48,7 +48,6 @@ class MoviesFavoriteFragment : Fragment() {
                 favoriteMovieAdapter.submitList(it)
             } else {
                 showClueAboutEmptyAdapter(true)
-                viewModel.loadPopularNextPage()
             }
         }
     }

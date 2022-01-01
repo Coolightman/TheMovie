@@ -11,6 +11,7 @@ import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.FragmentMoviesPopularBinding
 import com.coolightman.themovie.domain.entity.ShortMovie
 import com.coolightman.themovie.presentation.adapter.ShortMovieAdapter
+import com.coolightman.themovie.util.ColumnCount.getColumnCount
 
 class MoviesPopularFragment : Fragment() {
 
@@ -47,10 +48,8 @@ class MoviesPopularFragment : Fragment() {
 
     private fun createObserver() {
         viewModel.getPopularMovies().observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) {
+            if (it.size >= MIN_PAGE_SIZE) {
                 shortMovieAdapter.submitList(it)
-            } else {
-                viewModel.loadPopularNextPage()
             }
         }
     }
@@ -59,7 +58,7 @@ class MoviesPopularFragment : Fragment() {
         val recycler = binding.rvPopularMovies
         createAdapter()
         recycler.adapter = shortMovieAdapter
-        recycler.layoutManager = GridLayoutManager(requireContext(), getColumnCount())
+        recycler.layoutManager = GridLayoutManager(requireContext(), getColumnCount(resources))
         createInfinityScrollListener(recycler)
     }
 
@@ -80,13 +79,6 @@ class MoviesPopularFragment : Fragment() {
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
 
-    private fun getColumnCount(): Int {
-        val displayWidth = resources.displayMetrics.widthPixels
-        val columns = displayWidth / IMAGE_WIDTH
-        return if (columns > MIN_COLUMN) columns
-        else MIN_COLUMN
-    }
-
     private fun onClickMovie(movie: ShortMovie) {
         val fragment = MovieDetailFragment.newInstance(movie.movieId)
         requireParentFragment().parentFragmentManager
@@ -103,8 +95,6 @@ class MoviesPopularFragment : Fragment() {
 
     companion object {
         fun newInstance() = MoviesPopularFragment()
-
-        private const val IMAGE_WIDTH = 360
-        private const val MIN_COLUMN = 2
+        private const val MIN_PAGE_SIZE = 20
     }
 }

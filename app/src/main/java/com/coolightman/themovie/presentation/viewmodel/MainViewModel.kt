@@ -1,10 +1,12 @@
 package com.coolightman.themovie.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coolightman.themovie.domain.usecase.*
+import com.coolightman.themovie.util.ParseException.parseException
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,8 +22,9 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val handler = CoroutineExceptionHandler { _, throwable ->
-        throwable.printStackTrace()
-        onError("Exception: ${throwable.localizedMessage}")
+        Log.e("Coroutine exception", throwable.stackTraceToString())
+        val errorMessage = parseException(throwable)
+        onError(errorMessage)
     }
 
     private val _errorMessage = MutableLiveData<String>()
@@ -47,13 +50,21 @@ class MainViewModel @Inject constructor(
 
     fun refreshPopularMovies() {
         viewModelScope.launch(handler) {
-            clearPopularMoviesUseCase()
+            val job = launch {
+                clearPopularMoviesUseCase()
+            }
+            job.join()
+            loadPopularNextPageUseCase()
         }
     }
 
     fun refreshTop250Movies() {
         viewModelScope.launch(handler) {
-            clearTop250MoviesUseCase()
+            val job = launch {
+                clearTop250MoviesUseCase()
+            }
+            job.join()
+            loadTop250NextPageUseCase()
         }
     }
 

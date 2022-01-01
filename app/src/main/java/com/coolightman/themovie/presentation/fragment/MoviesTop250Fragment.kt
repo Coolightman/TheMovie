@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +11,7 @@ import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.FragmentMoviesTop250Binding
 import com.coolightman.themovie.domain.entity.ShortMovie
 import com.coolightman.themovie.presentation.adapter.ShortMovieAdapter
+import com.coolightman.themovie.util.ColumnCount.getColumnCount
 
 class MoviesTop250Fragment : Fragment() {
 
@@ -48,10 +48,8 @@ class MoviesTop250Fragment : Fragment() {
 
     private fun createObserver() {
         viewModel.getTop250Movies().observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) {
+            if (it.size >= MIN_PAGE_SIZE) {
                 shortMovieAdapter.submitList(it)
-            } else {
-                viewModel.loadTop250NextPage()
             }
         }
     }
@@ -60,8 +58,7 @@ class MoviesTop250Fragment : Fragment() {
         val recycler = binding.rvTop250Movies
         createAdapter()
         recycler.adapter = shortMovieAdapter
-        recycler.layoutManager = GridLayoutManager(requireContext(), getColumnCount())
-        recycler.itemAnimator = null
+        recycler.layoutManager = GridLayoutManager(requireContext(), getColumnCount(resources))
         createInfinityScrollListener(recycler)
     }
 
@@ -82,13 +79,6 @@ class MoviesTop250Fragment : Fragment() {
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
 
-    private fun getColumnCount(): Int {
-        val displayWidth = resources.displayMetrics.widthPixels
-        val columns = displayWidth / IMAGE_WIDTH
-        return if (columns > MIN_COLUMN) columns
-        else MIN_COLUMN
-    }
-
     private fun onClickMovie(movie: ShortMovie) {
         val fragment = MovieDetailFragment.newInstance(movie.movieId)
         requireParentFragment().parentFragmentManager
@@ -105,8 +95,6 @@ class MoviesTop250Fragment : Fragment() {
 
     companion object {
         fun newInstance() = MoviesTop250Fragment()
-
-        private const val IMAGE_WIDTH = 360
-        private const val MIN_COLUMN = 2
+        private const val MIN_PAGE_SIZE = 20
     }
 }
