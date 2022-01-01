@@ -56,7 +56,10 @@ class MainFragment : Fragment() {
 
     private fun errorsListener() {
         viewModel.errorMessage.observe(viewLifecycleOwner){
-            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            if (it.isNotEmpty()){
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                viewModel.resetError()
+            }
         }
     }
 

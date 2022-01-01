@@ -72,4 +72,8 @@ class MainViewModel @Inject constructor(
     private fun onError(message: String) {
         _errorMessage.postValue(message)
     }
+
+    fun resetError() {
+        _errorMessage.postValue("")
+    }
 }
