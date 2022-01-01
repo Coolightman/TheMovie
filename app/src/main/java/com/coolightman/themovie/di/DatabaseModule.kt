@@ -15,30 +15,39 @@ class DatabaseModule {
 
     @ApplicationScope
     @Provides
-    fun provideMovieDatabase(context: Context) = Room.databaseBuilder(
-        context,
-        MovieDatabase::class.java,
-        DB_NAME
-    ).build()
+    fun provideMovieDatabase(context: Context): MovieDatabase {
+        return Room.databaseBuilder(
+            context,
+            MovieDatabase::class.java,
+            DB_NAME
+        ).build()
+    }
 
+    @ApplicationScope
     @Provides
     fun provideFactsDao(db: MovieDatabase) = db.factsDao()
 
+    @ApplicationScope
     @Provides
     fun provideFavoriteDao(db: MovieDatabase) = db.favoriteDao()
 
+    @ApplicationScope
     @Provides
     fun provideFramesDao(db: MovieDatabase) = db.framesDao()
 
+    @ApplicationScope
     @Provides
     fun provideMovieDao(db: MovieDatabase) = db.movieDao()
 
+    @ApplicationScope
     @Provides
     fun provideShortMovieDao(db: MovieDatabase) = db.shortMovieDao()
 
+    @ApplicationScope
     @Provides
     fun provideSimilarsDao(db: MovieDatabase) = db.similarsDao()
 
+    @ApplicationScope
     @Provides
     fun provideVideosDao(db: MovieDatabase) = db.videosDao()
 }

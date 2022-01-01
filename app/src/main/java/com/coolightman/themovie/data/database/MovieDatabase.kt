@@ -20,7 +20,6 @@ import com.coolightman.themovie.data.database.dbModel.*
 )
 @TypeConverters(Converters::class)
 abstract class MovieDatabase : RoomDatabase() {
-
     abstract fun factsDao(): FactsDao
     abstract fun framesDao(): FramesDao
     abstract fun movieDao(): MovieDao
