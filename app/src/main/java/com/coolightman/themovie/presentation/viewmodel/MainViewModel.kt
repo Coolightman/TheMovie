@@ -1,6 +1,7 @@
 package com.coolightman.themovie.presentation.viewmodel
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coolightman.themovie.domain.usecase.*
@@ -19,8 +20,13 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val handler = CoroutineExceptionHandler { _, throwable ->
-        Log.e("Coroutine_exception", "$throwable")
+        throwable.printStackTrace()
+        onError("Exception: ${throwable.localizedMessage}")
     }
+
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String>
+        get() = _errorMessage
 
     fun getPopularMovies() = getPopularMoviesUseCase()
     fun getTop250Movies() = getTop250MoviesUseCase()
@@ -49,5 +55,9 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(handler) {
             clearTop250MoviesUseCase()
         }
+    }
+
+    private fun onError(message: String) {
+        _errorMessage.postValue(message)
     }
 }
