@@ -49,8 +49,8 @@ class MovieRepositoryImpl @Inject constructor(
             val justPopulars = getJustPopulars(populars)
             val crossWithTop250 = getCrossWithTop250(populars)
 
-            shortMovieDao.insertList(crossWithTop250)
             deleteJustPopulars(justPopulars)
+            shortMovieDao.insertList(crossWithTop250)
         }
     }
 
@@ -76,8 +76,8 @@ class MovieRepositoryImpl @Inject constructor(
             val justTop250 = getJustTop250(top250)
             val crossWithPopulars = getCrossWithPopulars(top250)
 
-            shortMovieDao.insertList(crossWithPopulars)
             deleteJustTop250(justTop250)
+            shortMovieDao.insertList(crossWithPopulars)
         }
     }
 
