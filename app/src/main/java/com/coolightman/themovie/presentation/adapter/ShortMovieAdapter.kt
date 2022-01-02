@@ -43,11 +43,12 @@ class ShortMovieAdapter(
 
     private fun setRating(binding: ShortMovieItemBinding, movie: ShortMovie) {
         val rating = movie.rating
-        rating?.let {
-            val ratingTextView = binding.tvRating
-            ratingTextView.text = it
-            setRatingColor(ratingTextView, it)
-            ratingTextView.visibility = VISIBLE
+        if (rating != null) {
+            binding.tvRating.text = rating
+            setRatingColor(binding.tvRating, rating)
+            binding.tvRating.visibility = VISIBLE
+        } else {
+            binding.tvRating.visibility = GONE
         }
     }
 
