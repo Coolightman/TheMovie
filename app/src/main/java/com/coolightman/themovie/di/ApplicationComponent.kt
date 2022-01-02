@@ -1,8 +1,8 @@
 package com.coolightman.themovie.di
 
 import android.content.Context
-import com.coolightman.themovie.presentation.activity.MainActivity
-import com.coolightman.themovie.presentation.fragment.*
+import com.coolightman.themovie.presentation.fragment.MainFragment
+import com.coolightman.themovie.presentation.fragment.MovieDetailFragment
 import dagger.BindsInstance
 import dagger.Component
 
