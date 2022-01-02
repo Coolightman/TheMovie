@@ -105,15 +105,17 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun loadMovie(movieId: Long) {
+        withContext(Dispatchers.IO){
+            if (!movieDao.exists(movieId)){
+                loadMovieFromApi(movieId)
+            }
+        }
+    }
+
     private suspend fun loadMovieFromApi(movieId: Long) {
         val movieDto = apiService.loadMovie(movieId)
         val movieDbModel = movieMapper.mapDtoToDbModel(movieDto)
         movieDao.insert(movieDbModel)
-    }
-
-    private fun getMovieFromDb(movieId: Long): LiveData<Movie> {
-        return Transformations.map(movieDao.getMovie(movieId)) {
-            movieMapper.mapDbModelToEntity(it)
-        }
     }
 }

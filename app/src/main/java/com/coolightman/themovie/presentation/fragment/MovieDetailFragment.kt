@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.coolightman.themovie.App
 import com.coolightman.themovie.R
@@ -17,6 +18,7 @@ import com.coolightman.themovie.databinding.FragmentMovieDetailBinding
 import com.coolightman.themovie.domain.entity.Movie
 import com.coolightman.themovie.presentation.viewmodel.MovieDetailViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MovieDetailFragment : Fragment() {
@@ -51,7 +53,11 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieId = getMovieIdArg()
-        createObservers(movieId)
+        lifecycleScope.launch {
+            val job = launch { viewModel.loadMovieDetails(movieId) }
+            job.join()
+            createObservers(movieId)
+        }
     }
 
     private fun getMovieIdArg() =
