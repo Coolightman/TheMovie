@@ -8,4 +8,7 @@
     <string name="tv_clue_favorites_empty">Your favorite movies is empty!</string>
     <string name="error_message_unknown_host_exception">Check INTERNET connection</string>
     <string name="error_message_socket_timeout_exception">Check INTERNET connection</string>
+    <string name="cd_poster">poster</string>
+    <string name="tv_popular_place_label_text">Popul.</string>
+    <string name="tv_top_250_place_label_text">Top-250</string>
 </resources>
