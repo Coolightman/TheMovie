@@ -14,6 +14,8 @@ data class MovieDbModel(
     val slogan: String?,
     val rating: String?,
     val ratingCount: Int?,
+    val ratingAwait: String?,
+    val ratingAwaitCount: Int?,
     val posterPreview: String?,
     val poster: String?,
     var isFavorite: Boolean,
