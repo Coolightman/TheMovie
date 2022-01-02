@@ -19,11 +19,6 @@ class MovieDetailViewModel @Inject constructor(
         Log.e("Coroutine_exception", "$throwable")
     }
 
-    private val _movie = MutableLiveData<Movie>()
-    val movie: LiveData<Movie>
-        get() = _movie
+    fun getMovie(movieId: Long) = getMovieUseCase(movieId)
 
-    fun getMovie(movieId: Long) = viewModelScope.launch(handler) {
-
-    }
 }

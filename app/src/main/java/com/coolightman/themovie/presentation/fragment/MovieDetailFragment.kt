@@ -58,10 +58,9 @@ class MovieDetailFragment : Fragment() {
         requireArguments().getLong(ARG_MOVIE_ID, 0)
 
     private fun createObservers(movieId: Long) {
-        viewModel.getMovie(movieId)
-        viewModel.movie.observe(viewLifecycleOwner) {
-            Log.d("ObservingMovie", it.toString())
+        viewModel.getMovie(movieId).observe(viewLifecycleOwner) {
             it?.let {
+                Log.d("ObservingMovie", it.toString())
                 setPoster(it.poster)
                 setRating(it.rating)
                 setRatingCount(it.ratingCount)

@@ -97,12 +97,12 @@ class MovieRepositoryImpl @Inject constructor(
     private fun getJustTop250(top250: List<ShortMovieDbModel>) =
         top250.filter { movie -> movie.topPopularPlace == 0 }
 
-    override suspend fun getMovie(movieId: Long): LiveData<Movie> {
-        val exists = movieDao.exists(movieId)
-        if (!exists) {
-            loadMovieFromApi(movieId)
+    override fun getMovie(movieId: Long): LiveData<Movie> {
+        return Transformations.map(movieDao.getMovie(movieId)) {
+            it?.let {
+                movieMapper.mapDbModelToEntity(it)
+            }
         }
-        return getMovieFromDb(movieId)
     }
 
     private suspend fun loadMovieFromApi(movieId: Long) {
