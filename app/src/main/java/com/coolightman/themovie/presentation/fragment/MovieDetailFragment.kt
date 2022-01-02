@@ -19,6 +19,8 @@ import com.coolightman.themovie.databinding.FragmentMovieDetailBinding
 import com.coolightman.themovie.domain.entity.Movie
 import com.coolightman.themovie.presentation.viewmodel.MovieDetailViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
+import com.coolightman.themovie.util.RatingColor
+import com.coolightman.themovie.util.RatingColor.setRatingColor
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -94,6 +96,24 @@ class MovieDetailFragment : Fragment() {
         )
     }
 
+    private fun setRating(movie: Movie) {
+        val rating = movie.rating
+        val ratingAwait = movie.ratingAwait
+        when {
+            rating != null -> {
+                binding.tvRating.text = rating
+                setRatingColor(binding.tvRating, rating)
+            }
+            ratingAwait != null -> {
+                binding.tvRating.text = ratingAwait
+                setRatingColor(binding.tvRating, ratingAwait)
+            }
+            else -> {
+                binding.tvRating.visibility = GONE
+            }
+        }
+    }
+
     private fun setRatingCount(movie: Movie) {
         val ratingCount = movie.ratingCount
         val ratingAwaitCount = movie.ratingAwaitCount
@@ -106,22 +126,6 @@ class MovieDetailFragment : Fragment() {
             }
             else -> {
                 binding.tvRatingCount.visibility = GONE
-            }
-        }
-    }
-
-    private fun setRating(movie: Movie) {
-        val rating = movie.rating
-        val ratingAwait = movie.ratingAwait
-        when {
-            rating != null -> {
-                binding.tvRating.text = rating
-            }
-            ratingAwait != null -> {
-                binding.tvRating.text = ratingAwait
-            }
-            else -> {
-                binding.tvRating.visibility = GONE
             }
         }
     }

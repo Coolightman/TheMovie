@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.ShortMovieItemBinding
 import com.coolightman.themovie.domain.entity.ShortMovie
+import com.coolightman.themovie.util.RatingColor.setRatingColor
 import com.google.android.material.textview.MaterialTextView
 
 class ShortMovieAdapter(
@@ -49,14 +50,6 @@ class ShortMovieAdapter(
             binding.tvRating.visibility = VISIBLE
         } else {
             binding.tvRating.visibility = GONE
-        }
-    }
-
-    private fun setRatingColor(view: MaterialTextView, rating: String) {
-        when {
-            rating.contains(Regex("^[7-9]")) -> view.setBackgroundResource(R.drawable.rounded_corner_green)
-            rating.contains(Regex("^[56]")) -> view.setBackgroundResource(R.drawable.rounded_corner_grey)
-            rating.contains(Regex("^[2-4]")) -> view.setBackgroundResource(R.drawable.rounded_corner_red)
         }
     }
 

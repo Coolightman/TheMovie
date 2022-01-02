@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.ShortMovieItemBinding
 import com.coolightman.themovie.domain.entity.Movie
+import com.coolightman.themovie.util.RatingColor.setRatingColor
 import com.google.android.material.textview.MaterialTextView
 
 class FavoriteMovieAdapter(
@@ -46,14 +47,6 @@ class FavoriteMovieAdapter(
             ratingTextView.text = it
             setRatingColor(ratingTextView, it)
             ratingTextView.visibility = VISIBLE
-        }
-    }
-
-    private fun setRatingColor(view: MaterialTextView, rating: String) {
-        when {
-            rating.contains(Regex("^[7-9]")) -> view.setBackgroundResource(R.drawable.rounded_corner_green)
-            rating.contains(Regex("^[56]")) -> view.setBackgroundResource(R.drawable.rounded_corner_grey)
-            rating.contains(Regex("^[2-4]")) -> view.setBackgroundResource(R.drawable.rounded_corner_red)
         }
     }
 }
