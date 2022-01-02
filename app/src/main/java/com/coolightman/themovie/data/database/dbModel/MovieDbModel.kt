@@ -22,7 +22,5 @@ data class MovieDbModel(
     val description: String?,
     val genres: List<GenreDbModel>,
     val countries: List<CountryDbModel>,
-    val webUrl: String?,
-    var topPopularPlace: Int = 0,
-    var top250Place: Int = 0
+    val webUrl: String?
 )

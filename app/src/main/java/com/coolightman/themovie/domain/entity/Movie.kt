@@ -15,7 +15,5 @@ data class Movie(
     val description: String?,
     val genres: List<Genre>,
     val countries: List<Country>,
-    val webUrl: String?,
-    val topPopularPlace: String,
-    val top250Place: String
+    val webUrl: String?
 )

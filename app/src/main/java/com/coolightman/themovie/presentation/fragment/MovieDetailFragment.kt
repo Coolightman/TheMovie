@@ -10,13 +10,13 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.coolightman.themovie.App
 import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.FragmentMovieDetailBinding
 import com.coolightman.themovie.domain.entity.Movie
 import com.coolightman.themovie.presentation.viewmodel.MovieDetailViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
-import com.coolightman.themovie.util.GlideApp
 import javax.inject.Inject
 
 class MovieDetailFragment : Fragment() {
@@ -58,11 +58,11 @@ class MovieDetailFragment : Fragment() {
         requireArguments().getLong(ARG_MOVIE_ID, 0)
 
     private fun createObservers(movieId: Long) {
-        viewModel.getMovieInfo(movieId).observe(viewLifecycleOwner) {
+        viewModel.getMovie(movieId)
+        viewModel.movie.observe(viewLifecycleOwner) {
             Log.d("ObservingMovie", it.toString())
             it?.let {
                 setPoster(it.poster)
-                setPlaces(it)
                 setRating(it.rating)
                 setRatingCount(it.ratingCount)
                 setFavorite(it.isFavorite)
@@ -100,32 +100,9 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun setPlaces(movie: Movie) {
-        setPopularPlace(movie.topPopularPlace)
-        setTop250Place(movie.top250Place)
-    }
-
-    private fun setTop250Place(top250Place: String) {
-        if (top250Place != "0") {
-            binding.tvTop250Place.text = top250Place
-        } else {
-            binding.tvTop250Place.visibility = GONE
-            binding.tvTop250PlaceLabel.visibility = GONE
-        }
-    }
-
-    private fun setPopularPlace(topPopularPlace: String) {
-        if (topPopularPlace != "0") {
-            binding.tvPopularPlace.text = topPopularPlace
-        } else {
-            binding.tvPopularPlace.visibility = GONE
-            binding.tvPopularPlaceLabel.visibility = GONE
-        }
-    }
-
     private fun setPoster(poster: String?) {
         poster?.let {
-            GlideApp.with(this)
+            Glide.with(this)
                 .load(it)
                 .placeholder(R.drawable.placeholder_image_poster)
                 .into(binding.imgPoster)

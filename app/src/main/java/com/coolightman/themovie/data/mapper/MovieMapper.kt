@@ -47,9 +47,7 @@ class MovieMapper @Inject constructor() {
         description = dbModel.description,
         genres = dbModel.genres.map { genresDbModelToEntity(it) },
         countries = dbModel.countries.map { countriesDbModelToEntity(it) },
-        webUrl = dbModel.webUrl,
-        topPopularPlace = dbModel.topPopularPlace.toString(),
-        top250Place = dbModel.top250Place.toString()
+        webUrl = dbModel.webUrl
     )
 
     fun mapMovieDbModelToFavoriteDbModel(dbModel: MovieDbModel) = FavoriteDbModel(
@@ -67,9 +65,7 @@ class MovieMapper @Inject constructor() {
         description = dbModel.description,
         genres = dbModel.genres,
         countries = dbModel.countries,
-        webUrl = dbModel.webUrl,
-        topPopularPlace = dbModel.topPopularPlace,
-        top250Place = dbModel.top250Place
+        webUrl = dbModel.webUrl
     )
 
     private fun getStamp(): Long {
@@ -91,9 +87,7 @@ class MovieMapper @Inject constructor() {
         description = dbModel.description,
         genres = dbModel.genres.map { genresDbModelToEntity(it) },
         countries = dbModel.countries.map { countriesDbModelToEntity(it) },
-        webUrl = dbModel.webUrl,
-        topPopularPlace = dbModel.topPopularPlace.toString(),
-        top250Place = dbModel.top250Place.toString()
+        webUrl = dbModel.webUrl
     )
 
     fun mapMoviesPageDtoToDbModel(dto: MoviesPageDto): List<ShortMovieDbModel>{

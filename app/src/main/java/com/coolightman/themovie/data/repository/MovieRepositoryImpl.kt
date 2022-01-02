@@ -97,7 +97,7 @@ class MovieRepositoryImpl @Inject constructor(
     private fun getJustTop250(top250: List<ShortMovieDbModel>) =
         top250.filter { movie -> movie.topPopularPlace == 0 }
 
-    override suspend fun getMovieInfo(movieId: Long): LiveData<Movie> {
+    override suspend fun getMovie(movieId: Long): LiveData<Movie> {
         val exists = movieDao.exists(movieId)
         if (!exists) {
             loadMovieFromApi(movieId)

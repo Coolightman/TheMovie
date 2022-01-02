@@ -2,52 +2,42 @@ package com.coolightman.themovie.di
 
 import android.content.Context
 import androidx.room.Room
-import com.coolightman.themovie.data.database.MovieDatabase
+import com.coolightman.themovie.data.database.AppDatabase
 import dagger.Module
 import dagger.Provides
 
 @Module
 class DatabaseModule {
 
-    companion object {
-        private const val DB_NAME = "MovieDatabase.db"
-    }
+    @ApplicationScope
+    @Provides
+    fun provideMovieDatabase(context: Context) = AppDatabase.getMovieDatabase(context)
 
     @ApplicationScope
     @Provides
-    fun provideMovieDatabase(context: Context): MovieDatabase {
-        return Room.databaseBuilder(
-            context,
-            MovieDatabase::class.java,
-            DB_NAME
-        ).build()
-    }
+    fun provideFactsDao(db: AppDatabase) = db.factsDao()
 
     @ApplicationScope
     @Provides
-    fun provideFactsDao(db: MovieDatabase) = db.factsDao()
+    fun provideFavoriteDao(db: AppDatabase) = db.favoriteDao()
 
     @ApplicationScope
     @Provides
-    fun provideFavoriteDao(db: MovieDatabase) = db.favoriteDao()
+    fun provideFramesDao(db: AppDatabase) = db.framesDao()
 
     @ApplicationScope
     @Provides
-    fun provideFramesDao(db: MovieDatabase) = db.framesDao()
+    fun provideMovieDao(db: AppDatabase) = db.movieDao()
 
     @ApplicationScope
     @Provides
-    fun provideMovieDao(db: MovieDatabase) = db.movieDao()
+    fun provideShortMovieDao(db: AppDatabase) = db.shortMovieDao()
 
     @ApplicationScope
     @Provides
-    fun provideShortMovieDao(db: MovieDatabase) = db.shortMovieDao()
+    fun provideSimilarsDao(db: AppDatabase) = db.similarsDao()
 
     @ApplicationScope
     @Provides
-    fun provideSimilarsDao(db: MovieDatabase) = db.similarsDao()
-
-    @ApplicationScope
-    @Provides
-    fun provideVideosDao(db: MovieDatabase) = db.videosDao()
+    fun provideVideosDao(db: AppDatabase) = db.videosDao()
 }

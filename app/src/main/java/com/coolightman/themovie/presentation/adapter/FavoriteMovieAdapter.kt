@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import com.bumptech.glide.Glide
 import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.ShortMovieItemBinding
 import com.coolightman.themovie.domain.entity.Movie
-import com.coolightman.themovie.util.GlideApp
 import com.google.android.material.textview.MaterialTextView
 
 class FavoriteMovieAdapter(
@@ -32,7 +32,7 @@ class FavoriteMovieAdapter(
     }
 
     private fun setImage(binding: ShortMovieItemBinding, movie: Movie) {
-        GlideApp.with(binding.root.context)
+        Glide.with(binding.root.context)
             .load(movie.posterPreview)
             .placeholder(R.drawable.placeholder_image)
             .centerCrop()

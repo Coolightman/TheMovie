@@ -20,7 +20,5 @@ data class FavoriteDbModel(
     val description: String?,
     val genres: List<GenreDbModel>,
     val countries: List<CountryDbModel>,
-    val webUrl: String?,
-    val topPopularPlace: Int,
-    val top250Place: Int
+    val webUrl: String?
 )
