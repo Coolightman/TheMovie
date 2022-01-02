@@ -33,6 +33,11 @@ android {
     buildFeatures{
         viewBinding true
     }
+    kapt{
+        arguments{
+            arg("dagger.formatGeneratedSource", "enabled")
+        }
+    }
 }
 
 dependencies {
