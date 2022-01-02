@@ -6,6 +6,8 @@ import com.coolightman.themovie.data.database.dbModel.ShortMovieDbModel
 import com.coolightman.themovie.data.mapper.MovieMapper
 import com.coolightman.themovie.data.network.ApiService
 import com.coolightman.themovie.domain.repository.PageRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class PageRepositoryImpl @Inject constructor(
@@ -15,9 +17,11 @@ class PageRepositoryImpl @Inject constructor(
 ) : PageRepository {
 
     override suspend fun loadPopularNextPage() {
-        val currentPage = getPopularCurrentPageNumber()
-        if (currentPage < TOP_POPULAR_TOTAL_PAGES) {
-            loadPagePopularMovies(currentPage + 1)
+        withContext(Dispatchers.IO){
+            val currentPage = getPopularCurrentPageNumber()
+            if (currentPage < TOP_POPULAR_TOTAL_PAGES) {
+                loadPagePopularMovies(currentPage + 1)
+            }
         }
     }
 
@@ -33,12 +37,16 @@ class PageRepositoryImpl @Inject constructor(
     }
 
     override suspend fun loadTop250NextPage() {
-        val dbTopMoviesCount = shortMovieDao.getTop250Count()
-        val currentPage = dbTopMoviesCount / AMOUNT_MOVIES_PER_PAGE
-        if (currentPage < TOP_250_TOTAL_PAGES && dbTopMoviesCount != TOP_250_MAX_MOVIES_COUNT) {
-            loadPageTop250Movies(currentPage + 1)
+        withContext(Dispatchers.IO){
+            val currentPage = getTop250CurrentPageNumber()
+            if (currentPage < TOP_250_TOTAL_PAGES) {
+                loadPageTop250Movies(currentPage + 1)
+            }
         }
     }
+
+    private suspend fun getTop250CurrentPageNumber() =
+        shortMovieDao.getTop250Count() / AMOUNT_MOVIES_PER_PAGE
 
     private suspend fun loadPageTop250Movies(pageNumber: Int) {
         val pageDto = apiService.loadPageTop250Movies(pageNumber)
