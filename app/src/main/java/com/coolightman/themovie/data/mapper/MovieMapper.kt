@@ -9,6 +9,7 @@ import com.coolightman.themovie.di.ApplicationScope
 import com.coolightman.themovie.domain.entity.Country
 import com.coolightman.themovie.domain.entity.Genre
 import com.coolightman.themovie.domain.entity.Movie
+import com.coolightman.themovie.util.TextFormat
 import javax.inject.Inject
 
 @ApplicationScope
@@ -21,7 +22,7 @@ class MovieMapper @Inject constructor() {
         slogan = dto.slogan,
         rating = dto.ratingKinopoisk,
         ratingCount = dto.ratingKinopoiskVoteCount,
-        ratingAwait = dto.ratingAwait,
+        ratingAwait = TextFormat.formatRatingAwaitPercent(dto.ratingAwait),
         ratingAwaitCount = dto.ratingAwaitCount,
         posterPreview = dto.posterUrlPreview,
         poster = dto.posterUrl,

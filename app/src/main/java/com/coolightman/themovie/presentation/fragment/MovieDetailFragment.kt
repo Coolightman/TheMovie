@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -68,14 +69,15 @@ class MovieDetailFragment : Fragment() {
             it?.let {
                 Log.d("ObservingMovie", it.toString())
                 setPoster(it.poster)
-                setRating(it.rating)
-                setRatingCount(it.ratingCount)
+                setRating(it)
+                setRatingCount(it)
                 setFavorite(it.isFavorite)
             }
         }
     }
 
     private fun setFavorite(favorite: Boolean) {
+        binding.imgFavorite.visibility = VISIBLE
         if (favorite) setStarToOrange()
         else setStarToGrey()
     }
@@ -92,18 +94,38 @@ class MovieDetailFragment : Fragment() {
         )
     }
 
-    private fun setRatingCount(ratingCount: Int?) {
-        ratingCount?.let {
-            val count = it.toString()
-            binding.tvRatingCount.text = count
+    private fun setRatingCount(movie: Movie) {
+        val ratingCount = movie.ratingCount
+        val ratingAwaitCount = movie.ratingAwaitCount
+        when {
+            ratingCount != null && ratingCount != "0" -> {
+                binding.tvRatingCount.text = ratingCount
+            }
+            ratingAwaitCount != null && ratingAwaitCount != "0" -> {
+                binding.tvRatingCount.text = ratingAwaitCount
+            }
+            else -> {
+                binding.tvRatingCount.visibility = GONE
+            }
         }
     }
 
-    private fun setRating(rating: String?) {
-        rating?.let {
-            binding.tvRating.text = it
+    private fun setRating(movie: Movie) {
+        val rating = movie.rating
+        val ratingAwait = movie.ratingAwait
+        when {
+            rating != null -> {
+                binding.tvRating.text = rating
+            }
+            ratingAwait != null -> {
+                binding.tvRating.text = ratingAwait
+            }
+            else -> {
+                binding.tvRating.visibility = GONE
+            }
         }
     }
+
 
     private fun setPoster(poster: String?) {
         poster?.let {

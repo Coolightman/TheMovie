@@ -52,9 +52,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/tv_rating"
             app:layout_constraintTop_toTopOf="@id/tv_rating"
-            app:srcCompat="@drawable/ic_baseline_star_36"/>
+            app:srcCompat="@drawable/ic_baseline_star_36"
+            tools:visibility="visible"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

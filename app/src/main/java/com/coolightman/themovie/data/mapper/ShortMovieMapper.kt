@@ -12,7 +12,7 @@ class ShortMovieMapper @Inject constructor(){
 
     fun mapDtoToDbModel(dto: ShortMovieDto) = ShortMovieDbModel(
         movieId = dto.movieId,
-        rating = TextFormat.formatPercent(dto.rating),
+        rating = TextFormat.formatRatingPercent(dto.rating),
         posterPreview = dto.posterPreview
     )
 
