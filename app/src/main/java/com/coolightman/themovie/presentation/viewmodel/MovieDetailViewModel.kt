@@ -29,4 +29,12 @@ class MovieDetailViewModel @Inject constructor(
         }
     }
 
+    fun addMovieToFavorite(movieId: Long){
+
+    }
+
+    fun deleteMovieFromFavorite(movieId: Long){
+
+    }
+
 }

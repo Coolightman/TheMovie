@@ -15,4 +15,6 @@
     <string name="tv_duration_label_text">Duration</string>
     <string name="tv_genre_label_text">Genre</string>
     <string name="tv_country_label_text">Country</string>
+    <string name="favorite_added">Add to favorite!</string>
+    <string name="favorite_deleted">Deleted from favorite!</string>
 </resources>

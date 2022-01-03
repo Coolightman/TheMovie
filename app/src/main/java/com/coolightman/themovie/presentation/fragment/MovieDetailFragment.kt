@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +22,7 @@ import com.coolightman.themovie.domain.entity.Movie
 import com.coolightman.themovie.presentation.viewmodel.MovieDetailViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
 import com.coolightman.themovie.util.RatingColor.setRatingColor
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -39,6 +41,7 @@ class MovieDetailFragment : Fragment() {
 
     private var _binding: FragmentMovieDetailBinding? = null
     private val binding get() = _binding!!
+    private lateinit var movie: Movie
 
     override fun onAttach(context: Context) {
         component.inject(this)
@@ -60,6 +63,28 @@ class MovieDetailFragment : Fragment() {
             val job = launch { viewModel.loadMovieDetails(movieId) }
             job.join()
             createObservers(movieId)
+            createListeners(movieId)
+        }
+    }
+
+    private fun createListeners(movieId: Long) {
+        binding.imgFavorite.setOnClickListener {
+            if (movie.isFavorite) {
+                viewModel.deleteMovieFromFavorite(movieId)
+                shortToast(getString(R.string.favorite_deleted))
+            } else {
+                viewModel.addMovieToFavorite(movieId)
+                shortToast(getString(R.string.favorite_added))
+            }
+        }
+    }
+
+    private fun shortToast(text: String) {
+        lifecycleScope.launch {
+            val toast = Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT)
+            toast.show()
+            delay(700)
+            toast.cancel()
         }
     }
 
@@ -70,6 +95,7 @@ class MovieDetailFragment : Fragment() {
         viewModel.getMovie(movieId).observe(viewLifecycleOwner) {
             it?.let {
                 Log.d("ObservingMovie", it.toString())
+                movie = it
                 setPoster(it.poster)
                 setRating(it)
                 setRatingCount(it)
@@ -120,11 +146,11 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun setCountries(countries: List<Country>) {
-        if (countries.isNotEmpty()){
+        if (countries.isNotEmpty()) {
             val names = countries.map { it.name }
             val text = getStringWithEnters(names)
             binding.tvCountry.text = text
-        } else{
+        } else {
             binding.tvCountry.visibility = GONE
             binding.tvCountryLabel.visibility = GONE
         }
@@ -149,11 +175,11 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun setGenres(genres: List<Genre>) {
-        if (genres.isNotEmpty()){
+        if (genres.isNotEmpty()) {
             val names = genres.map { it.name }
             val text = getStringWithEnters(names)
             binding.tvGenre.text = text
-        } else{
+        } else {
             binding.tvGenre.visibility = GONE
             binding.tvGenreLabel.visibility = GONE
         }
