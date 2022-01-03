@@ -1,6 +1,8 @@
 package com.coolightman.themovie.data.repository
 
 import android.util.Log
+import androidx.lifecycle.map
+import com.coolightman.themovie.data.database.dao.FavoriteDao
 import com.coolightman.themovie.data.database.dao.ShortMovieDao
 import com.coolightman.themovie.data.database.dbModel.ShortMovieDbModel
 import com.coolightman.themovie.data.mapper.MovieMapper
@@ -13,7 +15,8 @@ import javax.inject.Inject
 class PageRepositoryImpl @Inject constructor(
     private val shortMovieDao: ShortMovieDao,
     private val apiService: ApiService,
-    private val movieMapper: MovieMapper
+    private val movieMapper: MovieMapper,
+    private val favoriteDao: FavoriteDao
 ) : PageRepository {
 
     override suspend fun loadPopularNextPage() {
@@ -31,9 +34,22 @@ class PageRepositoryImpl @Inject constructor(
     private suspend fun loadPagePopularMovies(pageNumber: Int) {
         val pageDto = apiService.loadPagePopularMovies(pageNumber)
         val dbList = movieMapper.mapMoviesPageDtoToDbModel(pageDto)
-        val updatedList = addTopPopularNumber(dbList, pageNumber)
-        Log.d("MYLOG_loadPopPage", updatedList.toString())
-        shortMovieDao.insertList(updatedList)
+        val updatedPositionList = addTopPopularNumber(dbList, pageNumber)
+        val updatedFavoriteList = checkForFavorite(updatedPositionList)
+        Log.d("MYLOG_loadPopPage", updatedFavoriteList.toString())
+        shortMovieDao.insertList(updatedFavoriteList)
+    }
+
+    private suspend fun checkForFavorite(list: List<ShortMovieDbModel>): List<ShortMovieDbModel> {
+        val favoritesId = favoriteDao.getFavoriteIds()
+        for (element in list){
+            for (id in favoritesId){
+                if (element.movieId == id){
+                    element.isFavorite = true
+                }
+            }
+        }
+        return list
     }
 
     override suspend fun loadTop250NextPage() {
@@ -51,9 +67,10 @@ class PageRepositoryImpl @Inject constructor(
     private suspend fun loadPageTop250Movies(pageNumber: Int) {
         val pageDto = apiService.loadPageTop250Movies(pageNumber)
         val dbList = movieMapper.mapMoviesPageDtoToDbModel(pageDto)
-        val updatedList = addTop250Number(dbList, pageNumber)
-        Log.d("MYLOG_loadTop250Page", updatedList.toString())
-        shortMovieDao.insertList(updatedList)
+        val updatedPositionList = addTop250Number(dbList, pageNumber)
+        val updatedFavoriteList = checkForFavorite(updatedPositionList)
+        Log.d("MYLOG_loadTop250Page", updatedFavoriteList.toString())
+        shortMovieDao.insertList(updatedFavoriteList)
     }
 
     private suspend fun addTopPopularNumber(

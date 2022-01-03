@@ -16,6 +16,9 @@ interface FavoriteDao {
     @Query("select * from favoritedbmodel order by favoriteDate")
     fun getFavorites(): LiveData<List<FavoriteDbModel>>
 
+    @Query("select movieId from favoritedbmodel")
+    suspend fun getFavoriteIds(): List<Long>
+
     @Query("delete from favoritedbmodel")
     suspend fun clearTable()
 
