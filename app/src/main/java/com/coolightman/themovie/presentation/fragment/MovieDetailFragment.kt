@@ -5,8 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View.*
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -16,10 +15,11 @@ import com.bumptech.glide.Glide
 import com.coolightman.themovie.App
 import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.FragmentMovieDetailBinding
+import com.coolightman.themovie.domain.entity.Country
+import com.coolightman.themovie.domain.entity.Genre
 import com.coolightman.themovie.domain.entity.Movie
 import com.coolightman.themovie.presentation.viewmodel.MovieDetailViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
-import com.coolightman.themovie.util.RatingColor
 import com.coolightman.themovie.util.RatingColor.setRatingColor
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -74,7 +74,96 @@ class MovieDetailFragment : Fragment() {
                 setRating(it)
                 setRatingCount(it)
                 setFavorite(it.isFavorite)
+                setNameOrigin(it.nameOriginal)
+                setNameRu(it.nameRu)
+                setSlogan(it.slogan)
+                setYear(it.releaseDate)
+                setCountries(it.countries)
+                setDuration(it.duration)
+                setGenres(it.genres)
+                setDescription(it.description)
             }
+        }
+    }
+
+    private fun setNameOrigin(nameOriginal: String?) {
+        if (nameOriginal != null) {
+            binding.tvNameOriginal.text = nameOriginal
+        } else {
+            binding.tvNameOriginal.visibility = GONE
+        }
+    }
+
+    private fun setNameRu(nameRu: String?) {
+        if (nameRu != null) {
+            binding.tvNameRu.text = nameRu
+        } else {
+            binding.tvNameRu.visibility = GONE
+        }
+    }
+
+    private fun setSlogan(slogan: String?) {
+        if (slogan != null) {
+            binding.tvSlogan.text = slogan
+        } else {
+            binding.tvSlogan.visibility = GONE
+        }
+    }
+
+    private fun setYear(releaseDate: String?) {
+        if (releaseDate != null) {
+            binding.tvYear.text = releaseDate
+        } else {
+            binding.tvYear.visibility = GONE
+            binding.tvYearLabel.visibility = GONE
+        }
+    }
+
+    private fun setCountries(countries: List<Country>) {
+        if (countries.isNotEmpty()){
+            val names = countries.map { it.name }
+            val text = getStringWithEnters(names)
+            binding.tvCountry.text = text
+        } else{
+            binding.tvCountry.visibility = GONE
+            binding.tvCountryLabel.visibility = GONE
+        }
+    }
+
+    private fun getStringWithEnters(list: List<String>): StringBuilder {
+        val entersString = StringBuilder()
+        for ((i, element) in list.withIndex()) {
+            if (i == list.size - 1) entersString.append(element)
+            else entersString.append("$element\n")
+        }
+        return entersString
+    }
+
+    private fun setDuration(duration: String?) {
+        if (duration != null) {
+            binding.tvDuration.text = duration
+        } else {
+            binding.tvDuration.visibility = GONE
+            binding.tvDurationLabel.visibility = GONE
+        }
+    }
+
+    private fun setGenres(genres: List<Genre>) {
+        if (genres.isNotEmpty()){
+            val names = genres.map { it.name }
+            val text = getStringWithEnters(names)
+            binding.tvGenre.text = text
+        } else{
+            binding.tvGenre.visibility = GONE
+            binding.tvGenreLabel.visibility = GONE
+        }
+    }
+
+    private fun setDescription(description: String?) {
+        if (description != null) {
+            binding.tvDescription.text = description
+        } else {
+            binding.tvDescription.visibility = GONE
         }
     }
 
@@ -109,7 +198,8 @@ class MovieDetailFragment : Fragment() {
                 setRatingColor(binding.tvRating, ratingAwait)
             }
             else -> {
-                binding.tvRating.visibility = GONE
+                binding.tvRating.visibility = INVISIBLE
+                binding.tvRatingCount.visibility = INVISIBLE
             }
         }
     }
