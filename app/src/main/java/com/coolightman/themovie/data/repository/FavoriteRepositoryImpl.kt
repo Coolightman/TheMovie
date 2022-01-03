@@ -3,6 +3,8 @@ package com.coolightman.themovie.data.repository
 import com.coolightman.themovie.data.database.dao.FavoriteDao
 import com.coolightman.themovie.data.database.dao.MovieDao
 import com.coolightman.themovie.data.database.dao.ShortMovieDao
+import com.coolightman.themovie.data.database.dbModel.MovieDbModel
+import com.coolightman.themovie.data.database.dbModel.ShortMovieDbModel
 import com.coolightman.themovie.data.mapper.MovieMapper
 import com.coolightman.themovie.domain.repository.FavoriteRepository
 import kotlinx.coroutines.Dispatchers
@@ -19,25 +21,48 @@ class FavoriteRepositoryImpl @Inject constructor(
     override suspend fun addMovieToFavorite(movieId: Long) {
         withContext(Dispatchers.IO) {
             val movie = movieDao.getMovieModel(movieId)
+            movie?.let {
+                setMovieIsFavorite(it, true)
+                createFavorite(it)
+            }
+
             val shortMovie = shortMovieDao.getShortMovie(movieId)
-            movie.isFavorite = true
-            shortMovie.isFavorite = true
-            val favorite = mapper.mapMovieDbModelToFavoriteDbModel(movie)
-            movieDao.insert(movie)
-            shortMovieDao.insertShortMovie(shortMovie)
-            favoriteDao.insert(favorite)
+            shortMovie?.let {
+                setShortMovieIsFavorite(it, true)
+            }
         }
+    }
+
+    private suspend fun setShortMovieIsFavorite(
+        shortMovie: ShortMovieDbModel,
+        isFavorite: Boolean
+    ) {
+        shortMovie.isFavorite = isFavorite
+        shortMovieDao.insertShortMovie(shortMovie)
+    }
+
+    private suspend fun createFavorite(movie: MovieDbModel) {
+        val favorite = mapper.mapMovieDbModelToFavoriteDbModel(movie)
+        favoriteDao.insert(favorite)
+    }
+
+    private suspend fun setMovieIsFavorite(movie: MovieDbModel, isFavorite: Boolean) {
+        movie.isFavorite = isFavorite
+        movieDao.insert(movie)
     }
 
     override suspend fun removeMovieFromFavorite(movieId: Long) {
         withContext(Dispatchers.IO) {
             val movie = movieDao.getMovieModel(movieId)
+            movie?.let {
+                setMovieIsFavorite(it, false)
+                favoriteDao.remove(movieId)
+            }
+
             val shortMovie = shortMovieDao.getShortMovie(movieId)
-            movie.isFavorite = false
-            shortMovie.isFavorite = false
-            favoriteDao.remove(movieId)
-            movieDao.insert(movie)
-            shortMovieDao.insertShortMovie(shortMovie)
+            shortMovie?.let {
+                setShortMovieIsFavorite(it, false)
+            }
         }
     }
 }

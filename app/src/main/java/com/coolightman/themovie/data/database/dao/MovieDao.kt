@@ -17,7 +17,7 @@ interface MovieDao {
     fun getMovie(movieId: Long): LiveData<MovieDbModel>
 
     @Query("select * from moviedbmodel where movieId = :movieId")
-    suspend fun getMovieModel(movieId: Long): MovieDbModel
+    suspend fun getMovieModel(movieId: Long): MovieDbModel?
 
     @Query("select exists(select * from moviedbmodel where movieId = :movieId)")
     suspend fun exists(movieId: Long): Boolean

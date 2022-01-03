@@ -17,7 +17,7 @@ class PageRepositoryImpl @Inject constructor(
 ) : PageRepository {
 
     override suspend fun loadPopularNextPage() {
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             val currentPage = getPopularCurrentPageNumber()
             if (currentPage < TOP_POPULAR_TOTAL_PAGES) {
                 loadPagePopularMovies(currentPage + 1)
@@ -37,7 +37,7 @@ class PageRepositoryImpl @Inject constructor(
     }
 
     override suspend fun loadTop250NextPage() {
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             val currentPage = getTop250CurrentPageNumber()
             if (currentPage < TOP_250_TOTAL_PAGES) {
                 loadPageTop250Movies(currentPage + 1)
@@ -92,6 +92,5 @@ class PageRepositoryImpl @Inject constructor(
         private const val TOP_POPULAR_TOTAL_PAGES = 5
         private const val TOP_250_TOTAL_PAGES = 13
         private const val AMOUNT_MOVIES_PER_PAGE = 20
-        private const val TOP_250_MAX_MOVIES_COUNT = 250
     }
 }
