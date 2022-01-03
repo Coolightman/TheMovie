@@ -18,4 +18,7 @@ interface FavoriteDao {
 
     @Query("delete from favoritedbmodel")
     suspend fun clearTable()
+
+    @Query("delete from favoritedbmodel where movieId = :movieId")
+    suspend fun remove(movieId: Long)
 }

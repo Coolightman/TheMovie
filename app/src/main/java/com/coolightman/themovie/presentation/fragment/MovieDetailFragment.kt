@@ -70,7 +70,7 @@ class MovieDetailFragment : Fragment() {
     private fun createListeners(movieId: Long) {
         binding.imgFavorite.setOnClickListener {
             if (movie.isFavorite) {
-                viewModel.deleteMovieFromFavorite(movieId)
+                viewModel.removeMovieFromFavorite(movieId)
                 shortToast(getString(R.string.favorite_deleted))
             } else {
                 viewModel.addMovieToFavorite(movieId)

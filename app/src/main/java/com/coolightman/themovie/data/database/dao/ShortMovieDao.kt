@@ -13,8 +13,11 @@ interface ShortMovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertList(shortMovies: List<ShortMovieDbModel>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertShortMovie(shortMovie: ShortMovieDbModel)
+
     @Query("select * from shortmoviedbmodel where movieId = :movieId")
-    suspend fun getShortMovie(movieId: Long): ShortMovieDbModel?
+    suspend fun getShortMovie(movieId: Long): ShortMovieDbModel
 
     @Query("select * from shortmoviedbmodel where topPopularPlace > 0 order by topPopularPlace")
     fun getPopulars(): LiveData<List<ShortMovieDbModel>>
