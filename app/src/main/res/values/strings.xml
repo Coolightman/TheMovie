@@ -11,4 +11,8 @@
     <string name="cd_poster">poster</string>
     <string name="tv_popular_place_label_text">Popul.</string>
     <string name="tv_top_250_place_label_text">Top-250</string>
+    <string name="tv_year_label_text">Year</string>
+    <string name="tv_duration_label_text">Duration</string>
+    <string name="tv_genre_label_text">Genre</string>
+    <string name="tv_country_label_text">Country</string>
 </resources>
