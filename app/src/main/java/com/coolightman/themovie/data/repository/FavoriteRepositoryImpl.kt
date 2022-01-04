@@ -21,15 +21,10 @@ class FavoriteRepositoryImpl @Inject constructor(
     override suspend fun addMovieToFavorite(movieId: Long) {
         withContext(Dispatchers.IO) {
             val movie = movieDao.getMovieModel(movieId)
-            movie?.let {
-                setMovieIsFavorite(it, true)
-                createFavorite(it)
-            }
-
+            setMovieIsFavorite(movie, true)
+            createFavorite(movie)
             val shortMovie = shortMovieDao.getShortMovie(movieId)
-            shortMovie?.let {
-                setShortMovieIsFavorite(it, true)
-            }
+            setShortMovieIsFavorite(shortMovie, true)
         }
     }
 
@@ -54,15 +49,10 @@ class FavoriteRepositoryImpl @Inject constructor(
     override suspend fun removeMovieFromFavorite(movieId: Long) {
         withContext(Dispatchers.IO) {
             val movie = movieDao.getMovieModel(movieId)
-            movie?.let {
-                setMovieIsFavorite(it, false)
-                favoriteDao.remove(movieId)
-            }
-
+            setMovieIsFavorite(movie, false)
+            favoriteDao.remove(movieId)
             val shortMovie = shortMovieDao.getShortMovie(movieId)
-            shortMovie?.let {
-                setShortMovieIsFavorite(it, false)
-            }
+            setShortMovieIsFavorite(shortMovie, false)
         }
     }
 }
