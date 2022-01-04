@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.coolightman.themovie.App
 import com.coolightman.themovie.R
@@ -105,6 +104,7 @@ class MovieDetailFragment : Fragment() {
                 setCountries(it.countries)
                 setDuration(it.duration)
                 setGenres(it.genres)
+                setAgeLimit(it.ageLimit)
                 setDescription(it.description)
             }
         }
@@ -181,6 +181,16 @@ class MovieDetailFragment : Fragment() {
         } else {
             binding.tvGenre.visibility = GONE
             binding.tvGenreLabel.visibility = GONE
+        }
+    }
+
+    private fun setAgeLimit(ageLimit: String?) {
+        if (ageLimit != null) {
+            val text = "${ageLimit.substring(3)}+"
+            binding.tvAgeLimit.text = text
+        } else {
+            binding.tvAgeLimit.visibility = GONE
+            binding.tvAgeLimitLabel.visibility = GONE
         }
     }
 

@@ -17,4 +17,5 @@
     <string name="tv_country_label_text">Country</string>
     <string name="favorite_added">Add to favorite!</string>
     <string name="favorite_deleted">Deleted from favorite!</string>
+    <string name="tv_age_limits_label_text">Age limit</string>
 </resources>

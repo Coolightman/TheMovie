@@ -237,6 +237,29 @@
                     tools:text="Belarus\nPoland" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_age_limit_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/tv_age_limits_label_text"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_country" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_age_limit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_age_limit_label"
+                    tools:text="18+" />
+
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -245,7 +268,7 @@
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_country"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_age_limit"
                     tools:text="Bla bla bla" />
 
 
