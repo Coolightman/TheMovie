@@ -24,6 +24,10 @@ class MovieMapper @Inject constructor() {
         ratingCount = dto.ratingKinopoiskVoteCount,
         ratingAwait = TextFormat.formatRatingAwaitPercent(dto.ratingAwait),
         ratingAwaitCount = dto.ratingAwaitCount,
+        ratingImdb = dto.ratingImdb,
+        ratingImdbCount = dto.ratingImdbVoteCount,
+        ratingCritics = dto.ratingFilmCritics,
+        ratingCriticsCount = dto.ratingFilmCriticsVoteCount,
         posterPreview = dto.posterUrlPreview,
         poster = dto.posterUrl,
         isFavorite = false,
@@ -32,7 +36,8 @@ class MovieMapper @Inject constructor() {
         description = dto.description,
         genres = dto.genres.map { genresDtoToDbModel(it) },
         countries = dto.countries.map { countriesDtoToDbModel(it) },
-        webUrl = dto.webUrl
+        webUrl = dto.webUrl,
+        ageLimits = dto.ratingAgeLimits
     )
 
     fun mapDbModelToEntity(dbModel: MovieDbModel) = Movie(
@@ -44,6 +49,10 @@ class MovieMapper @Inject constructor() {
         ratingCount = dbModel.ratingCount.toString(),
         ratingAwait = dbModel.ratingAwait,
         ratingAwaitCount = dbModel.ratingAwaitCount.toString(),
+        ratingImdb = dbModel.ratingImdb,
+        ratingImdbCount = dbModel.ratingImdbCount.toString(),
+        ratingCritics = dbModel.ratingCritics,
+        ratingCriticsCount = dbModel.ratingCriticsCount.toString(),
         posterPreview = dbModel.posterPreview,
         poster = dbModel.poster,
         isFavorite = dbModel.isFavorite,
@@ -52,7 +61,8 @@ class MovieMapper @Inject constructor() {
         description = dbModel.description,
         genres = dbModel.genres.map { genresDbModelToEntity(it) },
         countries = dbModel.countries.map { countriesDbModelToEntity(it) },
-        webUrl = dbModel.webUrl
+        webUrl = dbModel.webUrl,
+        ageLimits = dbModel.ageLimits
     )
 
     fun mapMovieDbModelToFavoriteDbModel(dbModel: MovieDbModel) = FavoriteDbModel(
@@ -64,6 +74,10 @@ class MovieMapper @Inject constructor() {
         ratingCount = dbModel.ratingCount,
         ratingAwait = dbModel.ratingAwait,
         ratingAwaitCount = dbModel.ratingAwaitCount,
+        ratingImdb = dbModel.ratingImdb,
+        ratingImdbCount = dbModel.ratingImdbCount,
+        ratingCritics = dbModel.ratingCritics,
+        ratingCriticsCount = dbModel.ratingCriticsCount,
         posterPreview = dbModel.posterPreview,
         poster = dbModel.poster,
         favoriteDate = getStamp(),
@@ -72,7 +86,8 @@ class MovieMapper @Inject constructor() {
         description = dbModel.description,
         genres = dbModel.genres,
         countries = dbModel.countries,
-        webUrl = dbModel.webUrl
+        webUrl = dbModel.webUrl,
+        ageLimits = dbModel.ageLimits
     )
 
     private fun getStamp(): Long {
@@ -88,6 +103,10 @@ class MovieMapper @Inject constructor() {
         ratingCount = dbModel.ratingCount.toString(),
         ratingAwait = dbModel.ratingAwait,
         ratingAwaitCount = dbModel.ratingAwaitCount.toString(),
+        ratingImdb = dbModel.ratingImdb,
+        ratingImdbCount = dbModel.ratingImdbCount.toString(),
+        ratingCritics = dbModel.ratingCritics,
+        ratingCriticsCount = dbModel.ratingCriticsCount.toString(),
         posterPreview = dbModel.posterPreview,
         poster = dbModel.poster,
         isFavorite = true,
@@ -96,10 +115,11 @@ class MovieMapper @Inject constructor() {
         description = dbModel.description,
         genres = dbModel.genres.map { genresDbModelToEntity(it) },
         countries = dbModel.countries.map { countriesDbModelToEntity(it) },
-        webUrl = dbModel.webUrl
+        webUrl = dbModel.webUrl,
+        ageLimits = dbModel.ageLimits
     )
 
-    fun mapMoviesPageDtoToDbModel(dto: MoviesPageDto): List<ShortMovieDbModel>{
+    fun mapMoviesPageDtoToDbModel(dto: MoviesPageDto): List<ShortMovieDbModel> {
         return dto.movies.map { ShortMovieMapper().mapDtoToDbModel(it) }
     }
 

@@ -9,6 +9,10 @@ data class Movie(
     val ratingCount: String?,
     val ratingAwait: String?,
     val ratingAwaitCount: String?,
+    val ratingImdb: String?,
+    val ratingImdbCount: String?,
+    val ratingCritics: String?,
+    val ratingCriticsCount: String?,
     val posterPreview: String?,
     val poster: String?,
     val isFavorite: Boolean,
@@ -17,5 +21,6 @@ data class Movie(
     val description: String?,
     val genres: List<Genre>,
     val countries: List<Country>,
-    val webUrl: String?
+    val webUrl: String?,
+    val ageLimits: String?
 )

@@ -16,6 +16,10 @@ data class MovieDbModel(
     val ratingCount: Int?,
     val ratingAwait: String?,
     val ratingAwaitCount: Int?,
+    val ratingImdb: String?,
+    val ratingImdbCount: Int?,
+    val ratingCritics: String?,
+    val ratingCriticsCount: Int?,
     val posterPreview: String?,
     val poster: String?,
     var isFavorite: Boolean,
@@ -24,5 +28,6 @@ data class MovieDbModel(
     val description: String?,
     val genres: List<GenreDbModel>,
     val countries: List<CountryDbModel>,
-    val webUrl: String?
+    val webUrl: String?,
+    val ageLimits: String?
 )
