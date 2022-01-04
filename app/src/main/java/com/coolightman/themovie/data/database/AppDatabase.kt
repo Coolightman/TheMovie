@@ -9,7 +9,7 @@ import com.coolightman.themovie.data.database.dao.*
 import com.coolightman.themovie.data.database.dbModel.*
 
 @Database(
-    version = 4,
+    version = 5,
     entities = [
         FactsDbModel::class,
         FramesDbModel::class,

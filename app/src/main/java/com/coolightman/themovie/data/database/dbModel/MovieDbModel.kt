@@ -29,5 +29,5 @@ data class MovieDbModel(
     val genres: List<GenreDbModel>,
     val countries: List<CountryDbModel>,
     val webUrl: String?,
-    val ageLimits: String?
+    val ageLimit: String?
 )

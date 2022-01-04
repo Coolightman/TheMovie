@@ -22,5 +22,5 @@ data class Movie(
     val genres: List<Genre>,
     val countries: List<Country>,
     val webUrl: String?,
-    val ageLimits: String?
+    val ageLimit: String?
 )
