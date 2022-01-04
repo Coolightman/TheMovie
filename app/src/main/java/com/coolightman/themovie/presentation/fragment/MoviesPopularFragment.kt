@@ -1,6 +1,9 @@
 package com.coolightman.themovie.presentation.fragment
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +25,12 @@ class MoviesPopularFragment : Fragment() {
     private var _binding: FragmentMoviesPopularBinding? = null
     private val binding get() = _binding!!
 
+    private val sharedPref by lazy {
+        requireActivity().getSharedPreferences(
+            getString(R.string.preference_file_key), Context.MODE_PRIVATE
+        )
+    }
+
     private lateinit var shortMovieAdapter: ShortMovieAdapter
 
     override fun onCreateView(
@@ -37,13 +46,37 @@ class MoviesPopularFragment : Fragment() {
         createObserver()
         createRecyclerView()
         swipeRefreshListener()
+        checkLastRefresh()
+    }
+
+    private fun checkLastRefresh() {
+        val lastRefresh = sharedPref.getLong(PREF_POPULAR_LAST_REFRESH, 0)
+        if (lastRefresh != 0L) {
+            val currentTime = System.currentTimeMillis()
+            val diff = currentTime - lastRefresh
+            val hours = (diff / 1000) / 3600
+            if (hours >= TIME_AUTO_REFRESH_HOURS) {
+                viewModel.refreshPopularMovies()
+                createRefreshTimeStamp()
+            }
+        } else {
+            viewModel.refreshPopularMovies()
+            createRefreshTimeStamp()
+        }
     }
 
     private fun swipeRefreshListener() {
         binding.swipeRefreshPopular.setOnRefreshListener {
             viewModel.refreshPopularMovies()
+            createRefreshTimeStamp()
             binding.swipeRefreshPopular.isRefreshing = false
         }
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    private fun createRefreshTimeStamp() {
+        val stamp = System.currentTimeMillis()
+        sharedPref.edit().putLong(PREF_POPULAR_LAST_REFRESH, stamp).apply()
     }
 
     private fun createObserver() {
@@ -95,6 +128,9 @@ class MoviesPopularFragment : Fragment() {
 
     companion object {
         fun newInstance() = MoviesPopularFragment()
+
         private const val MIN_PAGE_SIZE = 20
+        private const val PREF_POPULAR_LAST_REFRESH = "PopularRefreshStamp"
+        private const val TIME_AUTO_REFRESH_HOURS = 12
     }
 }

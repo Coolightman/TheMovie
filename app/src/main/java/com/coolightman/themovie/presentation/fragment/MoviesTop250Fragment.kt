@@ -1,6 +1,9 @@
 package com.coolightman.themovie.presentation.fragment
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +25,12 @@ class MoviesTop250Fragment : Fragment() {
     private var _binding: FragmentMoviesTop250Binding? = null
     private val binding get() = _binding!!
 
+    private val sharedPref by lazy {
+        requireActivity().getSharedPreferences(
+            getString(R.string.preference_file_key), Context.MODE_PRIVATE
+        )
+    }
+
     private lateinit var shortMovieAdapter: ShortMovieAdapter
 
     override fun onCreateView(
@@ -37,13 +46,37 @@ class MoviesTop250Fragment : Fragment() {
         createObserver()
         createRecyclerView()
         swipeRefreshListener()
+        checkLastRefresh()
+    }
+
+    private fun checkLastRefresh() {
+        val lastRefresh = sharedPref.getLong(PREF_TOP_250_LAST_REFRESH, 0)
+        if (lastRefresh != 0L) {
+            val currentTime = System.currentTimeMillis()
+            val diff = currentTime - lastRefresh
+            val hours = (diff / 1000) / 3600
+            if (hours >= TIME_AUTO_REFRESH_HOURS) {
+                viewModel.refreshTop250Movies()
+                createRefreshTimeStamp()
+            }
+        } else {
+            viewModel.refreshTop250Movies()
+            createRefreshTimeStamp()
+        }
     }
 
     private fun swipeRefreshListener() {
         binding.swipeRefreshTop250.setOnRefreshListener {
             viewModel.refreshTop250Movies()
+            createRefreshTimeStamp()
             binding.swipeRefreshTop250.isRefreshing = false
         }
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    private fun createRefreshTimeStamp() {
+        val stamp = System.currentTimeMillis()
+        sharedPref.edit().putLong(PREF_TOP_250_LAST_REFRESH, stamp).apply()
     }
 
     private fun createObserver() {
@@ -96,5 +129,7 @@ class MoviesTop250Fragment : Fragment() {
     companion object {
         fun newInstance() = MoviesTop250Fragment()
         private const val MIN_PAGE_SIZE = 20
+        private const val PREF_TOP_250_LAST_REFRESH = "Top250RefreshStamp"
+        private const val TIME_AUTO_REFRESH_HOURS = 120
     }
 }
