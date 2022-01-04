@@ -128,7 +128,8 @@ class MovieDetailFragment : Fragment() {
 
     private fun setSlogan(slogan: String?) {
         if (slogan != null) {
-            binding.tvSlogan.text = slogan
+            val text = "\"$slogan\""
+            binding.tvSlogan.text = text
         } else {
             binding.tvSlogan.visibility = GONE
         }
