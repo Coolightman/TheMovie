@@ -22,6 +22,8 @@ import com.coolightman.themovie.domain.entity.Movie
 import com.coolightman.themovie.presentation.viewmodel.MovieDetailViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
 import com.coolightman.themovie.util.RatingColor.setRatingColor
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -59,12 +61,8 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieId = getMovieIdArg()
-        lifecycleScope.launch {
-            val job = launch { viewModel.loadMovieDetails(movieId) }
-            job.join()
-            createObservers(movieId)
-            createListeners(movieId)
-        }
+        createObservers(movieId)
+        createListeners(movieId)
     }
 
     private fun createListeners(movieId: Long) {
@@ -80,10 +78,10 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun shortToast(text: String) {
-        lifecycleScope.launch {
+        CoroutineScope(Dispatchers.Main).launch {
             val toast = Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT)
             toast.show()
-            delay(700)
+            delay(TIME_SHORT_TOAST)
             toast.cancel()
         }
     }
@@ -263,6 +261,7 @@ class MovieDetailFragment : Fragment() {
 
     companion object {
         private const val ARG_MOVIE_ID = "movieId"
+        private const val TIME_SHORT_TOAST = 800L
 
         fun newInstance(movieId: Long) =
             MovieDetailFragment().apply {

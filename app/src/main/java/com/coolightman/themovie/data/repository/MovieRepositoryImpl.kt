@@ -2,6 +2,7 @@ package com.coolightman.themovie.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.liveData
 import com.coolightman.themovie.data.database.dao.FavoriteDao
 import com.coolightman.themovie.data.database.dao.MovieDao
 import com.coolightman.themovie.data.database.dao.ShortMovieDao
@@ -97,19 +98,15 @@ class MovieRepositoryImpl @Inject constructor(
     private fun getJustTop250(top250: List<ShortMovieDbModel>) =
         top250.filter { movie -> movie.topPopularPlace == 0 }
 
-    override fun getMovie(movieId: Long): LiveData<Movie> {
-        return Transformations.map(movieDao.getMovie(movieId)) {
-            it?.let {
-                movieMapper.mapDbModelToEntity(it)
-            }
-        }
-    }
-
-    override suspend fun loadMovie(movieId: Long) {
-        withContext(Dispatchers.IO){
-            if (!movieDao.exists(movieId)){
+    override fun getMovie(movieId: Long): LiveData<Movie> = liveData {
+        withContext(Dispatchers.IO) {
+            if (!movieDao.exists(movieId)) {
                 loadMovieFromApi(movieId)
             }
+            val movie = Transformations.map(movieDao.getMovie(movieId)) {
+                movieMapper.mapDbModelToEntity(it)
+            }
+            emitSource(movie)
         }
     }
 

@@ -13,5 +13,4 @@ interface MovieRepository {
     fun getMovie(movieId: Long): LiveData<Movie>
     suspend fun clearPopularMovies()
     suspend fun clearTop250Movies()
-    suspend fun loadMovie(movieId: Long)
 }
