@@ -11,13 +11,17 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.coolightman.themovie.App
 import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.FragmentMovieDetailBinding
 import com.coolightman.themovie.domain.entity.Country
+import com.coolightman.themovie.domain.entity.Frame
 import com.coolightman.themovie.domain.entity.Genre
 import com.coolightman.themovie.domain.entity.Movie
+import com.coolightman.themovie.presentation.adapter.FrameAdapter
 import com.coolightman.themovie.presentation.viewmodel.MovieDetailViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
 import com.coolightman.themovie.util.RatingColor.setRatingColor
@@ -42,7 +46,9 @@ class MovieDetailFragment : Fragment() {
 
     private var _binding: FragmentMovieDetailBinding? = null
     private val binding get() = _binding!!
+
     private lateinit var movie: Movie
+    private lateinit var frameAdapter: FrameAdapter
 
     override fun onAttach(context: Context) {
         component.inject(this)
@@ -61,7 +67,24 @@ class MovieDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val movieId = getMovieIdArg()
         createObservers(movieId)
+        createFrameRecycler()
         createListeners(movieId)
+    }
+
+    private fun createFrameRecycler() {
+        val recycler = binding.rvFrames
+        createFrameAdapter(recycler)
+        recycler.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    private fun createFrameAdapter(recycler: RecyclerView) {
+        frameAdapter = FrameAdapter { onFrameItemClickListener(it) }
+        recycler.adapter = frameAdapter
+    }
+
+    private fun onFrameItemClickListener(frame: Frame) {
+        shortToast(frame.imagePreview)
     }
 
     private fun createListeners(movieId: Long) {
@@ -89,6 +112,20 @@ class MovieDetailFragment : Fragment() {
         requireArguments().getLong(ARG_MOVIE_ID, 0)
 
     private fun createObservers(movieId: Long) {
+        createMovieObserver(movieId)
+        createFramesObserver(movieId)
+    }
+
+    private fun createFramesObserver(movieId: Long) {
+        viewModel.getFrames(movieId).observe(viewLifecycleOwner){
+            it?.let {
+                Log.d("ObservingFrames", it.toString())
+                frameAdapter.submitList(it)
+            }
+        }
+    }
+
+    private fun createMovieObserver(movieId: Long) {
         viewModel.getMovie(movieId).observe(viewLifecycleOwner) {
             it?.let {
                 Log.d("ObservingMovie", it.toString())
