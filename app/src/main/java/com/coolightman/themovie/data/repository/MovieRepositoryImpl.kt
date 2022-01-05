@@ -1,5 +1,6 @@
 package com.coolightman.themovie.data.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.liveData
@@ -113,6 +114,7 @@ class MovieRepositoryImpl @Inject constructor(
     private suspend fun loadMovieFromApi(movieId: Long) {
         val movieDto = apiService.loadMovie(movieId)
         val movieDbModel = movieMapper.mapDtoToDbModel(movieDto)
+        Log.d("LoadedMovie", movieDbModel.toString())
         movieDao.insert(movieDbModel)
     }
 }
