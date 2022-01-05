@@ -56,21 +56,23 @@ class MoviesPopularFragment : Fragment() {
             val diff = currentTime - lastRefresh
             val hours = (diff / 1000) / 3600
             if (hours >= TIME_AUTO_REFRESH_HOURS) {
-                viewModel.refreshPopularMovies()
-                createRefreshTimeStamp()
+                refreshPopular()
             }
         } else {
-            viewModel.refreshPopularMovies()
-            createRefreshTimeStamp()
+            refreshPopular()
         }
     }
 
     private fun swipeRefreshListener() {
         binding.swipeRefreshPopular.setOnRefreshListener {
-            viewModel.refreshPopularMovies()
-            createRefreshTimeStamp()
+            refreshPopular()
             binding.swipeRefreshPopular.isRefreshing = false
         }
+    }
+
+    private fun refreshPopular() {
+        viewModel.refreshPopularMovies()
+        createRefreshTimeStamp()
     }
 
     @SuppressLint("CommitPrefEdits")

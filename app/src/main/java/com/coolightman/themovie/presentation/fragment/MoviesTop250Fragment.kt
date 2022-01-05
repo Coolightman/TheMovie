@@ -56,21 +56,23 @@ class MoviesTop250Fragment : Fragment() {
             val diff = currentTime - lastRefresh
             val hours = (diff / 1000) / 3600
             if (hours >= TIME_AUTO_REFRESH_HOURS) {
-                viewModel.refreshTop250Movies()
-                createRefreshTimeStamp()
+                refreshTop250()
             }
         } else {
-            viewModel.refreshTop250Movies()
-            createRefreshTimeStamp()
+            refreshTop250()
         }
     }
 
     private fun swipeRefreshListener() {
         binding.swipeRefreshTop250.setOnRefreshListener {
-            viewModel.refreshTop250Movies()
-            createRefreshTimeStamp()
+            refreshTop250()
             binding.swipeRefreshTop250.isRefreshing = false
         }
+    }
+
+    private fun refreshTop250() {
+        viewModel.refreshTop250Movies()
+        createRefreshTimeStamp()
     }
 
     @SuppressLint("CommitPrefEdits")
