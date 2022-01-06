@@ -57,6 +57,19 @@ class GalleryFragment : Fragment() {
 
         createRecycler()
         createObserver(movieId, position)
+        createListeners()
+    }
+
+    private fun createListeners() {
+        with(binding){
+            imgCloseGallery.setOnClickListener {
+                closeGallery()
+            }
+        }
+    }
+
+    private fun closeGallery() {
+        requireActivity().supportFragmentManager.popBackStack()
     }
 
     private fun createObserver(movieId: Long, position: Int) {
@@ -98,7 +111,6 @@ class GalleryFragment : Fragment() {
     companion object {
         private const val ARG_MOVIE_ID = "movieId"
         private const val ARG_FRAME_POSITION = "framePosition"
-        private var prevPosition = -1
 
         fun newInstance(movieId: Long, framePosition: Int) =
             GalleryFragment().apply {
