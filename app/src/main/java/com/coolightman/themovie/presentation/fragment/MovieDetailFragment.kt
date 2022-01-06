@@ -18,7 +18,6 @@ import com.coolightman.themovie.App
 import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.FragmentMovieDetailBinding
 import com.coolightman.themovie.domain.entity.Country
-import com.coolightman.themovie.domain.entity.Frame
 import com.coolightman.themovie.domain.entity.Genre
 import com.coolightman.themovie.domain.entity.Movie
 import com.coolightman.themovie.presentation.adapter.FrameAdapter
@@ -83,8 +82,13 @@ class MovieDetailFragment : Fragment() {
         recycler.adapter = frameAdapter
     }
 
-    private fun onFrameItemClickListener(frame: Frame) {
-        shortToast(frame.imagePreview)
+    private fun onFrameItemClickListener(framePosition: Int) {
+        val fragment = GalleryFragment.newInstance(movie.movieId, framePosition)
+        parentFragmentManager
+            .beginTransaction()
+            .add(R.id.main_container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun createListeners(movieId: Long) {

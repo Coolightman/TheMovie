@@ -8,9 +8,8 @@ import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.FrameItemBinding
 import com.coolightman.themovie.domain.entity.Frame
 
-class FrameAdapter(
-    private val clickListener: (Frame) -> Unit
-) : ListAdapter<Frame, FrameViewHolder>(FrameDiffCallback()) {
+class FrameAdapter(private val clickListener: (Int) -> Unit) :
+    ListAdapter<Frame, FrameViewHolder>(FrameDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FrameViewHolder {
         val binding = FrameItemBinding
@@ -22,15 +21,15 @@ class FrameAdapter(
         val frame = getItem(position)
         frame?.let {
             with(holder.binding) {
-                setImage(this, frame)
-                root.setOnClickListener { clickListener(frame) }
+                setFramePreview(this, frame)
+                root.setOnClickListener { clickListener(position) }
             }
         }
     }
 
-    private fun setImage(binding: FrameItemBinding, frame: Frame) {
+    private fun setFramePreview(binding: FrameItemBinding, frame: Frame) {
         Glide.with(binding.root.context)
-            .load(frame.image)
+            .load(frame.imagePreview)
             .placeholder(R.drawable.placeholder_image)
             .into(binding.imgFrame)
     }

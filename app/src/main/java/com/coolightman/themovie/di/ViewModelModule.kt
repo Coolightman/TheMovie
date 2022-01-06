@@ -3,6 +3,7 @@ package com.coolightman.themovie.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.coolightman.themovie.presentation.fragment.MainFragment
+import com.coolightman.themovie.presentation.viewmodel.GalleryViewModel
 import com.coolightman.themovie.presentation.viewmodel.MainViewModel
 import com.coolightman.themovie.presentation.viewmodel.MovieDetailViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
@@ -23,4 +24,9 @@ interface ViewModelModule {
     @ViewModelKey(MovieDetailViewModel::class)
     @Binds
     fun bindMovieDetailViewModel(viewModel: MovieDetailViewModel): ViewModel
+
+    @IntoMap
+    @ViewModelKey(GalleryViewModel::class)
+    @Binds
+    fun bindGalleryViewModel(viewModel: GalleryViewModel): ViewModel
 }
