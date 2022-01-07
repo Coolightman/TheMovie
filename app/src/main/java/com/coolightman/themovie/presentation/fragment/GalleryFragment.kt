@@ -2,7 +2,6 @@ package com.coolightman.themovie.presentation.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,7 +60,7 @@ class GalleryFragment : Fragment() {
     }
 
     private fun createListeners() {
-        with(binding){
+        with(binding) {
             imgCloseGallery.setOnClickListener {
                 closeGallery()
             }
@@ -89,10 +88,10 @@ class GalleryFragment : Fragment() {
     }
 
     private fun setLayoutPosition(position: Int) {
-        if (position != -1) {
+        if (position != prevPosition) {
             layoutManager.scrollToPosition(position)
+            prevPosition = position
         }
-
     }
 
     private fun createFrameAdapter(recycler: RecyclerView) {
@@ -111,6 +110,7 @@ class GalleryFragment : Fragment() {
     companion object {
         private const val ARG_MOVIE_ID = "movieId"
         private const val ARG_FRAME_POSITION = "framePosition"
+        private var prevPosition = -1
 
         fun newInstance(movieId: Long, framePosition: Int) =
             GalleryFragment().apply {
