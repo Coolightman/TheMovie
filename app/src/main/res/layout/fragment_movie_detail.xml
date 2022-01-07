@@ -30,10 +30,10 @@
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/cd_poster"
-                    app:srcCompat="@drawable/placeholder_image_poster"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/placeholder_image_poster" />
 
                 <View
                     android:id="@+id/view_rating_background"
@@ -286,13 +286,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_description">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_frames"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:orientation="horizontal"
-                tools:listitem="@layout/frame_item"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_frames_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="@string/tv_frames_label_text"
+                    android:textSize="16sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_frames"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/frame_item"
+                    tools:orientation="horizontal"
+                    android:contentDescription="@string/tv_frames_label_text"/>
+
+            </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
