@@ -14,16 +14,27 @@ class VideoMapper @Inject constructor() {
     fun mapDtoToDbModel(dto: VideosDto, movieId: Long) = VideosDbModel(
         movieId = movieId,
         items = dto.items
-            .filter { it.url != null && it.name != null }
+            .filter { it.url != null && it.name != null && it.site == ARG_YOUTUBE_SITE }
             .map { mapVideoDtoToDbModel(it) }
     )
 
     private fun mapVideoDtoToDbModel(dto: VideoDto) = VideoDbModel(
         url = dto.url!!,
-        name = dto.name!!
+        name = dto.name!!,
+        previewUrl = getPreviewUrl(dto.url!!)
     )
 
+    private fun getPreviewUrl(url: String): String {
+        val videoId = url.split("=")[1]
+        return String.format(YOUTUBE_PREVIEW_URL_NODE, videoId)
+    }
+
     fun mapDbModelToListOfVideo(dbModel: VideosDbModel): List<Video> {
-        return dbModel.items.map { Video(url = it.url, name = it.name) }
+        return dbModel.items.map { Video(url = it.url, name = it.name, previewUrl = it.previewUrl) }
+    }
+
+    companion object{
+        private const val ARG_YOUTUBE_SITE = "YOUTUBE"
+        private const val YOUTUBE_PREVIEW_URL_NODE = "https://img.youtube.com/vi/%s/hqdefault.jpg"
     }
 }
