@@ -11,10 +11,10 @@ import com.coolightman.themovie.data.database.dbModel.VideosDbModel
 interface VideosDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertVideos(videos: VideosDbModel)
+    suspend fun insert(videos: VideosDbModel)
 
     @Query("select * from videosdbmodel where movieId = :movieId")
-    fun getVideosLiveData(movieId: Long): LiveData<VideosDbModel>
+    fun getVideos(movieId: Long): LiveData<VideosDbModel>
 
     @Query("select exists(select * from videosdbmodel where movieId = :movieId)")
     suspend fun exists(movieId: Long): Boolean

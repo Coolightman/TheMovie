@@ -6,10 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coolightman.themovie.domain.entity.Frame
 import com.coolightman.themovie.domain.entity.Movie
-import com.coolightman.themovie.domain.usecase.AddMovieToFavoriteUseCase
-import com.coolightman.themovie.domain.usecase.GetMovieFramesUseCase
-import com.coolightman.themovie.domain.usecase.GetMovieUseCase
-import com.coolightman.themovie.domain.usecase.RemoveMovieFromFavoriteUseCase
+import com.coolightman.themovie.domain.entity.Video
+import com.coolightman.themovie.domain.usecase.*
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,6 +15,7 @@ import javax.inject.Inject
 class MovieDetailViewModel @Inject constructor(
     private val getMovieUseCase: GetMovieUseCase,
     private val getMovieFramesUseCase: GetMovieFramesUseCase,
+    private val getMovieVideosUseCase: GetMovieVideosUseCase,
     private val addMovieToFavoriteUseCase: AddMovieToFavoriteUseCase,
     private val removeMovieFromFavoriteUseCase: RemoveMovieFromFavoriteUseCase
 ) : ViewModel() {
@@ -28,6 +27,8 @@ class MovieDetailViewModel @Inject constructor(
     fun getMovie(movieId: Long): LiveData<Movie> = getMovieUseCase(movieId)
 
     fun getFrames(movieId: Long): LiveData<List<Frame>> = getMovieFramesUseCase(movieId)
+
+    fun getVideos(movieId: Long): LiveData<List<Video>> = getMovieVideosUseCase(movieId)
 
     fun addMovieToFavorite(movieId: Long){
         viewModelScope.launch(handler) {

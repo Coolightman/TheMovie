@@ -1,6 +1,8 @@
 package com.coolightman.themovie.presentation.fragment
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,6 +23,7 @@ import com.coolightman.themovie.domain.entity.Country
 import com.coolightman.themovie.domain.entity.Genre
 import com.coolightman.themovie.domain.entity.Movie
 import com.coolightman.themovie.presentation.adapter.FrameAdapter
+import com.coolightman.themovie.presentation.adapter.VideoAdapter
 import com.coolightman.themovie.presentation.viewmodel.MovieDetailViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
 import com.coolightman.themovie.util.RatingColor.setRatingColor
@@ -48,6 +51,7 @@ class MovieDetailFragment : Fragment() {
 
     private lateinit var movie: Movie
     private lateinit var frameAdapter: FrameAdapter
+    private lateinit var videoAdapter: VideoAdapter
 
     override fun onAttach(context: Context) {
         component.inject(this)
@@ -66,15 +70,37 @@ class MovieDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val movieId = getMovieIdArg()
         createObservers(movieId)
-        createFrameRecycler()
+        createRecyclers()
         createListeners(movieId)
+    }
+
+    private fun createRecyclers() {
+        createFrameRecycler()
+        createVideoRecycler()
+    }
+
+    private fun createVideoRecycler() {
+        val recycler = binding.rvVideos
+        recycler.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        createVideoAdapter(recycler)
+    }
+
+    private fun createVideoAdapter(recycler: RecyclerView) {
+        videoAdapter = VideoAdapter { onVideoItemClickListener(it) }
+        recycler.adapter = videoAdapter
+    }
+
+    private fun onVideoItemClickListener(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 
     private fun createFrameRecycler() {
         val recycler = binding.rvFrames
-        createFrameAdapter(recycler)
         recycler.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        createFrameAdapter(recycler)
     }
 
     private fun createFrameAdapter(recycler: RecyclerView) {
@@ -118,6 +144,20 @@ class MovieDetailFragment : Fragment() {
     private fun createObservers(movieId: Long) {
         createMovieObserver(movieId)
         createFramesObserver(movieId)
+        createVideosObserver(movieId)
+    }
+
+    private fun createVideosObserver(movieId: Long) {
+        viewModel.getVideos(movieId).observe(viewLifecycleOwner) {
+            it?.let {
+                if (it.isNotEmpty()) {
+                    Log.d("ObservingVideos", it.toString())
+                    videoAdapter.submitList(it)
+                } else {
+                    binding.cvVideos.visibility = GONE
+                }
+            }
+        }
     }
 
     private fun createFramesObserver(movieId: Long) {

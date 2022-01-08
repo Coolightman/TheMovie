@@ -14,9 +14,15 @@ class VideoMapper @Inject constructor() {
     fun mapDtoToDbModel(dto: VideosDto, movieId: Long) = VideosDbModel(
         movieId = movieId,
         items = dto.items
-            .filter { it.url != null && it.name != null && it.site == ARG_YOUTUBE_SITE }
+            .filter { isValid(it) && isYoutube(it) }
             .map { mapVideoDtoToDbModel(it) }
     )
+
+    private fun isValid(it: VideoDto) =
+        it.url != null && it.name != null
+
+    private fun isYoutube(it: VideoDto) =
+        it.site == ARG_YOUTUBE_SITE && it.url!!.contains("=")
 
     private fun mapVideoDtoToDbModel(dto: VideoDto) = VideoDbModel(
         url = dto.url!!,
