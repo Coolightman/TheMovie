@@ -3,12 +3,10 @@
     <string name="tab_text_0">Popular</string>
     <string name="tab_text_1">Top 250</string>
     <string name="tab_text_2">Favorite</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tv_clue_favorites_empty">Your favorite movies is empty!</string>
     <string name="error_message_unknown_host_exception">Check INTERNET connection</string>
     <string name="error_message_socket_timeout_exception">Check INTERNET connection</string>
-    <string name="cd_poster">poster</string>
+    <string name="cd_poster" translatable="false">poster</string>
     <string name="tv_popular_place_label_text">Popul.</string>
     <string name="tv_top_250_place_label_text">Top-250</string>
     <string name="tv_year_label_text">Year</string>
@@ -18,8 +16,8 @@
     <string name="favorite_added">Add to favorite!</string>
     <string name="favorite_deleted">Deleted from favorite!</string>
     <string name="tv_age_limits_label_text">Age limit</string>
-    <string name="preference_file_key">theMoviePreferenceFile</string>
-    <string name="cd_gallery_frame">frame in gallery</string>
+    <string name="preference_file_key" translatable="false">theMoviePreferenceFile</string>
+    <string name="cd_gallery_frame" translatable="false">frame in gallery</string>
     <string name="tv_frames_label_text">Frames</string>
     <string name="tv_facts_label_text">Facts</string>
     <string name="tv_videos_label_text">Videos</string>

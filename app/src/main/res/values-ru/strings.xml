@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TheMovie</string>
+    <string name="tab_text_0">Популярные</string>
+    <string name="tab_text_1">Топ 250</string>
+    <string name="tab_text_2">Избранное</string>
+    <string name="tv_clue_favorites_empty">У Вас ещё нет избранных фильмов!</string>
+    <string name="error_message_unknown_host_exception">Проверьте ИНТЕРНЕТ соединение</string>
+    <string name="error_message_socket_timeout_exception">Проверьте ИНТЕРНЕТ соединение</string>
+    <string name="tv_popular_place_label_text">Попул.</string>
+    <string name="tv_top_250_place_label_text">Топ-250</string>
+    <string name="tv_year_label_text">Год</string>
+    <string name="tv_duration_label_text">Продолжительность</string>
+    <string name="tv_genre_label_text">Жанр</string>
+    <string name="tv_country_label_text">Страна</string>
+    <string name="favorite_added">Добавлен в избранное!</string>
+    <string name="favorite_deleted">Убран из избранного!</string>
+    <string name="tv_age_limits_label_text">Ограничение</string>
+    <string name="tv_frames_label_text">Кадры</string>
+    <string name="tv_facts_label_text">Факты</string>
+    <string name="tv_videos_label_text">Видео</string>
+    <string name="tv_similars_label_text">Похожие</string>
+    <string name="tv_button_kinopoisk_text">КиноПоиск</string>
+</resources>
