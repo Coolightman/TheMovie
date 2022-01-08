@@ -144,15 +144,26 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun createListeners(movieId: Long) {
-        binding.imgFavorite.setOnClickListener {
-            if (movie.isFavorite) {
-                viewModel.removeMovieFromFavorite(movieId)
-                shortToast(getString(R.string.favorite_deleted))
-            } else {
-                viewModel.addMovieToFavorite(movieId)
-                shortToast(getString(R.string.favorite_added))
+        with(binding){
+            imgFavorite.setOnClickListener {
+                if (movie.isFavorite) {
+                    viewModel.removeMovieFromFavorite(movieId)
+                    shortToast(getString(R.string.favorite_deleted))
+                } else {
+                    viewModel.addMovieToFavorite(movieId)
+                    shortToast(getString(R.string.favorite_added))
+                }
+            }
+
+            tvButtonKinopoisk.setOnClickListener {
+                launchToKinopoisk()
             }
         }
+    }
+
+    private fun launchToKinopoisk() {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.webUrl))
+        startActivity(intent)
     }
 
     private fun shortToast(text: String) {
