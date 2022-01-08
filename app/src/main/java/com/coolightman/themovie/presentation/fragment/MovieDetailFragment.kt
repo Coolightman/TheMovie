@@ -22,7 +22,9 @@ import com.coolightman.themovie.databinding.FragmentMovieDetailBinding
 import com.coolightman.themovie.domain.entity.Country
 import com.coolightman.themovie.domain.entity.Genre
 import com.coolightman.themovie.domain.entity.Movie
+import com.coolightman.themovie.domain.entity.ShortMovie
 import com.coolightman.themovie.presentation.adapter.FrameAdapter
+import com.coolightman.themovie.presentation.adapter.ShortMovieAdapter
 import com.coolightman.themovie.presentation.adapter.VideoAdapter
 import com.coolightman.themovie.presentation.viewmodel.MovieDetailViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
@@ -52,6 +54,7 @@ class MovieDetailFragment : Fragment() {
     private lateinit var movie: Movie
     private lateinit var frameAdapter: FrameAdapter
     private lateinit var videoAdapter: VideoAdapter
+    private lateinit var similarAdapter: ShortMovieAdapter
 
     override fun onAttach(context: Context) {
         component.inject(this)
@@ -77,6 +80,28 @@ class MovieDetailFragment : Fragment() {
     private fun createRecyclers() {
         createFrameRecycler()
         createVideoRecycler()
+        createSimilarRecycler()
+    }
+
+    private fun createSimilarRecycler() {
+        val recycler = binding.rvSimilars
+        recycler.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        createSimilarAdapter(recycler)
+    }
+
+    private fun createSimilarAdapter(recycler: RecyclerView) {
+        similarAdapter = ShortMovieAdapter { onSimilarClickListener(it) }
+        recycler.adapter = similarAdapter
+    }
+
+    private fun onSimilarClickListener(movie: ShortMovie) {
+        val fragment = newInstance(movie.movieId)
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.main_container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun createVideoRecycler() {
@@ -145,6 +170,20 @@ class MovieDetailFragment : Fragment() {
         createMovieObserver(movieId)
         createFramesObserver(movieId)
         createVideosObserver(movieId)
+        createSimilarsObserver(movieId)
+    }
+
+    private fun createSimilarsObserver(movieId: Long) {
+        viewModel.getSimilars(movieId).observe(viewLifecycleOwner) {
+            it?.let {
+                if (it.isNotEmpty()) {
+                    Log.d("ObservingSimilars", it.toString())
+                    similarAdapter.submitList(it)
+                } else {
+                    binding.cvSimilars.visibility = GONE
+                }
+            }
+        }
     }
 
     private fun createVideosObserver(movieId: Long) {

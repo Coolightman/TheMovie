@@ -405,6 +405,16 @@
                     android:text="@string/tv_similars_label_text"
                     android:textSize="16sp" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_similars"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/tv_videos_label_text"
+                    android:layout_marginBottom="2dp"
+                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/short_movie_item"
+                    tools:orientation="horizontal" />
+
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
