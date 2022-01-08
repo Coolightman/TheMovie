@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +24,8 @@ class GalleryFragment : Fragment() {
     private val component by lazy {
         (requireActivity().application as App).component
     }
+
+    private val args by navArgs<GalleryFragmentArgs>()
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -51,8 +55,8 @@ class GalleryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val movieId = getMovieIdArg()
-        val position = getFramePositionArg()
+        val movieId = args.movieId
+        val position = args.framePosition
 
         createRecycler()
         createObserver(movieId, position)
@@ -68,7 +72,7 @@ class GalleryFragment : Fragment() {
     }
 
     private fun closeGallery() {
-        requireActivity().supportFragmentManager.popBackStack()
+        findNavController().popBackStack()
     }
 
     private fun createObserver(movieId: Long, position: Int) {
@@ -102,23 +106,8 @@ class GalleryFragment : Fragment() {
         PagerSnapHelper().attachToRecyclerView(recycler)
     }
 
-    private fun getFramePositionArg() = requireArguments().getInt(ARG_FRAME_POSITION, -1)
-
-    private fun getMovieIdArg() = requireArguments().getLong(ARG_MOVIE_ID, 0)
-
-
     companion object {
-        private const val ARG_MOVIE_ID = "movieId"
-        private const val ARG_FRAME_POSITION = "framePosition"
         private var prevPosition = -1
-
-        fun newInstance(movieId: Long, framePosition: Int) =
-            GalleryFragment().apply {
-                arguments = Bundle().apply {
-                    putLong(ARG_MOVIE_ID, movieId)
-                    putInt(ARG_FRAME_POSITION, framePosition)
-                }
-            }
     }
 
 }

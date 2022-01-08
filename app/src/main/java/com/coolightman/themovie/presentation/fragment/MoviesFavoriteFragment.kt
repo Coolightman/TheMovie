@@ -8,6 +8,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.coolightman.themovie.R
@@ -59,7 +60,7 @@ class MoviesFavoriteFragment : Fragment() {
     }
 
     private fun createAdapter() {
-        favoriteMovieAdapter = FavoriteMovieAdapter { onClickMovie(it) }
+        favoriteMovieAdapter = FavoriteMovieAdapter { onClickMovie(it.movieId) }
         binding.rvFavoriteMovies.adapter = favoriteMovieAdapter
         binding.rvFavoriteMovies.layoutManager =
             GridLayoutManager(requireContext(), getColumnCount())
@@ -74,13 +75,10 @@ class MoviesFavoriteFragment : Fragment() {
         else MIN_COLUMN
     }
 
-    private fun onClickMovie(movie: Movie) {
-        val fragment = MovieDetailFragment.newInstance(movie.movieId)
-        requireParentFragment().parentFragmentManager
-            .beginTransaction()
-            .replace(R.id.main_container, fragment)
-            .addToBackStack(null)
-            .commit()
+    private fun onClickMovie(movieId: Long) {
+        requireParentFragment().findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToMovieDetailFragment2(movieId)
+        )
     }
 
     override fun onDestroy() {

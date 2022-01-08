@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.coolightman.themovie.R
@@ -108,18 +109,15 @@ class MoviesPopularFragment : Fragment() {
     }
 
     private fun createAdapter() {
-        shortMovieAdapter = ShortMovieAdapter { onClickMovie(it) }
+        shortMovieAdapter = ShortMovieAdapter { onClickMovie(it.movieId) }
         shortMovieAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
 
-    private fun onClickMovie(movie: ShortMovie) {
-        val fragment = MovieDetailFragment.newInstance(movie.movieId)
-        requireParentFragment().parentFragmentManager
-            .beginTransaction()
-            .replace(R.id.main_container, fragment)
-            .addToBackStack(null)
-            .commit()
+    private fun onClickMovie(movieId: Long) {
+        requireParentFragment().findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToMovieDetailFragment2(movieId)
+        )
     }
 
     override fun onDestroy() {

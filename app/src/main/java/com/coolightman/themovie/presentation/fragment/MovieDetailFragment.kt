@@ -13,6 +13,8 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -40,6 +42,8 @@ class MovieDetailFragment : Fragment() {
     private val component by lazy {
         (requireActivity().application as App).component
     }
+
+    private val args by navArgs<MovieDetailFragmentArgs>()
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -71,7 +75,7 @@ class MovieDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val movieId = getMovieIdArg()
+        val movieId = args.movieId
         createObservers(movieId)
         createRecyclers()
         createListeners(movieId)
@@ -91,17 +95,14 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun createSimilarAdapter(recycler: RecyclerView) {
-        similarAdapter = ShortMovieAdapter { onSimilarClickListener(it) }
+        similarAdapter = ShortMovieAdapter { onSimilarClickListener(it.movieId) }
         recycler.adapter = similarAdapter
     }
 
-    private fun onSimilarClickListener(movie: ShortMovie) {
-        val fragment = newInstance(movie.movieId)
-        parentFragmentManager
-            .beginTransaction()
-            .replace(R.id.main_container, fragment)
-            .addToBackStack(null)
-            .commit()
+    private fun onSimilarClickListener(movieId: Long) {
+        findNavController().navigate(
+            MovieDetailFragmentDirections.actionMovieDetailFragmentSelf(movieId)
+        )
     }
 
     private fun createVideoRecycler() {
@@ -134,12 +135,12 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun onFrameItemClickListener(framePosition: Int) {
-        val fragment = GalleryFragment.newInstance(movie.movieId, framePosition)
-        parentFragmentManager
-            .beginTransaction()
-            .add(R.id.main_container, fragment)
-            .addToBackStack(null)
-            .commit()
+        findNavController().navigate(
+            MovieDetailFragmentDirections.actionMovieDetailFragmentToGalleryFragment(
+                movie.movieId,
+                framePosition
+            )
+        )
     }
 
     private fun createListeners(movieId: Long) {
@@ -162,9 +163,6 @@ class MovieDetailFragment : Fragment() {
             toast.cancel()
         }
     }
-
-    private fun getMovieIdArg() =
-        requireArguments().getLong(ARG_MOVIE_ID, 0)
 
     private fun createObservers(movieId: Long) {
         createMovieObserver(movieId)
@@ -396,14 +394,6 @@ class MovieDetailFragment : Fragment() {
     }
 
     companion object {
-        private const val ARG_MOVIE_ID = "movieId"
         private const val TIME_SHORT_TOAST = 800L
-
-        fun newInstance(movieId: Long) =
-            MovieDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putLong(ARG_MOVIE_ID, movieId)
-                }
-            }
     }
 }
