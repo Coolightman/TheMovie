@@ -10,7 +10,7 @@ import dagger.Component
 @Component(
     modules = [
         ViewModelModule::class,
-        RepositoryModule::class,
+        RepositoryBindModule::class,
         NetworkModule::class,
         DatabaseModule::class
     ]

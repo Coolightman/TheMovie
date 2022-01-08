@@ -1,19 +1,13 @@
 package com.coolightman.themovie.presentation.adapter
 
-import android.annotation.SuppressLint
 import android.graphics.Color
-import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import androidx.core.graphics.BlendModeColorFilterCompat
-import androidx.core.graphics.BlendModeCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable.LARGE
 import com.bumptech.glide.Glide
-import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.GalleryFrameItemBinding
 import com.coolightman.themovie.domain.entity.Frame
 

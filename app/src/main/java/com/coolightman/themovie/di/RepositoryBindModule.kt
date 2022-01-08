@@ -6,7 +6,7 @@ import dagger.Binds
 import dagger.Module
 
 @Module
-interface RepositoryModule {
+interface RepositoryBindModule {
 
     @ApplicationScope
     @Binds

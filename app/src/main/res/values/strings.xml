@@ -21,4 +21,8 @@
     <string name="preference_file_key">theMoviePreferenceFile</string>
     <string name="cd_gallery_frame">frame in gallery</string>
     <string name="tv_frames_label_text">Frames</string>
+    <string name="tv_facts_label_text">Facts</string>
+    <string name="tv_videos_label_text">Videos</string>
+    <string name="tv_similars_label_text">Similars</string>
+    <string name="tv_button_kinopoisk_text">Kinopoisk</string>
 </resources>

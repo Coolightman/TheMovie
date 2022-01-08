@@ -121,10 +121,15 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun createFramesObserver(movieId: Long) {
-        viewModel.getFrames(movieId).observe(viewLifecycleOwner){
+        viewModel.getFrames(movieId).observe(viewLifecycleOwner) {
             it?.let {
-                Log.d("ObservingFrames", it.toString())
-                frameAdapter.submitList(it)
+                if (it.isNotEmpty()) {
+                    Log.d("ObservingFrames", it.toString())
+                    frameAdapter.submitList(it)
+                } else {
+                    binding.cvFrames.visibility = GONE
+                }
+
             }
         }
     }
