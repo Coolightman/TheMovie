@@ -1,5 +1,6 @@
 package com.coolightman.themovie.data.mapper
 
+import androidx.core.text.HtmlCompat
 import com.coolightman.themovie.data.database.dbModel.FactDbModel
 import com.coolightman.themovie.data.database.dbModel.FactsDbModel
 import com.coolightman.themovie.data.network.dto.FactDto
@@ -19,9 +20,13 @@ class FactMapper @Inject constructor() {
     )
 
     private fun mapFrameDtoToDbModel(dto: FactDto) = FactDbModel(
-        text = dto.text!!,
+        text = cleanText(dto.text!!),
         spoiler = dto.spoiler!!
     )
+
+    private fun cleanText(text: String): String {
+        return HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY).toString()
+    }
 
     fun mapDbModelToListOfFact(dbModel: FactsDbModel): List<Fact> {
         return dbModel.items.map { Fact(text = it.text, spoiler = it.spoiler) }
