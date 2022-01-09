@@ -21,4 +21,6 @@
     <string name="tv_videos_label_text">Видео</string>
     <string name="tv_similars_label_text">Похожие</string>
     <string name="tv_button_kinopoisk_text">КиноПоиск</string>
+    <string name="tv_fact_warning_text">Внимание! Спойлер!</string>
+    <string name="tv_facts_see_more_text">Все..</string>
 </resources>

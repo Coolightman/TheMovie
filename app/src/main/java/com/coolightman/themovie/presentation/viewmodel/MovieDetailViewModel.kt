@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.coolightman.themovie.domain.entity.Frame
-import com.coolightman.themovie.domain.entity.Movie
-import com.coolightman.themovie.domain.entity.ShortMovie
-import com.coolightman.themovie.domain.entity.Video
+import com.coolightman.themovie.domain.entity.*
 import com.coolightman.themovie.domain.usecase.*
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
@@ -17,6 +14,7 @@ class MovieDetailViewModel @Inject constructor(
     private val getMovieUseCase: GetMovieUseCase,
     private val getMovieFramesUseCase: GetMovieFramesUseCase,
     private val getMovieVideosUseCase: GetMovieVideosUseCase,
+    private val getMovieFactsUseCase: GetMovieFactsUseCase,
     private val getMovieSimilarsUseCase: GetMovieSimilarsUseCase,
     private val addMovieToFavoriteUseCase: AddMovieToFavoriteUseCase,
     private val removeMovieFromFavoriteUseCase: RemoveMovieFromFavoriteUseCase
@@ -29,6 +27,8 @@ class MovieDetailViewModel @Inject constructor(
     fun getMovie(movieId: Long): LiveData<Movie> = getMovieUseCase(movieId)
 
     fun getFrames(movieId: Long): LiveData<List<Frame>> = getMovieFramesUseCase(movieId)
+
+    fun getFacts(movieId: Long): LiveData<List<Fact>> = getMovieFactsUseCase(movieId)
 
     fun getVideos(movieId: Long): LiveData<List<Video>> = getMovieVideosUseCase(movieId)
 

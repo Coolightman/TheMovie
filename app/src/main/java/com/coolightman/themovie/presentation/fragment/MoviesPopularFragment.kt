@@ -130,6 +130,6 @@ class MoviesPopularFragment : Fragment() {
 
         private const val MIN_PAGE_SIZE = 20
         private const val PREF_POPULAR_LAST_REFRESH = "PopularRefreshStamp"
-        private const val TIME_AUTO_REFRESH_HOURS = 12
+        private const val TIME_AUTO_REFRESH_HOURS = 8
     }
 }

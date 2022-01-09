@@ -22,9 +22,9 @@ import com.coolightman.themovie.App
 import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.FragmentMovieDetailBinding
 import com.coolightman.themovie.domain.entity.Country
+import com.coolightman.themovie.domain.entity.Fact
 import com.coolightman.themovie.domain.entity.Genre
 import com.coolightman.themovie.domain.entity.Movie
-import com.coolightman.themovie.domain.entity.ShortMovie
 import com.coolightman.themovie.presentation.adapter.FrameAdapter
 import com.coolightman.themovie.presentation.adapter.ShortMovieAdapter
 import com.coolightman.themovie.presentation.adapter.VideoAdapter
@@ -144,7 +144,7 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun createListeners(movieId: Long) {
-        with(binding){
+        with(binding) {
             imgFavorite.setOnClickListener {
                 if (movie.isFavorite) {
                     viewModel.removeMovieFromFavorite(movieId)
@@ -178,8 +178,36 @@ class MovieDetailFragment : Fragment() {
     private fun createObservers(movieId: Long) {
         createMovieObserver(movieId)
         createFramesObserver(movieId)
+        createFactsObserver(movieId)
         createVideosObserver(movieId)
         createSimilarsObserver(movieId)
+    }
+
+    private fun createFactsObserver(movieId: Long) {
+        viewModel.getFacts(movieId).observe(viewLifecycleOwner) {
+            it?.let {
+                if (it.isNotEmpty()) {
+                    val firstFact = it[0]
+                    checkSpoiler(firstFact)
+                    checkFactsSize(it)
+                    binding.tvFact1.text = firstFact.text
+                } else {
+                    binding.cvFacts.visibility = GONE
+                }
+            }
+        }
+    }
+
+    private fun checkFactsSize(it: List<Fact>) {
+        if (it.size == 1) {
+            binding.tvFactsSeeMore.visibility = GONE
+        }
+    }
+
+    private fun checkSpoiler(firstFact: Fact) {
+        if (!firstFact.spoiler) {
+            binding.tvFact1Warning.visibility = GONE
+        }
     }
 
     private fun createSimilarsObserver(movieId: Long) {

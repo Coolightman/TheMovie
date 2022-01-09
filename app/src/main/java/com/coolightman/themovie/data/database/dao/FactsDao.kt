@@ -11,10 +11,10 @@ import com.coolightman.themovie.data.database.dbModel.FactsDbModel
 interface FactsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertFacts(facts: FactsDbModel)
+    suspend fun insert(facts: FactsDbModel)
 
     @Query("select * from factsdbmodel where movieId = :movieId")
-    fun getFactsLiveData(movieId: Long): LiveData<FactsDbModel>
+    fun getFacts(movieId: Long): LiveData<FactsDbModel>
 
     @Query("select exists(select * from factsdbmodel where movieId = :movieId)")
     suspend fun exists(movieId: Long): Boolean
