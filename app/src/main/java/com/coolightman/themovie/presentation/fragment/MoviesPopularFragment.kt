@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.FragmentMoviesPopularBinding
-import com.coolightman.themovie.domain.entity.ShortMovie
 import com.coolightman.themovie.presentation.adapter.ShortMovieAdapter
 import com.coolightman.themovie.util.ColumnCount.getColumnCount
 
