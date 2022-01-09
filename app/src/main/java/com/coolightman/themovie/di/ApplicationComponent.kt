@@ -1,6 +1,7 @@
 package com.coolightman.themovie.di
 
 import android.content.Context
+import com.coolightman.themovie.presentation.fragment.AllFactsFragment
 import com.coolightman.themovie.presentation.fragment.GalleryFragment
 import com.coolightman.themovie.presentation.fragment.MainFragment
 import com.coolightman.themovie.presentation.fragment.MovieDetailFragment
@@ -21,6 +22,7 @@ interface ApplicationComponent {
     fun inject(mainFragment: MainFragment)
     fun inject(movieDetailFragment: MovieDetailFragment)
     fun inject(galleryFragment: GalleryFragment)
+    fun inject(allFactsFragment: AllFactsFragment)
 
     @Component.Factory
     interface ApplicationComponentFactory {

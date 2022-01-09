@@ -35,6 +35,11 @@
         <argument
             android:name="movieId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_movieDetailFragment_to_allFactsFragment"
+            app:destination="@id/allFactsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/galleryFragment"
@@ -47,5 +52,14 @@
         <argument
             android:name="framePosition"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/allFactsFragment"
+        android:name="com.coolightman.themovie.presentation.fragment.AllFactsFragment"
+        android:label="fragment_all_facts"
+        tools:layout="@layout/fragment_all_facts" >
+        <argument
+            android:name="movieId"
+            app:argType="long" />
     </fragment>
 </navigation>

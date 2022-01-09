@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".presentation.fragment.GalleryFragment">
 
-    <View
-        android:id="@+id/view_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/veryFadedGray" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_gallery"
         android:layout_width="match_parent"

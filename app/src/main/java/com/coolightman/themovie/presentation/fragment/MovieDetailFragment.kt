@@ -158,7 +158,19 @@ class MovieDetailFragment : Fragment() {
             tvButtonKinopoisk.setOnClickListener {
                 launchToKinopoisk()
             }
+
+            tvFactsSeeMore.setOnClickListener {
+                launchToAllFacts()
+            }
         }
+    }
+
+    private fun launchToAllFacts() {
+        findNavController().navigate(
+            MovieDetailFragmentDirections.actionMovieDetailFragmentToAllFactsFragment(
+                movie.movieId
+            )
+        )
     }
 
     private fun launchToKinopoisk() {

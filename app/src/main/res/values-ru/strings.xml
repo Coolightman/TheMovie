@@ -23,4 +23,5 @@
     <string name="tv_button_kinopoisk_text">КиноПоиск</string>
     <string name="tv_fact_warning_text">Внимание! Спойлер!</string>
     <string name="tv_facts_see_more_text">Все..</string>
+    <string name="tv_facts_top_label_text">Факты</string>
 </resources>
