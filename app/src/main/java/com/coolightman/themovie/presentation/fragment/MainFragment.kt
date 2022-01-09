@@ -1,9 +1,11 @@
 package com.coolightman.themovie.presentation.fragment
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -52,6 +54,13 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         createSectionsAdapter()
         errorsListener()
+        forLandscape()
+    }
+
+    private fun forLandscape() {
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            binding.tvAppTitle.visibility = GONE
+        }
     }
 
     private fun errorsListener() {
