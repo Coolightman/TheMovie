@@ -293,9 +293,9 @@
                     android:id="@+id/tv_frames_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:paddingStart="16dp"
                     android:paddingTop="2dp"
+                    android:paddingEnd="16dp"
                     android:paddingBottom="2dp"
                     android:text="@string/tv_frames_label_text"
                     android:textSize="16sp" />
@@ -316,29 +316,89 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_facts"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             app:cardCornerRadius="4dp">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_facts_label"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:paddingStart="16dp"
                     android:paddingTop="2dp"
+                    android:paddingEnd="16dp"
                     android:paddingBottom="2dp"
                     android:text="@string/tv_facts_label_text"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </LinearLayout>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_facts_see_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="2dp"
+                    android:text="@string/tv_facts_see_more_text"
+                    android:textColor="#BC8A0E"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:elevation="4dp"
+                    app:cardCornerRadius="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_facts_label">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_fact_1_warning"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingStart="16dp"
+                            android:paddingTop="4dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="4dp"
+                            android:text="@string/tv_fact_warning_text"
+                            android:textColor="@android:color/holo_red_light"
+                            android:textSize="16sp" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_fact_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="16dp"
+                            android:paddingTop="4dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="4dp"
+                            android:textSize="16sp"
+                            tools:text="Some fact 1" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -360,9 +420,9 @@
                     android:id="@+id/tv_videos_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:paddingStart="16dp"
                     android:paddingTop="2dp"
+                    android:paddingEnd="16dp"
                     android:paddingBottom="2dp"
                     android:text="@string/tv_videos_label_text"
                     android:textSize="16sp" />
@@ -398,9 +458,9 @@
                     android:id="@+id/tv_similars_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:paddingStart="16dp"
                     android:paddingTop="2dp"
+                    android:paddingEnd="16dp"
                     android:paddingBottom="2dp"
                     android:text="@string/tv_similars_label_text"
                     android:textSize="16sp" />
@@ -409,8 +469,8 @@
                     android:id="@+id/rv_similars"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/tv_videos_label_text"
                     android:layout_marginBottom="2dp"
+                    android:contentDescription="@string/tv_videos_label_text"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/short_movie_item"
                     tools:orientation="horizontal" />

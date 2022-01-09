@@ -23,4 +23,6 @@
     <string name="tv_videos_label_text">Videos</string>
     <string name="tv_similars_label_text">Similars</string>
     <string name="tv_button_kinopoisk_text">Kinopoisk</string>
+    <string name="tv_fact_warning_text">Warning! Spoiler</string>
+    <string name="tv_facts_see_more_text">See more..</string>
 </resources>
