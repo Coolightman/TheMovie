@@ -42,7 +42,7 @@ class VideoAdapter(private val clickListener: (String) -> Unit) :
     private fun setVideoPreview(binding: VideoItemBinding, videoPreview: String) {
         Glide.with(binding.root.context)
             .load(videoPreview)
-            .placeholder(R.drawable.placeholder_image)
+            .placeholder(R.drawable.video_placeholder)
             .into(binding.imgVideoPreview)
     }
 
