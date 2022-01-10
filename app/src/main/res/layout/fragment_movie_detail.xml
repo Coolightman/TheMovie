@@ -85,6 +85,130 @@
                     app:srcCompat="@drawable/ic_baseline_star_36"
                     tools:visibility="visible" />
 
+                <LinearLayout
+                    android:id="@+id/view_imdb"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/rounded_2_corners_view_rating"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="@id/view_rating_background"
+                    app:layout_constraintStart_toStartOf="@id/view_rating_background"
+                    app:layout_constraintTop_toBottomOf="@id/view_rating_background">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_imdb_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="2dp"
+                        android:text="@string/tv_imdb_label_text"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_rating_imdb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingStart="6dp"
+                        android:paddingTop="3dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="3dp"
+                        android:textSize="16sp"
+                        tools:text="8.6" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_rating_imdb_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp"
+                        tools:text="99999" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/view_critics"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/rounded_2_corners_view_rating"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="@id/view_rating_background"
+                    app:layout_constraintStart_toStartOf="@id/view_rating_background"
+                    app:layout_constraintTop_toBottomOf="@id/view_imdb">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_critics_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="2dp"
+                        android:text="@string/tv_critics_label_text"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_rating_critics"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingStart="6dp"
+                        android:paddingTop="3dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="3dp"
+                        android:textSize="16sp"
+                        tools:text="8.6" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_rating_critics_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp"
+                        tools:text="99999" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/view_top_250"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/rounded_2_corners_view_rating"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="@id/view_rating_background"
+                    app:layout_constraintStart_toStartOf="@id/view_rating_background"
+                    app:layout_constraintTop_toBottomOf="@id/view_critics">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_top_250_place_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="2dp"
+                        android:text="@string/tv_top_250_place_label_text"
+                        android:textColor="#BC8A0E"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_top_250_place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingStart="6dp"
+                        android:paddingTop="3dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="3dp"
+                        android:textSize="16sp"
+                        tools:text="123" />
+
+
+                </LinearLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
