@@ -16,6 +16,7 @@ class MovieDetailViewModel @Inject constructor(
     private val getMovieVideosUseCase: GetMovieVideosUseCase,
     private val getMovieFactsUseCase: GetMovieFactsUseCase,
     private val getMovieSimilarsUseCase: GetMovieSimilarsUseCase,
+    private val getTop250PlaceUseCase: GetTop250PlaceUseCase,
     private val addMovieToFavoriteUseCase: AddMovieToFavoriteUseCase,
     private val removeMovieFromFavoriteUseCase: RemoveMovieFromFavoriteUseCase
 ) : ViewModel() {
@@ -33,6 +34,8 @@ class MovieDetailViewModel @Inject constructor(
     fun getVideos(movieId: Long): LiveData<List<Video>> = getMovieVideosUseCase(movieId)
 
     fun getSimilars(movieId: Long): LiveData<List<ShortMovie>> = getMovieSimilarsUseCase(movieId)
+
+    fun getTop250Place(movieId: Long): LiveData<String> = getTop250PlaceUseCase(movieId)
 
     fun addMovieToFavorite(movieId: Long){
         viewModelScope.launch(handler) {

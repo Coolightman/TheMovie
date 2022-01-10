@@ -37,6 +37,9 @@ interface ShortMovieDao {
     @Query("select COUNT(movieId) from shortmoviedbmodel where top250Place > 0")
     suspend fun getTop250Count(): Int
 
+    @Query("select top250Place from shortmoviedbmodel where movieId = :movieId")
+    suspend fun getTop250Place(movieId: Long): Int
+
     @Query("delete from shortmoviedbmodel")
     suspend fun clearTable()
 

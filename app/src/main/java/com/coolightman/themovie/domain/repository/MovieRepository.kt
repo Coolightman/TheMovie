@@ -11,6 +11,7 @@ interface MovieRepository {
     fun getTop250Movies(): LiveData<List<ShortMovie>>
     fun getFavoriteMovies(): LiveData<List<Movie>>
     fun getMovie(movieId: Long): LiveData<Movie>
+    fun getTop250Place(movieId: Long): LiveData<String>
     suspend fun clearPopularMovies()
     suspend fun clearTop250Movies()
 }

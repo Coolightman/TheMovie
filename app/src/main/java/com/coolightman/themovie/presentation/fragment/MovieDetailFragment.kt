@@ -270,6 +270,9 @@ class MovieDetailFragment : Fragment() {
                 setPoster(it.poster)
                 setRating(it)
                 setRatingCount(it)
+                setImdbRating(it)
+                setCriticRating(it)
+                setTop250Place(it)
                 setFavorite(it.isFavorite)
                 setNameOrigin(it.nameOriginal)
                 setNameRu(it.nameRu)
@@ -281,6 +284,38 @@ class MovieDetailFragment : Fragment() {
                 setAgeLimit(it.ageLimit)
                 setDescription(it.description)
             }
+        }
+    }
+
+    private fun setTop250Place(movie: Movie) {
+        viewModel.getTop250Place(movie.movieId).observe(viewLifecycleOwner) {
+            if (it != "0") {
+                binding.tvTop250Place.text = it
+            } else {
+                binding.viewTop250.visibility = GONE
+            }
+        }
+    }
+
+    private fun setCriticRating(movie: Movie) {
+        val criticRating = movie.ratingCritics
+        if (criticRating != null) {
+            binding.tvRatingCritics.text = criticRating
+            binding.tvRatingCriticsCount.text = movie.ratingCriticsCount
+            setRatingColor(binding.tvRatingCritics, criticRating)
+        } else {
+            binding.viewCritics.visibility = GONE
+        }
+    }
+
+    private fun setImdbRating(movie: Movie) {
+        val imdbRating = movie.ratingImdb
+        if (imdbRating != null) {
+            binding.tvRatingImdb.text = imdbRating
+            binding.tvRatingImdbCount.text = movie.ratingImdbCount
+            setRatingColor(binding.tvRatingImdb, imdbRating)
+        } else {
+            binding.viewImdb.visibility = GONE
         }
     }
 

@@ -117,4 +117,15 @@ class MovieRepositoryImpl @Inject constructor(
         Log.d("LoadedMovie", movieDbModel.toString())
         movieDao.insert(movieDbModel)
     }
+
+    override fun getTop250Place(movieId: Long): LiveData<String> = liveData {
+        withContext(Dispatchers.IO) {
+            try {
+                val place = shortMovieDao.getTop250Place(movieId)
+                emit(place.toString())
+            } catch (e: Exception) {
+                emit("0")
+            }
+        }
+    }
 }
