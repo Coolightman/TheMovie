@@ -55,6 +55,15 @@ class MainFragment : Fragment() {
         createSectionsAdapter()
         errorsListener()
         forLandscape()
+        listeners()
+    }
+
+    private fun listeners() {
+        with(binding){
+            imgMainSearch.setOnClickListener {
+                Toast.makeText(requireContext(), "Go to SearchMovieFragment", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun forLandscape() {

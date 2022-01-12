@@ -663,7 +663,8 @@
             android:text="@string/tv_button_kinopoisk_text"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="TextContrastCheck" />
 
     </LinearLayout>
 
