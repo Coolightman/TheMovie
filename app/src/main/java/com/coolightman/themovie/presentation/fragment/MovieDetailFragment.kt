@@ -162,6 +162,10 @@ class MovieDetailFragment : Fragment() {
             tvFactsSeeMore.setOnClickListener {
                 launchToAllFacts()
             }
+
+            tvReviewsSeeMore.setOnClickListener {
+                shortToast("Go to AllReviewsFragment")
+            }
         }
     }
 

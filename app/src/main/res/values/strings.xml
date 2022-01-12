@@ -24,8 +24,9 @@
     <string name="tv_similars_label_text">Similars</string>
     <string name="tv_button_kinopoisk_text">Kinopoisk</string>
     <string name="tv_fact_warning_text">Warning! Spoiler</string>
-    <string name="tv_facts_see_more_text">See more..</string>
+    <string name="tv_see_more_text">See more..</string>
     <string name="tv_facts_top_label_text">Facts</string>
     <string name="tv_imdb_label_text">IMDB</string>
     <string name="tv_critics_label_text">Critic.</string>
+    <string name="tv_reviews_label_text">Reviews</string>
 </resources>
