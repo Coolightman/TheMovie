@@ -177,22 +177,23 @@
 
                 <LinearLayout
                     android:id="@+id/view_top_250"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:background="@drawable/rounded_2_corners_view_rating"
+                    android:background="@drawable/rounded_2_1_corners_view_rating"
                     android:orientation="vertical"
                     android:paddingBottom="2dp"
-                    app:layout_constraintEnd_toEndOf="@id/view_rating_background"
-                    app:layout_constraintStart_toStartOf="@id/view_rating_background"
-                    app:layout_constraintTop_toBottomOf="@id/view_critics">
+                    android:paddingStart="2dp"
+                    android:paddingEnd="2dp"
+                    android:layout_marginEnd="24dp"
+                    app:layout_constraintEnd_toStartOf="@id/view_rating_background"
+                    app:layout_constraintTop_toTopOf="@id/view_rating_background">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_top_250_place_label"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:padding="2dp"
+                        android:paddingTop="2dp"
                         android:text="@string/tv_top_250_place_label_text"
                         android:textColor="#BC8A0E"
                         android:textSize="12sp" />
@@ -204,7 +205,7 @@
                         android:layout_gravity="center"
                         android:paddingStart="6dp"
                         android:paddingEnd="6dp"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         tools:text="123" />
 
                 </LinearLayout>
