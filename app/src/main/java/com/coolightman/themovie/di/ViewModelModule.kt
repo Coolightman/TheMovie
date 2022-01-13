@@ -1,12 +1,9 @@
 package com.coolightman.themovie.di
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.coolightman.themovie.presentation.fragment.MainFragment
 import com.coolightman.themovie.presentation.viewmodel.*
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.multibindings.IntoMap
 
 @Module
@@ -31,4 +28,9 @@ interface ViewModelModule {
     @ViewModelKey(AllFactsViewModel::class)
     @Binds
     fun bindAllFactsViewModel(viewModel: AllFactsViewModel): ViewModel
+
+    @IntoMap
+    @ViewModelKey(SearchMovieViewModel::class)
+    @Binds
+    fun bindSearchMovieViewModel(viewModel: SearchMovieViewModel): ViewModel
 }

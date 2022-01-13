@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.coolightman.themovie.App
 import com.coolightman.themovie.R
@@ -61,7 +62,9 @@ class MainFragment : Fragment() {
     private fun listeners() {
         with(binding){
             imgMainSearch.setOnClickListener {
-                Toast.makeText(requireContext(), "Go to SearchMovieFragment", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToSearchMovieFragment()
+                )
             }
         }
     }

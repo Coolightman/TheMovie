@@ -12,6 +12,7 @@ import com.coolightman.themovie.data.mapper.MovieMapper
 import com.coolightman.themovie.data.mapper.ShortMovieMapper
 import com.coolightman.themovie.data.network.ApiService
 import com.coolightman.themovie.domain.entity.Movie
+import com.coolightman.themovie.domain.entity.MovieSearch
 import com.coolightman.themovie.domain.entity.ShortMovie
 import com.coolightman.themovie.domain.repository.MovieRepository
 import kotlinx.coroutines.Dispatchers
@@ -127,5 +128,13 @@ class MovieRepositoryImpl @Inject constructor(
                 emit("0")
             }
         }
+    }
+
+    override fun getMovieSearchList(): LiveData<List<MovieSearch>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun searchMovies(keywords: String) {
+        TODO("Not yet implemented")
     }
 }
