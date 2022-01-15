@@ -12,7 +12,7 @@ class MovieSearchMapper @Inject constructor() {
 
     fun mapDtoToDbModelsList(dto: SearchMoviesDto): List<MovieSearchDbModel> {
         return dto.movies
-            .filter { it.rating != "null" }
+            .filter { it.rating != "null" && it.year != "null" }
             .map { mapDtoToDbModel(it) }
     }
 
@@ -21,7 +21,7 @@ class MovieSearchMapper @Inject constructor() {
         nameRu = dto.nameRu,
         nameEn = dto.nameEn,
         type = dto.type,
-        year = dto.year,
+        year = dto.year!!.toInt(),
         filmLength = dto.filmLength,
         rating = dto.rating,
         posterUrl = dto.posterUrl,
