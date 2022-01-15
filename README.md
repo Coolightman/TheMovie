@@ -5,4 +5,4 @@ A description of the movie include text information, frames, links to the videos
 
 ## Tech Stack
 
-Kotlin, Android architecture components, Clean Architecture, Retrofit, Room, Glide, Coroutine
+Kotlin, Android architecture components, Clean Architecture, Retrofit, Room, Dagger, Glide, Coroutine, Navigation
