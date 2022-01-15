@@ -5,7 +5,7 @@ data class MovieSearch(
     val rating: String?,
     val posterPreview: String?,
     val nameEn: String?,
-    val nameRu: String,
+    val nameRu: String?,
     val releaseDate: String?,
     val duration: String?
 )
