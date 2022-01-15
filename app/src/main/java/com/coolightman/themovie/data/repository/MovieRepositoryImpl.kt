@@ -11,6 +11,7 @@ import com.coolightman.themovie.data.database.dbModel.ShortMovieDbModel
 import com.coolightman.themovie.data.mapper.MovieMapper
 import com.coolightman.themovie.data.mapper.ShortMovieMapper
 import com.coolightman.themovie.data.network.ApiService
+import com.coolightman.themovie.data.network.ApiServiceOld
 import com.coolightman.themovie.domain.entity.Movie
 import com.coolightman.themovie.domain.entity.MovieSearch
 import com.coolightman.themovie.domain.entity.ShortMovie
@@ -24,6 +25,7 @@ class MovieRepositoryImpl @Inject constructor(
     private val shortMovieDao: ShortMovieDao,
     private val favoriteDao: FavoriteDao,
     private val apiService: ApiService,
+    private val apiServiceOld: ApiServiceOld,
     private val shortMovieMapper: ShortMovieMapper,
     private val movieMapper: MovieMapper
 ) : MovieRepository {
@@ -135,6 +137,10 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun searchMovies(keywords: String) {
-        
+        withContext(Dispatchers.IO) {
+            if (keywords.isNotEmpty()) {
+                val result = apiServiceOld.searchMovies(keyword = keywords)
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@ interface ApiService {
         private const val TYPE_VALUE_POPULAR = "TOP_100_POPULAR_FILMS"
         private const val TYPE_VALUE_TOP_250 = "TOP_250_BEST_FILMS"
         private const val PARAM_PAGE = "page"
+        private const val PARAM_KEYWORD = "keyword"
         private const val PARAM_MOVIE_ID = "id"
         private const val PARAM_FRAMES_TYPE = "STILL"
         private const val DEFAULT_PAGE = 1
