@@ -9,6 +9,7 @@ import com.coolightman.themovie.data.database.dao.MovieDao
 import com.coolightman.themovie.data.database.dao.ShortMovieDao
 import com.coolightman.themovie.data.database.dbModel.ShortMovieDbModel
 import com.coolightman.themovie.data.mapper.MovieMapper
+import com.coolightman.themovie.data.mapper.MovieSearchMapper
 import com.coolightman.themovie.data.mapper.ShortMovieMapper
 import com.coolightman.themovie.data.network.ApiService
 import com.coolightman.themovie.data.network.ApiServiceOld
@@ -27,7 +28,8 @@ class MovieRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val apiServiceOld: ApiServiceOld,
     private val shortMovieMapper: ShortMovieMapper,
-    private val movieMapper: MovieMapper
+    private val movieMapper: MovieMapper,
+    private val movieSearchMapper: MovieSearchMapper
 ) : MovieRepository {
 
     override fun getPopularMovies(): LiveData<List<ShortMovie>> {
@@ -140,6 +142,7 @@ class MovieRepositoryImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             if (keywords.isNotEmpty()) {
                 val result = apiServiceOld.searchMovies(keyword = keywords)
+                val dbModel = movieSearchMapper.mapDtoToDbModelsList(result)
             }
         }
     }
