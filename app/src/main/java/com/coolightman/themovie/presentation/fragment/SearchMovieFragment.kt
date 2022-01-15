@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.*
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
@@ -54,28 +55,52 @@ class SearchMovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        focusOnInputText()
+        showKeyboardOnInputText()
         createRecycler()
-        createObserver()
+        observers()
         listeners()
     }
 
-    private fun focusOnInputText() {
+    private fun showKeyboardOnInputText() {
         binding.tfSearchKeywords.requestFocus()
-        inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+        inputMethodManager =
+            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.toggleSoftInput(
+            InputMethodManager.SHOW_FORCED,
+            InputMethodManager.HIDE_IMPLICIT_ONLY
+        )
     }
 
     private fun listeners() {
         with(binding) {
             btSearch.setOnClickListener {
                 val keywords = tfSearchKeywords.text
+                showProgressBar()
                 viewModel.searchMovies(keywords.toString())
             }
         }
     }
 
-    private fun createObserver() {
+    private fun showProgressBar() {
+        binding.progressBarSearch.visibility = VISIBLE
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBarSearch.visibility = INVISIBLE
+    }
+
+    private fun observers() {
+        observeList()
+        observerProgressHide()
+    }
+
+    private fun observerProgressHide() {
+        viewModel.searchLoaded.observe(viewLifecycleOwner){
+            hideProgressBar()
+        }
+    }
+
+    private fun observeList() {
         viewModel.getMovieSearchList().observe(viewLifecycleOwner) {
             it?.let {
                 searchMovieAdapter.submitList(it)
@@ -99,10 +124,18 @@ class SearchMovieFragment : Fragment() {
     }
 
     private fun onMovieClickListener(movieId: Long) {
-        inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+        hideKeyboard()
+        launchMovieDetail(movieId)
+    }
+
+    private fun launchMovieDetail(movieId: Long) {
         findNavController().navigate(
             SearchMovieFragmentDirections.actionSearchMovieFragmentToMovieDetailFragment(movieId)
         )
+    }
+
+    private fun hideKeyboard() {
+        inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
 }

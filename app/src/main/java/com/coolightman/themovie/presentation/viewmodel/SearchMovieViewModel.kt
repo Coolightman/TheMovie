@@ -1,6 +1,8 @@
 package com.coolightman.themovie.presentation.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coolightman.themovie.domain.usecase.GetMovieSearchListUseCase
@@ -18,9 +20,17 @@ class SearchMovieViewModel @Inject constructor(
         Log.e("Coroutine_exception", "$throwable")
     }
 
+    private val _searchLoaded = MutableLiveData<Boolean>()
+    val searchLoaded: LiveData<Boolean>
+        get() = _searchLoaded
+
     fun getMovieSearchList() = getMovieSearchListUseCase()
 
     fun searchMovies(keywords: String) {
-        viewModelScope.launch(handler) { searchMoviesUseCase(keywords) }
+        viewModelScope.launch(handler) {
+            val job = launch { searchMoviesUseCase(keywords)  }
+            job.join()
+            _searchLoaded.postValue(true)
+        }
     }
 }
