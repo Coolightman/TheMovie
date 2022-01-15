@@ -130,11 +130,11 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getMovieSearchList(): LiveData<List<MovieSearch>> {
-        TODO("Not yet implemented")
+    override fun getMovieSearchList(): LiveData<List<MovieSearch>> = liveData {
+
     }
 
     override suspend fun searchMovies(keywords: String) {
-        TODO("Not yet implemented")
+        
     }
 }
