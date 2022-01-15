@@ -9,7 +9,7 @@ import com.coolightman.themovie.data.database.dao.*
 import com.coolightman.themovie.data.database.dbModel.*
 
 @Database(
-    version = 6,
+    version = 7,
     entities = [
         FactsDbModel::class,
         FramesDbModel::class,
@@ -17,7 +17,8 @@ import com.coolightman.themovie.data.database.dbModel.*
         FavoriteDbModel::class,
         ShortMovieDbModel::class,
         SimilarsDbModel::class,
-        VideosDbModel::class
+        VideosDbModel::class,
+        MovieSearchDbModel::class
     ]
 )
 @TypeConverters(Converters::class)
@@ -29,6 +30,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun shortMovieDao(): ShortMovieDao
     abstract fun similarsDao(): SimilarsDao
     abstract fun videosDao(): VideosDao
+    abstract fun movieSearchDao(): MovieSearchDao
 
     companion object {
         private const val DB_NAME = "MovieDatabase.db"

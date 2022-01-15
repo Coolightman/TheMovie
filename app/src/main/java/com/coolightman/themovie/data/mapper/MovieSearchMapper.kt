@@ -11,7 +11,9 @@ import javax.inject.Inject
 class MovieSearchMapper @Inject constructor() {
 
     fun mapDtoToDbModelsList(dto: SearchMoviesDto): List<MovieSearchDbModel> {
-        return dto.movies.map { mapDtoToDbModel(it) }
+        return dto.movies
+            .filter { it.rating != "null" }
+            .map { mapDtoToDbModel(it) }
     }
 
     private fun mapDtoToDbModel(dto: MovieSearchDto) = MovieSearchDbModel(
@@ -33,7 +35,7 @@ class MovieSearchMapper @Inject constructor() {
         posterPreview = dbModel.posterUrlPreview,
         nameEn = dbModel.nameEn,
         nameRu = dbModel.nameRu,
-        releaseDate = dbModel.year,
+        releaseDate = dbModel.year.toString(),
         duration = dbModel.filmLength
     )
 }

@@ -7,7 +7,7 @@ data class MovieSearchDto(
     @SerializedName("nameRu") var nameRu: String? = null,
     @SerializedName("nameEn") var nameEn: String? = null,
     @SerializedName("type") var type: String? = null,
-    @SerializedName("year") var year: String? = null,
+    @SerializedName("year") var year: Int? = null,
     @SerializedName("filmLength") var filmLength: String? = null,
     @SerializedName("rating") var rating: String? = null,
     @SerializedName("posterUrl") var posterUrl: String? = null,

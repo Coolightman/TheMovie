@@ -6,6 +6,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.liveData
 import com.coolightman.themovie.data.database.dao.FavoriteDao
 import com.coolightman.themovie.data.database.dao.MovieDao
+import com.coolightman.themovie.data.database.dao.MovieSearchDao
 import com.coolightman.themovie.data.database.dao.ShortMovieDao
 import com.coolightman.themovie.data.database.dbModel.ShortMovieDbModel
 import com.coolightman.themovie.data.mapper.MovieMapper
@@ -18,12 +19,14 @@ import com.coolightman.themovie.domain.entity.MovieSearch
 import com.coolightman.themovie.domain.entity.ShortMovie
 import com.coolightman.themovie.domain.repository.MovieRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
     private val movieDao: MovieDao,
     private val shortMovieDao: ShortMovieDao,
+    private val searchDao: MovieSearchDao,
     private val favoriteDao: FavoriteDao,
     private val apiService: ApiService,
     private val apiServiceOld: ApiServiceOld,
@@ -135,14 +138,23 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override fun getMovieSearchList(): LiveData<List<MovieSearch>> = liveData {
-
+        withContext(Dispatchers.IO) {
+            val dbModel = searchDao.getAll()
+            val search = Transformations.map(dbModel) { list ->
+                list.map { movieSearchMapper.mapDbModelToEntity(it) }
+            }
+            emitSource(search)
+        }
     }
 
     override suspend fun searchMovies(keywords: String) {
         withContext(Dispatchers.IO) {
             if (keywords.isNotEmpty()) {
+                val job = launch { searchDao.clearTable() }
+                job.join()
                 val result = apiServiceOld.searchMovies(keyword = keywords)
                 val dbModel = movieSearchMapper.mapDtoToDbModelsList(result)
+                searchDao.insertList(dbModel)
             }
         }
     }

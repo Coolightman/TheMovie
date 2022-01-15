@@ -2,8 +2,6 @@ package com.coolightman.themovie.data.database.dbModel
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.coolightman.themovie.data.network.dto.CountryDto
-import com.coolightman.themovie.data.network.dto.GenreDto
 
 @Entity
 data class MovieSearchDbModel(
@@ -12,7 +10,7 @@ data class MovieSearchDbModel(
     val nameRu: String?,
     val nameEn: String?,
     val type: String?,
-    val year: String?,
+    val year: Int?,
     val filmLength: String?,
     val rating: String?,
     val posterUrl: String?,

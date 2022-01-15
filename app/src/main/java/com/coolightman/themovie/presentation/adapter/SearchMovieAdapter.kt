@@ -27,8 +27,52 @@ class SearchMovieAdapter(
             with(holder.binding) {
                 setImage(this, movie)
                 setRating(this, movie)
+                setNameEn(this, movie.nameEn)
+                setNameRu(this, movie.nameRu)
+                setReleaseDate(this, movie.releaseDate)
+                setDuration(this, movie.duration)
                 root.setOnClickListener { clickListener(movie) }
             }
+        }
+    }
+
+    private fun setNameEn(binding: MovieSearchItemBinding, nameEn: String?) {
+        if (nameEn != null) {
+            binding.tvNameEn.text = nameEn
+            binding.tvNameEn.visibility = VISIBLE
+        } else {
+            binding.tvNameEn.visibility = GONE
+        }
+    }
+
+    private fun setNameRu(binding: MovieSearchItemBinding, nameRu: String?) {
+        if (nameRu != null) {
+            binding.tvNameRu.text = nameRu
+            binding.tvNameRu.visibility = VISIBLE
+        } else {
+            binding.tvNameRu.visibility = GONE
+        }
+    }
+
+    private fun setReleaseDate(binding: MovieSearchItemBinding, releaseDate: String?) {
+        if (releaseDate != null) {
+            binding.tvYear.text = releaseDate
+            binding.tvYear.visibility = VISIBLE
+            binding.tvYearLabel.visibility = VISIBLE
+        } else {
+            binding.tvYear.visibility = GONE
+            binding.tvYearLabel.visibility = GONE
+        }
+    }
+
+    private fun setDuration(binding: MovieSearchItemBinding, duration: String?) {
+        if (duration != null) {
+            binding.tvDuration.text = duration
+            binding.tvDuration.visibility = VISIBLE
+            binding.tvDurationLabel.visibility = VISIBLE
+        } else {
+            binding.tvDuration.visibility = GONE
+            binding.tvDurationLabel.visibility = GONE
         }
     }
 
