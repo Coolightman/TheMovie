@@ -34,7 +34,6 @@ class SimilarRepositoryImpl @Inject constructor(
     private suspend fun loadSimilarsFromApi(movieId: Long) {
         val similarsDto = apiService.loadSimilars(movieId)
         val similarsDbModel = mapper.mapDtoToDbModel(similarsDto, movieId)
-        Log.d("LoadedSimilars", similarsDbModel.toString())
         similarsDao.insert(similarsDbModel)
     }
 }

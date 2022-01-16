@@ -35,7 +35,6 @@ class VideoRepositoryImpl @Inject constructor(
     private suspend fun loadVideosFromApi(movieId: Long) {
         val videosDto = apiService.loadVideos(movieId)
         val videosDbModel = mapper.mapDtoToDbModel(videosDto, movieId)
-        Log.d("LoadedVideos", videosDbModel.toString())
         videosDao.insert(videosDbModel)
     }
 }

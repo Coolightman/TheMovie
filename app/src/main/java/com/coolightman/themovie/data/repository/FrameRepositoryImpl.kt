@@ -34,7 +34,6 @@ class FrameRepositoryImpl @Inject constructor(
     private suspend fun loadFramesFromApi(movieId: Long) {
         val framesDto = apiService.loadFrames(movieId)
         val frameDbModel = mapper.mapDtoToDbModel(framesDto, movieId)
-        Log.d("LoadedFrames", frameDbModel.toString())
         framesDao.insert(frameDbModel)
     }
 }

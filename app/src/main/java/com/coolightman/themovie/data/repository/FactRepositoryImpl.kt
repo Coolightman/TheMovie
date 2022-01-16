@@ -34,7 +34,6 @@ class FactRepositoryImpl @Inject constructor(
     private suspend fun loadFactsFromApi(movieId: Long) {
         val factsDto = apiService.loadFacts(movieId)
         val factsDbModel = mapper.mapDtoToDbModel(factsDto, movieId)
-        Log.d("LoadedFacts", factsDbModel.toString())
         factsDao.insert(factsDbModel)
     }
 }
