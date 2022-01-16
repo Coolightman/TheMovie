@@ -21,10 +21,7 @@ import com.bumptech.glide.Glide
 import com.coolightman.themovie.App
 import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.FragmentMovieDetailBinding
-import com.coolightman.themovie.domain.entity.Country
-import com.coolightman.themovie.domain.entity.Fact
-import com.coolightman.themovie.domain.entity.Genre
-import com.coolightman.themovie.domain.entity.Movie
+import com.coolightman.themovie.domain.entity.*
 import com.coolightman.themovie.presentation.adapter.FrameAdapter
 import com.coolightman.themovie.presentation.adapter.ShortMovieAdapter
 import com.coolightman.themovie.presentation.adapter.VideoAdapter
@@ -195,18 +192,58 @@ class MovieDetailFragment : Fragment() {
         createMovieObserver(movieId)
         createFramesObserver(movieId)
         createFactsObserver(movieId)
+        createReviewsObserver(movieId)
         createVideosObserver(movieId)
         createSimilarsObserver(movieId)
+    }
+
+    private fun createReviewsObserver(movieId: Long) {
+        viewModel.getReviews(movieId).observe(viewLifecycleOwner) {
+            it?.let {
+                if (it.isNotEmpty()) {
+                    Log.d("ObservingReviews", it.toString())
+                    val reviewRndNumb = getRandomNumber(it.size)
+                    val review = it[reviewRndNumb]
+                    setReviewTitle(review.title)
+                    setReviewDescription(review.description)
+                } else {
+                    binding.cvReviews.visibility = GONE
+                }
+            }
+        }
+    }
+
+    private fun setReviewDescription(reviewDescr: String) {
+        val description = cutTextSize(reviewDescr)
+        binding.tvReview1Description.text = description
+    }
+
+    private fun setReviewTitle(title: String) {
+        if (title.isNotEmpty()){
+            binding.tvReview1Title.text = title
+        } else{
+            binding.tvReview1Title.visibility = GONE
+        }
+    }
+
+    private fun cutTextSize(text: String): String {
+        return if (text.length > 200){
+            "${text.substring(0, 200).trim()}.."
+        } else{
+            text
+        }
     }
 
     private fun createFactsObserver(movieId: Long) {
         viewModel.getFacts(movieId).observe(viewLifecycleOwner) {
             it?.let {
                 if (it.isNotEmpty()) {
-                    val previewFact = getRandomFact(it)
+                    Log.d("ObservingFacts", it.toString())
+                    val factRndNumb = getRandomNumber(it.size)
+                    val fact = it[factRndNumb]
                     checkFactsSize(it)
-                    checkSpoiler(previewFact)
-                    binding.tvFact1.text = previewFact.text
+                    checkSpoiler(fact)
+                    binding.tvFact1.text = fact.text
                 } else {
                     binding.cvFacts.visibility = GONE
                 }
@@ -214,19 +251,14 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun getRandomFact(list: List<Fact>): Fact {
-        return if (list.size > 1) {
-            val rnd = getRandomNumber(list.size)
-            list[rnd]
-        } else {
-            list[FIRST_LIST_ITEM]
-        }
-    }
-
     private fun getRandomNumber(listSize: Int): Int {
-        val max = listSize - 1
-        val min = 0
-        return (Math.random() * (max - min + 1) + min).toInt()
+        return if (listSize > 1) {
+            val max = listSize - 1
+            val min = 0
+            (Math.random() * (max - min + 1) + min).toInt()
+        } else {
+            FIRST_LIST_ITEM
+        }
     }
 
 
