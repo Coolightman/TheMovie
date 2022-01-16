@@ -9,6 +9,7 @@ import com.coolightman.themovie.databinding.FrameItemBinding
 import com.coolightman.themovie.databinding.VideoItemBinding
 import com.coolightman.themovie.domain.entity.Frame
 import com.coolightman.themovie.domain.entity.Video
+import com.coolightman.themovie.util.TextFormat.cutTextSize
 
 class VideoAdapter(private val clickListener: (String) -> Unit) :
     ListAdapter<Video, VideoViewHolder>(VideoDiffCallback()) {
@@ -32,11 +33,7 @@ class VideoAdapter(private val clickListener: (String) -> Unit) :
     }
 
     private fun cutVideoName(name: String): String {
-        return if (name.length > MAX_NAME_SIZE){
-            "${name.substring(0, MAX_NAME_SIZE)}.."
-        } else{
-            name
-        }
+        return cutTextSize(name, MAX_NAME_SIZE)
     }
 
     private fun setVideoPreview(binding: VideoItemBinding, videoPreview: String) {

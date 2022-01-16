@@ -12,6 +12,10 @@
     <color name="ratingRed">@android:color/holo_red_dark</color>
     <color name="fadedGray">#99000000</color>
     <color name="veryFadedGray">#CC000000</color>
-    <color name="grayPrimary">#303030</color>
+    <color name="grayCardBackground">#1E1E1E</color>
+    <color name="grayCardBackgroundPositive">#232D23</color>
+    <color name="grayCardBackgroundNegative">#2D2323</color>
+    <color name="grayCardBackgroundNeutral">#323232</color>
+    <color name="grayTopViewBackground">#141414</color>
 
 </resources>

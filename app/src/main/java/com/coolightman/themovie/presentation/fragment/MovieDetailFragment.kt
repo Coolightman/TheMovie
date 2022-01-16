@@ -27,7 +27,9 @@ import com.coolightman.themovie.presentation.adapter.ShortMovieAdapter
 import com.coolightman.themovie.presentation.adapter.VideoAdapter
 import com.coolightman.themovie.presentation.viewmodel.MovieDetailViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
+import com.coolightman.themovie.util.CardColor.setCardColor
 import com.coolightman.themovie.util.RatingColor.setRatingColor
+import com.coolightman.themovie.util.TextFormat.cutTextSize
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -56,6 +58,7 @@ class MovieDetailFragment : Fragment() {
     private lateinit var frameAdapter: FrameAdapter
     private lateinit var videoAdapter: VideoAdapter
     private lateinit var similarAdapter: ShortMovieAdapter
+    private var reviewId: Long = 0
 
     override fun onAttach(context: Context) {
         component.inject(this)
@@ -163,6 +166,10 @@ class MovieDetailFragment : Fragment() {
             tvReviewsSeeMore.setOnClickListener {
                 shortToast("Go to AllReviewsFragment")
             }
+
+            cvReview1.setOnClickListener {
+                shortToast("LaunchReview: $reviewId")
+            }
         }
     }
 
@@ -204,8 +211,10 @@ class MovieDetailFragment : Fragment() {
                     Log.d("ObservingReviews", it.toString())
                     val reviewRndNumb = getRandomNumber(it.size)
                     val review = it[reviewRndNumb]
+                    reviewId = review.reviewId
                     setReviewTitle(review.title)
                     setReviewDescription(review.description)
+                    setReviewColor(review.type)
                 } else {
                     binding.cvReviews.visibility = GONE
                 }
@@ -213,24 +222,25 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun setReviewDescription(reviewDescr: String) {
-        val description = cutTextSize(reviewDescr)
+    private fun setReviewColor(type: ReviewType) {
+        val card = binding.cvReview1
+        setCardColor(card, type, requireContext())
+    }
+
+    private fun setReviewDescription(revDescription: String) {
+        val description = cutTextSize(
+            revDescription,
+            MAX_REVIEW_DESCRIPTION_SIZE
+        ) + getString(R.string.tv_read_more)
         binding.tvReview1Description.text = description
     }
 
     private fun setReviewTitle(title: String) {
-        if (title.isNotEmpty()){
-            binding.tvReview1Title.text = title
-        } else{
+        if (title.isNotEmpty()) {
+            val text = "\"$title\""
+            binding.tvReview1Title.text = text
+        } else {
             binding.tvReview1Title.visibility = GONE
-        }
-    }
-
-    private fun cutTextSize(text: String): String {
-        return if (text.length > 200){
-            "${text.substring(0, 200).trim()}.."
-        } else{
-            text
         }
     }
 
@@ -532,5 +542,6 @@ class MovieDetailFragment : Fragment() {
         private const val TIME_SHORT_TOAST = 800L
         private const val NON_TOP_250_place = "0"
         private const val FIRST_LIST_ITEM = 0
+        private const val MAX_REVIEW_DESCRIPTION_SIZE = 200
     }
 }

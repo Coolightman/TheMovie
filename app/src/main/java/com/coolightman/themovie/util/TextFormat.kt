@@ -23,4 +23,12 @@ object TextFormat {
         }
         return null
     }
+
+    fun cutTextSize(text: String, number: Int): String {
+        return if (text.length > number){
+            "${text.substring(0, number).trim()}.. "
+        } else{
+            text
+        }
+    }
 }

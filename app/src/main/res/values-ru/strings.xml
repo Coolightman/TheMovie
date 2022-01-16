@@ -31,4 +31,5 @@
     <string name="tf_search_keywords_hint">найти..</string>
     <string name="bt_search_text">Поиск</string>
     <string name="tv_clue_empty_search_text">Мы ничего не нашли.. пока что</string>
+    <string name="tv_read_more">читать дальше</string>
 </resources>

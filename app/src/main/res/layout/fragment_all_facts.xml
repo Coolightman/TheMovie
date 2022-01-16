@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/grayPrimary"/>
+        android:background="@color/grayTopViewBackground"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_facts_top_label"
