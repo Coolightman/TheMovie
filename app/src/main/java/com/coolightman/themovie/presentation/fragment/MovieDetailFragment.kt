@@ -219,7 +219,7 @@ class MovieDetailFragment : Fragment() {
             val rnd = getRandomNumber(list.size)
             list[rnd]
         } else {
-            list[0]
+            list[FIRST_LIST_ITEM]
         }
     }
 
@@ -309,7 +309,7 @@ class MovieDetailFragment : Fragment() {
 
     private fun setTop250Place(movie: Movie) {
         viewModel.getTop250Place(movie.movieId).observe(viewLifecycleOwner) {
-            if (it != "0") {
+            if (it != NON_TOP_250_place) {
                 binding.tvTop250Place.text = it
                 binding.viewTop250.visibility = VISIBLE
             }
@@ -498,5 +498,7 @@ class MovieDetailFragment : Fragment() {
 
     companion object {
         private const val TIME_SHORT_TOAST = 800L
+        private const val NON_TOP_250_place = "0"
+        private const val FIRST_LIST_ITEM = 0
     }
 }
