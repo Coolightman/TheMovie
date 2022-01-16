@@ -203,10 +203,10 @@ class MovieDetailFragment : Fragment() {
         viewModel.getFacts(movieId).observe(viewLifecycleOwner) {
             it?.let {
                 if (it.isNotEmpty()) {
-                    val firstFact = it[0]
-                    checkSpoiler(firstFact)
+                    val previewFact = getRandomFact(it)
                     checkFactsSize(it)
-                    binding.tvFact1.text = firstFact.text
+                    checkSpoiler(previewFact)
+                    binding.tvFact1.text = previewFact.text
                 } else {
                     binding.cvFacts.visibility = GONE
                 }
@@ -214,14 +214,30 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
+    private fun getRandomFact(list: List<Fact>): Fact {
+        return if (list.size > 1) {
+            val rnd = getRandomNumber(list.size)
+            list[rnd]
+        } else {
+            list[0]
+        }
+    }
+
+    private fun getRandomNumber(listSize: Int): Int {
+        val max = listSize - 1
+        val min = 0
+        return (Math.random() * (max - min + 1) + min).toInt()
+    }
+
+
     private fun checkFactsSize(it: List<Fact>) {
         if (it.size == 1) {
             binding.tvFactsSeeMore.visibility = GONE
         }
     }
 
-    private fun checkSpoiler(firstFact: Fact) {
-        if (!firstFact.spoiler) {
+    private fun checkSpoiler(fact: Fact) {
+        if (!fact.spoiler) {
             binding.tvFact1Warning.visibility = GONE
         }
     }
