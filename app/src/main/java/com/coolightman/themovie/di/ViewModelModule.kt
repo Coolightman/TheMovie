@@ -38,4 +38,9 @@ interface ViewModelModule {
     @ViewModelKey(ReviewViewModel::class)
     @Binds
     fun bindReviewMovieViewModel(viewModel: ReviewViewModel): ViewModel
+
+    @IntoMap
+    @ViewModelKey(AllReviewsViewModel::class)
+    @Binds
+    fun bindAllReviewsMovieViewModel(viewModel: AllReviewsViewModel): ViewModel
 }
