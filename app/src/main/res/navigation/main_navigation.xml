@@ -45,6 +45,16 @@
             app:destination="@id/allFactsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_movieDetailFragment_to_reviewFragment"
+            app:destination="@id/reviewFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_movieDetailFragment_to_allReviewsFragment"
+            app:destination="@id/allReviewsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/galleryFragment"
@@ -75,5 +85,31 @@
         <action
             android:id="@+id/action_searchMovieFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewFragment"
+        android:name="com.coolightman.themovie.presentation.fragment.ReviewFragment"
+        android:label="fragment_review"
+        tools:layout="@layout/fragment_review" >
+        <argument
+            android:name="movieId"
+            app:argType="long" />
+        <argument
+            android:name="number"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/allReviewsFragment"
+        android:name="com.coolightman.themovie.presentation.fragment.AllReviewsFragment"
+        android:label="fragment_all_reviews"
+        tools:layout="@layout/fragment_all_reviews" >
+        <action
+            android:id="@+id/action_allReviewsFragment_to_reviewFragment"
+            app:destination="@id/reviewFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <argument
+            android:name="movieId"
+            app:argType="long" />
     </fragment>
 </navigation>

@@ -58,7 +58,7 @@ class MovieDetailFragment : Fragment() {
     private lateinit var frameAdapter: FrameAdapter
     private lateinit var videoAdapter: VideoAdapter
     private lateinit var similarAdapter: ShortMovieAdapter
-    private var reviewId: Long = 0
+    private var reviewNumber = -1
 
     override fun onAttach(context: Context) {
         component.inject(this)
@@ -168,7 +168,7 @@ class MovieDetailFragment : Fragment() {
             }
 
             cvReview1.setOnClickListener {
-                shortToast("LaunchReview: $reviewId")
+                shortToast("LaunchReview: $reviewNumber")
             }
         }
     }
@@ -211,7 +211,7 @@ class MovieDetailFragment : Fragment() {
                     Log.d("ObservingReviews", it.toString())
                     val reviewRndNumb = getRandomNumber(it.size)
                     val review = it[reviewRndNumb]
-                    reviewId = review.reviewId
+                    reviewNumber = reviewRndNumb
                     setReviewTitle(review.title)
                     setReviewDescription(review.description)
                     setReviewColor(review.type)
