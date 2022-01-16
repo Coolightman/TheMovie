@@ -33,3 +33,5 @@ Click on some item is opening detail review. Color of card is showing review typ
 It's opening when click on any frame on movie detail screen. Can rotate to landscape if need.
 
 <img src="https://user-images.githubusercontent.com/43218153/149674846-d72a5d92-8359-499e-a5cf-6236cc024ca1.jpg" alt="drawing" width="270"/>
+
+<img src="https://user-images.githubusercontent.com/43218153/149674847-b6f5a87e-fd87-4c70-9bb4-6ced2e82625d.jpg" alt="drawing" width="480"/>
