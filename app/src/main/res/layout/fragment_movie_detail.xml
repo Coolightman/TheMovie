@@ -93,9 +93,11 @@
                     android:background="@drawable/rounded_2_corners_view_rating"
                     android:orientation="vertical"
                     android:paddingBottom="2dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@id/view_rating_background"
                     app:layout_constraintStart_toStartOf="@id/view_rating_background"
-                    app:layout_constraintTop_toBottomOf="@id/view_rating_background">
+                    app:layout_constraintTop_toBottomOf="@id/view_rating_background"
+                    tools:visibility="visible">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_imdb_label"
@@ -138,9 +140,11 @@
                     android:background="@drawable/rounded_2_corners_view_rating"
                     android:orientation="vertical"
                     android:paddingBottom="2dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@id/view_rating_background"
                     app:layout_constraintStart_toStartOf="@id/view_rating_background"
-                    app:layout_constraintTop_toBottomOf="@id/view_imdb">
+                    app:layout_constraintTop_toBottomOf="@id/view_imdb"
+                    tools:visibility="visible">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_critics_label"
@@ -179,14 +183,16 @@
                     android:id="@+id/view_top_250"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
                     android:background="@drawable/rounded_2_1_corners_view_rating"
                     android:orientation="vertical"
-                    android:paddingBottom="2dp"
                     android:paddingStart="2dp"
                     android:paddingEnd="2dp"
-                    android:layout_marginEnd="24dp"
+                    android:paddingBottom="2dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toStartOf="@id/view_rating_background"
-                    app:layout_constraintTop_toTopOf="@id/view_rating_background">
+                    app:layout_constraintTop_toTopOf="@id/view_rating_background"
+                    tools:visibility="visible">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_top_250_place_label"

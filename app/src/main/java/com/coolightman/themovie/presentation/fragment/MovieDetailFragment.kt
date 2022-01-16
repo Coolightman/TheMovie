@@ -311,8 +311,7 @@ class MovieDetailFragment : Fragment() {
         viewModel.getTop250Place(movie.movieId).observe(viewLifecycleOwner) {
             if (it != "0") {
                 binding.tvTop250Place.text = it
-            } else {
-                binding.viewTop250.visibility = GONE
+                binding.viewTop250.visibility = VISIBLE
             }
         }
     }
@@ -323,8 +322,7 @@ class MovieDetailFragment : Fragment() {
             binding.tvRatingCritics.text = criticRating
             binding.tvRatingCriticsCount.text = movie.ratingCriticsCount
             setRatingColor(binding.tvRatingCritics, criticRating)
-        } else {
-            binding.viewCritics.visibility = GONE
+            binding.viewCritics.visibility = VISIBLE
         }
     }
 
@@ -334,8 +332,7 @@ class MovieDetailFragment : Fragment() {
             binding.tvRatingImdb.text = imdbRating
             binding.tvRatingImdbCount.text = movie.ratingImdbCount
             setRatingColor(binding.tvRatingImdb, imdbRating)
-        } else {
-            binding.viewImdb.visibility = GONE
+            binding.viewImdb.visibility = VISIBLE
         }
     }
 
