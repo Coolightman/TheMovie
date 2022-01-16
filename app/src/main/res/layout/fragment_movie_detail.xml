@@ -201,7 +201,7 @@
                         android:gravity="center"
                         android:paddingTop="2dp"
                         android:text="@string/tv_top_250_place_label_text"
-                        android:textColor="#BC8A0E"
+                        android:textColor="@color/gold"
                         android:textSize="12sp" />
 
                     <com.google.android.material.textview.MaterialTextView
@@ -480,7 +480,7 @@
                     android:paddingEnd="16dp"
                     android:paddingBottom="2dp"
                     android:text="@string/tv_see_more_text"
-                    android:textColor="#BC8A0E"
+                    android:textColor="@color/gold"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -608,7 +608,7 @@
                     android:paddingEnd="16dp"
                     android:paddingBottom="2dp"
                     android:text="@string/tv_see_more_text"
-                    android:textColor="#BC8A0E"
+                    android:textColor="@color/gold"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"

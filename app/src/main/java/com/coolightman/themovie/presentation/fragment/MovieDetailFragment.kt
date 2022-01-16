@@ -168,9 +168,18 @@ class MovieDetailFragment : Fragment() {
             }
 
             cvReview1.setOnClickListener {
-                shortToast("LaunchReview: $reviewNumber")
+                launchReviewFragment()
             }
         }
+    }
+
+    private fun launchReviewFragment() {
+        findNavController().navigate(
+            MovieDetailFragmentDirections.actionMovieDetailFragmentToReviewFragment(
+                movie.movieId,
+                reviewNumber
+            )
+        )
     }
 
     private fun launchToAllFacts() {
@@ -212,6 +221,7 @@ class MovieDetailFragment : Fragment() {
                     val reviewRndNumb = getRandomNumber(it.size)
                     val review = it[reviewRndNumb]
                     reviewNumber = reviewRndNumb
+                    checkReviewsSize(it)
                     setReviewTitle(review.title)
                     setReviewDescription(review.description)
                     setReviewColor(review.type)
@@ -219,6 +229,12 @@ class MovieDetailFragment : Fragment() {
                     binding.cvReviews.visibility = GONE
                 }
             }
+        }
+    }
+
+    private fun checkReviewsSize(it: List<Review>) {
+        if (it.size == 1) {
+            binding.tvReviewsSeeMore.visibility = GONE
         }
     }
 

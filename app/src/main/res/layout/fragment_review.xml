@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingBottom="4dp"
     tools:context=".presentation.fragment.ReviewFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,8 +45,14 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include
-        android:id="@+id/included_review_item"
-        layout="@layout/review_item" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/included_review_item"
+            layout="@layout/review_item" />
+
+    </ScrollView>
 
 </LinearLayout>

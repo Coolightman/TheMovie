@@ -17,5 +17,6 @@
     <color name="grayCardBackgroundNegative">#2D2323</color>
     <color name="grayCardBackgroundNeutral">#323232</color>
     <color name="grayTopViewBackground">#141414</color>
+    <color name="gold">#BC8A0E</color>
 
 </resources>
