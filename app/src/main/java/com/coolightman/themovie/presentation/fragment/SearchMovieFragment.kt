@@ -4,7 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.*
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
@@ -37,6 +38,7 @@ class SearchMovieFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var searchMovieAdapter: SearchMovieAdapter
+    private lateinit var layoutManager: LinearLayoutManager
     private lateinit var inputMethodManager: InputMethodManager
 
     override fun onAttach(context: Context) {
@@ -75,6 +77,7 @@ class SearchMovieFragment : Fragment() {
         with(binding) {
             btSearch.setOnClickListener {
                 val keywords = tfSearchKeywords.text
+                hideClue()
                 showProgressBar()
                 viewModel.searchMovies(keywords.toString())
             }
@@ -95,8 +98,15 @@ class SearchMovieFragment : Fragment() {
     }
 
     private fun observerProgressHide() {
-        viewModel.searchLoaded.observe(viewLifecycleOwner){
+        viewModel.searchLoaded.observe(viewLifecycleOwner) {
             hideProgressBar()
+            checkEmptyResult()
+        }
+    }
+
+    private fun checkEmptyResult() {
+        if (layoutManager.itemCount == 0) {
+            showClue()
         }
     }
 
@@ -104,14 +114,25 @@ class SearchMovieFragment : Fragment() {
         viewModel.getMovieSearchList().observe(viewLifecycleOwner) {
             it?.let {
                 searchMovieAdapter.submitList(it)
+                if (it.isNotEmpty()){
+                    hideClue()
+                }
             }
         }
+    }
+
+    private fun showClue() {
+        binding.tvClueEmptySearch.visibility = VISIBLE
+    }
+
+    private fun hideClue() {
+        binding.tvClueEmptySearch.visibility = INVISIBLE
     }
 
     private fun createRecycler() {
         val recycler = binding.rvSearchResult
         createSearchMovieAdapter(recycler)
-        val layoutManager =
+        layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recycler.layoutManager = layoutManager
     }

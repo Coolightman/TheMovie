@@ -32,4 +32,5 @@
     <string name="cd_search">search</string>
     <string name="tf_search_keywords_hint">find..</string>
     <string name="bt_search_text">Search</string>
+    <string name="tv_clue_empty_search_text">We haven\'t found anything.. so far</string>
 </resources>
