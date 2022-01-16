@@ -1,13 +1,8 @@
 package com.coolightman.themovie.di
 
-import com.coolightman.themovie.data.network.ApiClient
-import com.coolightman.themovie.data.network.ApiClientOld
-import com.coolightman.themovie.data.network.ApiService
-import com.coolightman.themovie.data.network.ApiServiceOld
+import com.coolightman.themovie.data.network.*
 import dagger.Module
 import dagger.Provides
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 class NetworkModule {
@@ -22,5 +17,11 @@ class NetworkModule {
     @Provides
     fun provideApiOld(): ApiServiceOld {
         return ApiClientOld.getApiService()
+    }
+
+    @ApplicationScope
+    @Provides
+    fun provideApiV1(): ApiServiceV1 {
+        return ApiClientV1.getApiService()
     }
 }

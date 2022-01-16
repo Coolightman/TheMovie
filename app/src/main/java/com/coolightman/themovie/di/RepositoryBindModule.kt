@@ -35,4 +35,8 @@ interface RepositoryBindModule {
     @ApplicationScope
     @Binds
     fun bindVideoRepository(impl: VideoRepositoryImpl): VideoRepository
+
+    @ApplicationScope
+    @Binds
+    fun bindReviewRepository(impl: ReviewRepositoryImpl): ReviewRepository
 }

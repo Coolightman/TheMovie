@@ -48,6 +48,6 @@ object ApiClient {
     }
 
     private fun getLoggingInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
     }
 }

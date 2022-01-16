@@ -7,16 +7,16 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ApiClientOld {
+object ApiClientV1 {
 
-    private const val API_URL = "https://kinopoiskapiunofficial.tech/api/v2.1/films/"
+    private const val API_URL = "https://kinopoiskapiunofficial.tech/api/v1/"
     private const val HEADER_ACCEPT_NAME = "accept"
     private const val HEADER_ACCEPT_VALUE = "application/json"
     private const val HEADER_API_KEY_NAME = "X-API-KEY"
     private const val HEADER_API_KEY_VALUE = "655063ab-c3b3-40fd-86ce-7868c8fc3b57"
 
-    fun getApiService(): ApiServiceOld {
-        return getRetrofit().create(ApiServiceOld::class.java)
+    fun getApiService(): ApiServiceV1 {
+        return getRetrofit().create(ApiServiceV1::class.java)
     }
 
     private fun getRetrofit(): Retrofit {

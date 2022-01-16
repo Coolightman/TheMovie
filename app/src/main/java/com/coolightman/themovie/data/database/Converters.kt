@@ -73,4 +73,15 @@ class Converters {
         return Gson().fromJson(json, itemType)
     }
 
+    @TypeConverter
+    fun listReviewsToJson(facts: List<ReviewDbModel>): String {
+        return Gson().toJson(facts)
+    }
+
+    @TypeConverter
+    fun jsonToListReviews(json: String): List<ReviewDbModel> {
+        val itemType = object : TypeToken<List<ReviewDbModel>>() {}.type
+        return Gson().fromJson(json, itemType)
+    }
+
 }

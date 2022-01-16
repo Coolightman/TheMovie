@@ -44,4 +44,8 @@ class DatabaseModule {
     @ApplicationScope
     @Provides
     fun provideMovieSearchDao(db: AppDatabase) = db.movieSearchDao()
+
+    @ApplicationScope
+    @Provides
+    fun provideReviewsDao(db: AppDatabase) = db.reviewsDao()
 }
