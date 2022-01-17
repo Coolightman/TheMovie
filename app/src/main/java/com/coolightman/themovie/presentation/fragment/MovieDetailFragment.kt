@@ -221,7 +221,7 @@ class MovieDetailFragment : Fragment() {
 
     private fun createReviewsObserver(movieId: Long) {
         viewModel.getReviews(movieId).observe(viewLifecycleOwner) {
-            it?.let {
+            if (it != null) {
                 if (it.isNotEmpty()) {
                     Log.d("ObservingReviews", it.toString())
                     val reviewRndNumb = getRandomNumber(it.size)
@@ -234,6 +234,8 @@ class MovieDetailFragment : Fragment() {
                 } else {
                     binding.cvReviews.visibility = GONE
                 }
+            } else {
+                binding.cvReviews.visibility = GONE
             }
         }
     }
