@@ -31,7 +31,7 @@ Click on some item is opening detail review. Color of card is showing review typ
 <img src="https://user-images.githubusercontent.com/43218153/149674845-140298ff-00ab-4a31-bfa7-7adf565a75d9.jpg" alt="drawing" width="270"/>
 
 ### Gallery
-It's opening when click on any frame on movie detail screen. Can rotate to landscape if need.
+It's opening when click on any frame on movie detail screen. Here is you can continue to swipe already large images and also rotate to landscape if need.
 
 <img src="https://user-images.githubusercontent.com/43218153/149674846-d72a5d92-8359-499e-a5cf-6236cc024ca1.jpg" alt="drawing" width="270"/>
 
