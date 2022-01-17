@@ -11,12 +11,13 @@ Kotlin, Android architecture components, Clean Architecture, Retrofit, Room, Dag
 
 ### Main screen
 Here is used ViewPager2. Every page has infinite scrolling.
+You can refresh pages by swipe down, or it will be refreshing by some time when page is opening. (Popular in 6 hours, Top-250 in 24 hours)
 
 <img src="https://user-images.githubusercontent.com/43218153/149674837-d888eaf2-fdef-46b6-b977-a5ecea14b0e1.jpg" alt="drawing" width="270"/>
 
 ### Search screen
 
-<img src="https://user-images.githubusercontent.com/43218153/149674839-046d44e3-addd-4af6-8a83-abae25d0b338.jpg" alt="drawing" width="270"/>
+<img src="https://user-images.githubusercontent.com/43218153/149815394-5aa4ea7d-aed0-448d-a9a5-39e302b41676.jpg" alt="drawing" width="270"/>
 
 ### Movie details screen
 Here you can see main parts of movie like a poster, some ratings, detail information, frames, facts, videos, review and similar movies. Every part is interactive.
@@ -35,3 +36,16 @@ It's opening when click on any frame on movie detail screen. Can rotate to lands
 <img src="https://user-images.githubusercontent.com/43218153/149674846-d72a5d92-8359-499e-a5cf-6236cc024ca1.jpg" alt="drawing" width="270"/>
 
 <img src="https://user-images.githubusercontent.com/43218153/149674847-b6f5a87e-fd87-4c70-9bb4-6ced2e82625d.jpg" alt="drawing" width="480"/>
+
+### Favorite
+Also you can add a movie to favorite, by click to star icon.
+
+<img src="https://user-images.githubusercontent.com/43218153/149815403-d046d298-421c-472f-a5ca-c3ea487b8f78.jpg" alt="drawing" width="270"/>
+
+It will appear on Favorite page of main screen
+
+<img src="https://user-images.githubusercontent.com/43218153/149815415-37ec4f69-eb9c-4a61-966c-852aabe23093.jpg" alt="drawing" width="270"/>
+
+And it will marked on other screens like favorite
+
+<img src="https://user-images.githubusercontent.com/43218153/149816216-c6e86ef1-d902-4862-a6f6-b3cf60708f5f.jpg" alt="drawing" width="270"/>
