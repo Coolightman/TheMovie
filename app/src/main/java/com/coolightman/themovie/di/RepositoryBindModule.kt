@@ -39,4 +39,8 @@ interface RepositoryBindModule {
     @ApplicationScope
     @Binds
     fun bindReviewRepository(impl: ReviewRepositoryImpl): ReviewRepository
+
+    @ApplicationScope
+    @Binds
+    fun bindStaffRepository(impl: StaffRepositoryImpl): StaffRepository
 }

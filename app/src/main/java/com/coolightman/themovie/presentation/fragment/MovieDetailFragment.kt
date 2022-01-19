@@ -24,6 +24,7 @@ import com.coolightman.themovie.databinding.FragmentMovieDetailBinding
 import com.coolightman.themovie.domain.entity.*
 import com.coolightman.themovie.presentation.adapter.FrameAdapter
 import com.coolightman.themovie.presentation.adapter.ShortMovieAdapter
+import com.coolightman.themovie.presentation.adapter.StaffPreviewAdapter
 import com.coolightman.themovie.presentation.adapter.VideoAdapter
 import com.coolightman.themovie.presentation.viewmodel.MovieDetailViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
@@ -58,6 +59,7 @@ class MovieDetailFragment : Fragment() {
     private lateinit var frameAdapter: FrameAdapter
     private lateinit var videoAdapter: VideoAdapter
     private lateinit var similarAdapter: ShortMovieAdapter
+    private lateinit var staffPreviewAdapter: StaffPreviewAdapter
     private var reviewNumber = -1
 
     override fun onAttach(context: Context) {
@@ -85,6 +87,25 @@ class MovieDetailFragment : Fragment() {
         createFrameRecycler()
         createVideoRecycler()
         createSimilarRecycler()
+        createStaffPreviewRecycler()
+    }
+
+    private fun createStaffPreviewRecycler() {
+        val recycler = binding.rvStaff
+        recycler.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        createStaffAdapter(recycler)
+    }
+
+    private fun createStaffAdapter(recycler: RecyclerView) {
+        staffPreviewAdapter = StaffPreviewAdapter { onStaffClickListener(it) }
+        recycler.adapter = staffPreviewAdapter
+        staffPreviewAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+    }
+
+    private fun onStaffClickListener(staff: Staff) {
+        shortToast("Launch Staff ${staff.staffId}")
     }
 
     private fun createSimilarRecycler() {
@@ -97,6 +118,8 @@ class MovieDetailFragment : Fragment() {
     private fun createSimilarAdapter(recycler: RecyclerView) {
         similarAdapter = ShortMovieAdapter { onSimilarClickListener(it.movieId) }
         recycler.adapter = similarAdapter
+        similarAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
 
     private fun onSimilarClickListener(movieId: Long) {
@@ -115,6 +138,8 @@ class MovieDetailFragment : Fragment() {
     private fun createVideoAdapter(recycler: RecyclerView) {
         videoAdapter = VideoAdapter { onVideoItemClickListener(it) }
         recycler.adapter = videoAdapter
+        videoAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
 
     private fun onVideoItemClickListener(url: String) {
@@ -132,6 +157,8 @@ class MovieDetailFragment : Fragment() {
     private fun createFrameAdapter(recycler: RecyclerView) {
         frameAdapter = FrameAdapter { onFrameItemClickListener(it) }
         recycler.adapter = frameAdapter
+        frameAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
 
     private fun onFrameItemClickListener(framePosition: Int) {
@@ -165,6 +192,10 @@ class MovieDetailFragment : Fragment() {
 
             tvReviewsSeeMore.setOnClickListener {
                 launchALlReviewsFragment()
+            }
+
+            tvStaffSeeMore.setOnClickListener {
+                shortToast("LaunchAllStaffFragment")
             }
 
             cvReview1.setOnClickListener {
@@ -217,6 +248,28 @@ class MovieDetailFragment : Fragment() {
         createReviewsObserver(movieId)
         createVideosObserver(movieId)
         createSimilarsObserver(movieId)
+        createStaffObserver(movieId)
+    }
+
+    private fun createStaffObserver(movieId: Long) {
+        viewModel.getStaff(movieId).observe(viewLifecycleOwner) {
+            it?.let {
+                if (it.isNotEmpty()) {
+                    Log.d("ObservingStaff", it.toString())
+                    checkStuffSize(it)
+                    val list = it.take(NUMBER_PREVIEW_STAFF)
+                    staffPreviewAdapter.submitList(list)
+                } else {
+                    binding.cvStaff.visibility = GONE
+                }
+            }
+        }
+    }
+
+    private fun checkStuffSize(it: List<Staff>) {
+        if (it.size == 1) {
+            binding.tvStaffSeeMore.visibility = GONE
+        }
     }
 
     private fun createReviewsObserver(movieId: Long) {
@@ -567,5 +620,6 @@ class MovieDetailFragment : Fragment() {
         private const val NON_TOP_250_place = "0"
         private const val FIRST_LIST_ITEM = 0
         private const val MAX_REVIEW_DESCRIPTION_SIZE = 200
+        private const val NUMBER_PREVIEW_STAFF = 6
     }
 }

@@ -48,4 +48,8 @@ class DatabaseModule {
     @ApplicationScope
     @Provides
     fun provideReviewsDao(db: AppDatabase) = db.reviewsDao()
+
+    @ApplicationScope
+    @Provides
+    fun provideStaffDao(db: AppDatabase) = db.staffDao()
 }
