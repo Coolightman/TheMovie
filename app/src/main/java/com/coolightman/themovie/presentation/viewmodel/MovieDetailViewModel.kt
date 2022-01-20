@@ -2,6 +2,7 @@ package com.coolightman.themovie.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coolightman.themovie.domain.entity.*
@@ -27,6 +28,10 @@ class MovieDetailViewModel @Inject constructor(
         Log.e("Coroutine_exception", "$throwable")
     }
 
+    private val _staff = MutableLiveData<List<Staff>>()
+    val staff: LiveData<List<Staff>>
+        get() = _staff
+
     fun getMovie(movieId: Long): LiveData<Movie> = getMovieUseCase(movieId)
 
     fun getFrames(movieId: Long): LiveData<List<Frame>> = getMovieFramesUseCase(movieId)
@@ -43,13 +48,13 @@ class MovieDetailViewModel @Inject constructor(
 
     fun getTop250Place(movieId: Long): LiveData<String> = getTop250PlaceUseCase(movieId)
 
-    fun addMovieToFavorite(movieId: Long){
+    fun addMovieToFavorite(movieId: Long) {
         viewModelScope.launch(handler) {
             addMovieToFavoriteUseCase(movieId)
         }
     }
 
-    fun removeMovieFromFavorite(movieId: Long){
+    fun removeMovieFromFavorite(movieId: Long) {
         viewModelScope.launch(handler) {
             removeMovieFromFavoriteUseCase(movieId)
         }

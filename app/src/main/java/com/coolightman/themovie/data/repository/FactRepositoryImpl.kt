@@ -32,8 +32,12 @@ class FactRepositoryImpl @Inject constructor(
     }
 
     private suspend fun loadFactsFromApi(movieId: Long) {
-        val factsDto = apiService.loadFacts(movieId)
-        val factsDbModel = mapper.mapDtoToDbModel(factsDto, movieId)
-        factsDao.insert(factsDbModel)
+        try {
+            val factsDto = apiService.loadFacts(movieId)
+            val factsDbModel = mapper.mapDtoToDbModel(factsDto, movieId)
+            factsDao.insert(factsDbModel)
+        } catch (e: Exception) {
+            Log.e("LoadFactsFromApi", "Bad request facts in movie $movieId")
+        }
     }
 }

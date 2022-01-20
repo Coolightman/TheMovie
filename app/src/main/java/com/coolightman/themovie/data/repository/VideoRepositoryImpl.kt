@@ -33,8 +33,12 @@ class VideoRepositoryImpl @Inject constructor(
     }
 
     private suspend fun loadVideosFromApi(movieId: Long) {
-        val videosDto = apiService.loadVideos(movieId)
-        val videosDbModel = mapper.mapDtoToDbModel(videosDto, movieId)
-        videosDao.insert(videosDbModel)
+        try {
+            val videosDto = apiService.loadVideos(movieId)
+            val videosDbModel = mapper.mapDtoToDbModel(videosDto, movieId)
+            videosDao.insert(videosDbModel)
+        } catch (e: Exception) {
+            Log.e("LoadVideoFromApi", "Bad request video in movie $movieId")
+        }
     }
 }

@@ -32,8 +32,12 @@ class SimilarRepositoryImpl @Inject constructor(
     }
 
     private suspend fun loadSimilarsFromApi(movieId: Long) {
-        val similarsDto = apiService.loadSimilars(movieId)
-        val similarsDbModel = mapper.mapDtoToDbModel(similarsDto, movieId)
-        similarsDao.insert(similarsDbModel)
+        try {
+            val similarsDto = apiService.loadSimilars(movieId)
+            val similarsDbModel = mapper.mapDtoToDbModel(similarsDto, movieId)
+            similarsDao.insert(similarsDbModel)
+        } catch (e: Exception) {
+            Log.e("LoadVideosFromApi", "Bad request videos in movie $movieId")
+        }
     }
 }

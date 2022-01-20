@@ -32,8 +32,12 @@ class FrameRepositoryImpl @Inject constructor(
     }
 
     private suspend fun loadFramesFromApi(movieId: Long) {
-        val framesDto = apiService.loadFrames(movieId)
-        val frameDbModel = mapper.mapDtoToDbModel(framesDto, movieId)
-        framesDao.insert(frameDbModel)
+        try {
+            val framesDto = apiService.loadFrames(movieId)
+            val frameDbModel = mapper.mapDtoToDbModel(framesDto, movieId)
+            framesDao.insert(frameDbModel)
+        } catch (e: Exception) {
+            Log.e("LoadFramesFromApi", "Bad response frames in movie $movieId")
+        }
     }
 }
