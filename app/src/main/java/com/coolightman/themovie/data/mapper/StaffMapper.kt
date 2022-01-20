@@ -20,12 +20,23 @@ class StaffMapper @Inject constructor() {
                 nameEn = item.nameEn,
                 alias = item.description,
                 posterUrl = item.posterUrl,
-                professionText = item.professionText,
+                professionText = cutLastLetter(item.professionText),
                 professionKey = item.professionKey
             )
             dbModelsList.add(dbModel)
         }
         return dbModelsList
+    }
+
+    private fun cutLastLetter(professionText: String?): String? {
+        return if (professionText != null) {
+            val length = professionText.length
+            if (length > 0) {
+                professionText.substring(0, length - 1)
+            } else {
+                professionText
+            }
+        } else professionText
     }
 
     fun mapDbModelListToEntityList(list: List<StaffDbModel>): List<Staff> {

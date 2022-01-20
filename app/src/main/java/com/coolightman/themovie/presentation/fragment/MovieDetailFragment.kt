@@ -195,13 +195,19 @@ class MovieDetailFragment : Fragment() {
             }
 
             tvStaffSeeMore.setOnClickListener {
-                shortToast("LaunchAllStaffFragment")
+                launchStaffFragment()
             }
 
             cvReview1.setOnClickListener {
                 launchReviewFragment()
             }
         }
+    }
+
+    private fun launchStaffFragment() {
+        findNavController().navigate(
+            MovieDetailFragmentDirections.actionMovieDetailFragmentToStaffFragment(movie.movieId)
+        )
     }
 
     private fun launchALlReviewsFragment() {

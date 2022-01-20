@@ -23,6 +23,7 @@ interface ApplicationComponent {
     fun inject(searchMovieFragment: SearchMovieFragment)
     fun inject(reviewFragment: ReviewFragment)
     fun inject(allReviewsFragment: AllReviewsFragment)
+    fun inject(staffFragment: StaffFragment)
 
     @Component.Factory
     interface ApplicationComponentFactory {
