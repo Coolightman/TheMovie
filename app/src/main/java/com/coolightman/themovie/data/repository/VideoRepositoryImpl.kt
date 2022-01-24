@@ -7,11 +7,8 @@ import androidx.lifecycle.liveData
 import com.coolightman.themovie.data.database.dao.VideosDao
 import com.coolightman.themovie.data.mapper.VideoMapper
 import com.coolightman.themovie.data.network.ApiService
-import com.coolightman.themovie.domain.entity.Frame
 import com.coolightman.themovie.domain.entity.Video
 import com.coolightman.themovie.domain.repository.VideoRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class VideoRepositoryImpl @Inject constructor(
@@ -21,15 +18,13 @@ class VideoRepositoryImpl @Inject constructor(
 ) : VideoRepository {
 
     override fun getMovieVideos(movieId: Long): LiveData<List<Video>> = liveData {
-        withContext(Dispatchers.IO) {
-            if (!videosDao.exists(movieId)) {
-                loadVideosFromApi(movieId)
-            }
-            val list = Transformations.map(videosDao.getVideos(movieId)) {
-                mapper.mapDbModelToListOfVideo(it)
-            }
-            emitSource(list)
+        if (!videosDao.exists(movieId)) {
+            loadVideosFromApi(movieId)
         }
+        val list = Transformations.map(videosDao.getVideos(movieId)) {
+            mapper.mapDbModelToListOfVideo(it)
+        }
+        emitSource(list)
     }
 
     private suspend fun loadVideosFromApi(movieId: Long) {

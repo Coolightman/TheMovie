@@ -9,8 +9,6 @@ import com.coolightman.themovie.data.mapper.FactMapper
 import com.coolightman.themovie.data.network.ApiService
 import com.coolightman.themovie.domain.entity.Fact
 import com.coolightman.themovie.domain.repository.FactRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class FactRepositoryImpl @Inject constructor(
@@ -20,15 +18,13 @@ class FactRepositoryImpl @Inject constructor(
 ) : FactRepository {
 
     override fun getMovieFacts(movieId: Long): LiveData<List<Fact>> = liveData {
-        withContext(Dispatchers.IO) {
-            if (!factsDao.exists(movieId)) {
-                loadFactsFromApi(movieId)
-            }
-            val list = Transformations.map(factsDao.getFacts(movieId)) {
-                mapper.mapDbModelToListOfFact(it)
-            }
-            emitSource(list)
+        if (!factsDao.exists(movieId)) {
+            loadFactsFromApi(movieId)
         }
+        val list = Transformations.map(factsDao.getFacts(movieId)) {
+            mapper.mapDbModelToListOfFact(it)
+        }
+        emitSource(list)
     }
 
     private suspend fun loadFactsFromApi(movieId: Long) {

@@ -1,6 +1,5 @@
 package com.coolightman.themovie.data.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.liveData
@@ -18,9 +17,6 @@ import com.coolightman.themovie.domain.entity.Movie
 import com.coolightman.themovie.domain.entity.MovieSearch
 import com.coolightman.themovie.domain.entity.ShortMovie
 import com.coolightman.themovie.domain.repository.MovieRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
@@ -54,14 +50,12 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun clearPopularMovies() {
-        withContext(Dispatchers.IO) {
-            val populars = shortMovieDao.getPopularsList()
-            val justPopulars = getJustPopulars(populars)
-            val crossWithTop250 = getCrossWithTop250(populars)
+        val populars = shortMovieDao.getPopularsList()
+        val justPopulars = getJustPopulars(populars)
+        val crossWithTop250 = getCrossWithTop250(populars)
 
-            deleteJustPopulars(justPopulars)
-            shortMovieDao.insertList(crossWithTop250)
-        }
+        deleteJustPopulars(justPopulars)
+        shortMovieDao.insertList(crossWithTop250)
     }
 
     private suspend fun deleteJustPopulars(justPopulars: List<ShortMovieDbModel>) {
@@ -81,14 +75,12 @@ class MovieRepositoryImpl @Inject constructor(
         populars.filter { movie -> movie.top250Place == 0 }
 
     override suspend fun clearTop250Movies() {
-        withContext(Dispatchers.IO) {
-            val top250 = shortMovieDao.getTop250List()
-            val justTop250 = getJustTop250(top250)
-            val crossWithPopulars = getCrossWithPopulars(top250)
+        val top250 = shortMovieDao.getTop250List()
+        val justTop250 = getJustTop250(top250)
+        val crossWithPopulars = getCrossWithPopulars(top250)
 
-            deleteJustTop250(justTop250)
-            shortMovieDao.insertList(crossWithPopulars)
-        }
+        deleteJustTop250(justTop250)
+        shortMovieDao.insertList(crossWithPopulars)
     }
 
     private suspend fun deleteJustTop250(justTop250: List<ShortMovieDbModel>) {
@@ -108,15 +100,13 @@ class MovieRepositoryImpl @Inject constructor(
         top250.filter { movie -> movie.topPopularPlace == 0 }
 
     override fun getMovie(movieId: Long): LiveData<Movie> = liveData {
-        withContext(Dispatchers.IO) {
-            if (!movieDao.exists(movieId)) {
-                loadMovieFromApi(movieId)
-            }
-            val movie = Transformations.map(movieDao.getMovie(movieId)) {
-                movieMapper.mapDbModelToEntity(it)
-            }
-            emitSource(movie)
+        if (!movieDao.exists(movieId)) {
+            loadMovieFromApi(movieId)
         }
+        val movie = Transformations.map(movieDao.getMovie(movieId)) {
+            movieMapper.mapDbModelToEntity(it)
+        }
+        emitSource(movie)
     }
 
     private suspend fun loadMovieFromApi(movieId: Long) {
@@ -126,35 +116,28 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override fun getTop250Place(movieId: Long): LiveData<String> = liveData {
-        withContext(Dispatchers.IO) {
-            try {
-                val place = shortMovieDao.getTop250Place(movieId)
-                emit(place.toString())
-            } catch (e: Exception) {
-                emit("0")
-            }
+        try {
+            val place = shortMovieDao.getTop250Place(movieId)
+            emit(place.toString())
+        } catch (e: Exception) {
+            emit("0")
         }
     }
 
     override fun getMovieSearchList(): LiveData<List<MovieSearch>> = liveData {
-        withContext(Dispatchers.IO) {
-            val dbModel = searchDao.getAll()
-            val search = Transformations.map(dbModel) { list ->
-                list.map { movieSearchMapper.mapDbModelToEntity(it) }
-            }
-            emitSource(search)
+        val dbModel = searchDao.getAll()
+        val search = Transformations.map(dbModel) { list ->
+            list.map { movieSearchMapper.mapDbModelToEntity(it) }
         }
+        emitSource(search)
     }
 
     override suspend fun searchMovies(keywords: String) {
-        withContext(Dispatchers.IO) {
-            if (keywords.isNotEmpty()) {
-                val job = launch { searchDao.clearTable() }
-                job.join()
-                val result = apiServiceOld.searchMovies(keyword = keywords)
-                val dbModel = movieSearchMapper.mapDtoToDbModelsList(result)
-                searchDao.insertList(dbModel)
-            }
+        if (keywords.isNotEmpty()) {
+            searchDao.clearTable()
+            val result = apiServiceOld.searchMovies(keyword = keywords)
+            val dbModel = movieSearchMapper.mapDtoToDbModelsList(result)
+            searchDao.insertList(dbModel)
         }
     }
 }

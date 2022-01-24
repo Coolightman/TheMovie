@@ -9,8 +9,6 @@ import com.coolightman.themovie.data.mapper.StaffMapper
 import com.coolightman.themovie.data.network.ApiServiceV1
 import com.coolightman.themovie.domain.entity.Staff
 import com.coolightman.themovie.domain.repository.StaffRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class StaffRepositoryImpl @Inject constructor(
@@ -20,15 +18,13 @@ class StaffRepositoryImpl @Inject constructor(
 ) : StaffRepository {
 
     override fun getMovieStaff(movieId: Long): LiveData<List<Staff>> = liveData {
-        withContext(Dispatchers.IO) {
-            loadStaffFromApi(movieId)
-            val list = Transformations.map(staffDao.getStaff(movieId)) {
-                it?.let {
-                    mapper.mapDbModelListToEntityList(it)
-                }
+        loadStaffFromApi(movieId)
+        val list = Transformations.map(staffDao.getStaff(movieId)) {
+            it?.let {
+                mapper.mapDbModelListToEntityList(it)
             }
-            emitSource(list)
         }
+        emitSource(list)
     }
 
     private suspend fun loadStaffFromApi(movieId: Long) {

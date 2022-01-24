@@ -9,10 +9,6 @@ import com.coolightman.themovie.data.mapper.ReviewMapper
 import com.coolightman.themovie.data.network.ApiServiceV1
 import com.coolightman.themovie.domain.entity.Review
 import com.coolightman.themovie.domain.repository.ReviewRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import java.io.IOException
-import java.lang.RuntimeException
 import javax.inject.Inject
 
 class ReviewRepositoryImpl @Inject constructor(
@@ -22,17 +18,15 @@ class ReviewRepositoryImpl @Inject constructor(
 ) : ReviewRepository {
 
     override fun getMovieReviews(movieId: Long): LiveData<List<Review>> = liveData {
-        withContext(Dispatchers.IO) {
-            if (!reviewsDao.exists(movieId)) {
-                loadReviewsFromApi(movieId)
-            }
-            val list = Transformations.map(reviewsDao.getReviews(movieId)) {
-                it?.let {
-                    mapper.mapDbModelToListOfReview(it)
-                }
-            }
-            emitSource(list)
+        if (!reviewsDao.exists(movieId)) {
+            loadReviewsFromApi(movieId)
         }
+        val list = Transformations.map(reviewsDao.getReviews(movieId)) {
+            it?.let {
+                mapper.mapDbModelToListOfReview(it)
+            }
+        }
+        emitSource(list)
     }
 
     private suspend fun loadReviewsFromApi(movieId: Long) {

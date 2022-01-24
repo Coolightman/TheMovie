@@ -1,30 +1,25 @@
 package com.coolightman.themovie.data.repository
 
 import android.util.Log
-import androidx.lifecycle.map
 import com.coolightman.themovie.data.database.dao.FavoriteDao
 import com.coolightman.themovie.data.database.dao.ShortMovieDao
 import com.coolightman.themovie.data.database.dbModel.ShortMovieDbModel
 import com.coolightman.themovie.data.mapper.MovieMapper
 import com.coolightman.themovie.data.network.ApiService
 import com.coolightman.themovie.domain.repository.PageRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class PageRepositoryImpl @Inject constructor(
     private val shortMovieDao: ShortMovieDao,
+    private val favoriteDao: FavoriteDao,
     private val apiService: ApiService,
-    private val movieMapper: MovieMapper,
-    private val favoriteDao: FavoriteDao
+    private val movieMapper: MovieMapper
 ) : PageRepository {
 
     override suspend fun loadPopularNextPage() {
-        withContext(Dispatchers.IO) {
-            val currentPage = getPopularCurrentPageNumber()
-            if (currentPage < TOP_POPULAR_TOTAL_PAGES) {
-                loadPagePopularMovies(currentPage + 1)
-            }
+        val currentPage = getPopularCurrentPageNumber()
+        if (currentPage < TOP_POPULAR_TOTAL_PAGES) {
+            loadPagePopularMovies(currentPage + 1)
         }
     }
 
@@ -42,9 +37,9 @@ class PageRepositoryImpl @Inject constructor(
 
     private suspend fun checkForFavorite(list: List<ShortMovieDbModel>): List<ShortMovieDbModel> {
         val favoritesId = favoriteDao.getFavoriteIds()
-        for (element in list){
-            for (id in favoritesId){
-                if (element.movieId == id){
+        for (element in list) {
+            for (id in favoritesId) {
+                if (element.movieId == id) {
                     element.isFavorite = true
                 }
             }
@@ -53,11 +48,9 @@ class PageRepositoryImpl @Inject constructor(
     }
 
     override suspend fun loadTop250NextPage() {
-        withContext(Dispatchers.IO) {
-            val currentPage = getTop250CurrentPageNumber()
-            if (currentPage < TOP_250_TOTAL_PAGES) {
-                loadPageTop250Movies(currentPage + 1)
-            }
+        val currentPage = getTop250CurrentPageNumber()
+        if (currentPage < TOP_250_TOTAL_PAGES) {
+            loadPageTop250Movies(currentPage + 1)
         }
     }
 
@@ -86,12 +79,12 @@ class PageRepositoryImpl @Inject constructor(
 
     private suspend fun getTop250PlaceFromDb(movieId: Long): Int {
         val movieDbModel = shortMovieDao.getShortMovie(movieId)
-        return movieDbModel?.top250Place ?: 0
+        return movieDbModel.top250Place
     }
 
     private suspend fun getTopPopularPlaceFromDb(movieId: Long): Int {
         val movieDbModel = shortMovieDao.getShortMovie(movieId)
-        return movieDbModel?.topPopularPlace ?: 0
+        return movieDbModel.topPopularPlace
     }
 
     private suspend fun addTop250Number(

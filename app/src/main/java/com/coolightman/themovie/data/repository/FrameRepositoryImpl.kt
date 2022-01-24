@@ -9,8 +9,6 @@ import com.coolightman.themovie.data.mapper.FrameMapper
 import com.coolightman.themovie.data.network.ApiService
 import com.coolightman.themovie.domain.entity.Frame
 import com.coolightman.themovie.domain.repository.FrameRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class FrameRepositoryImpl @Inject constructor(
@@ -20,15 +18,13 @@ class FrameRepositoryImpl @Inject constructor(
 ) : FrameRepository {
 
     override fun getMovieFrames(movieId: Long): LiveData<List<Frame>> = liveData {
-        withContext(Dispatchers.IO) {
-            if (!framesDao.exists(movieId)) {
-                loadFramesFromApi(movieId)
-            }
-            val list = Transformations.map(framesDao.getFrames(movieId)) {
-                mapper.mapDbModelToListOfFrame(it)
-            }
-            emitSource(list)
+        if (!framesDao.exists(movieId)) {
+            loadFramesFromApi(movieId)
         }
+        val list = Transformations.map(framesDao.getFrames(movieId)) {
+            mapper.mapDbModelToListOfFrame(it)
+        }
+        emitSource(list)
     }
 
     private suspend fun loadFramesFromApi(movieId: Long) {
