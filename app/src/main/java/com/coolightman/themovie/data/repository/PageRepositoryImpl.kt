@@ -79,12 +79,12 @@ class PageRepositoryImpl @Inject constructor(
 
     private suspend fun getTop250PlaceFromDb(movieId: Long): Int {
         val movieDbModel = shortMovieDao.getShortMovie(movieId)
-        return movieDbModel.top250Place
+        return movieDbModel?.top250Place ?: 0
     }
 
     private suspend fun getTopPopularPlaceFromDb(movieId: Long): Int {
         val movieDbModel = shortMovieDao.getShortMovie(movieId)
-        return movieDbModel.topPopularPlace
+        return movieDbModel?.topPopularPlace ?: 0
     }
 
     private suspend fun addTop250Number(

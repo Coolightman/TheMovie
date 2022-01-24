@@ -25,11 +25,13 @@ class FavoriteRepositoryImpl @Inject constructor(
     }
 
     private suspend fun setShortMovieIsFavorite(
-        shortMovie: ShortMovieDbModel,
+        shortMovie: ShortMovieDbModel?,
         isFavorite: Boolean
     ) {
-        shortMovie.isFavorite = isFavorite
-        shortMovieDao.insertShortMovie(shortMovie)
+        shortMovie?.let {
+            it.isFavorite = isFavorite
+            shortMovieDao.insertShortMovie(it)
+        }
     }
 
     private suspend fun createFavorite(movie: MovieDbModel) {
