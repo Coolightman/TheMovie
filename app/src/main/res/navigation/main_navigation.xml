@@ -60,6 +60,11 @@
             app:destination="@id/staffFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_movieDetailFragment_to_personFragment"
+            app:destination="@id/personFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/galleryFragment"
@@ -89,7 +94,9 @@
         tools:layout="@layout/fragment_search_movie" >
         <action
             android:id="@+id/action_searchMovieFragment_to_movieDetailFragment"
-            app:destination="@id/movieDetailFragment" />
+            app:destination="@id/movieDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/reviewFragment"
@@ -124,6 +131,20 @@
         tools:layout="@layout/fragment_staff" >
         <argument
             android:name="movieId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_staffFragment_to_personFragment"
+            app:destination="@id/personFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/personFragment"
+        android:name="com.coolightman.themovie.presentation.fragment.PersonFragment"
+        android:label="fragment_person"
+        tools:layout="@layout/fragment_person" >
+        <argument
+            android:name="personId"
             app:argType="long" />
     </fragment>
 </navigation>

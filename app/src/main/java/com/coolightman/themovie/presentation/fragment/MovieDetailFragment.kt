@@ -105,7 +105,9 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun onStaffClickListener(staff: Staff) {
-        shortToast("Launch Staff ${staff.staffId}")
+        findNavController().navigate(
+            MovieDetailFragmentDirections.actionMovieDetailFragmentToPersonFragment(staff.staffId)
+        )
     }
 
     private fun createSimilarRecycler() {

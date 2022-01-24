@@ -36,4 +36,5 @@
     <string name="tv_read_more">read more</string>
     <string name="tv_review_top_label_text">Review</string>
     <string name="tv_staff_label_text">Staff</string>
+    <string name="tv_person_top_label_text">Person</string>
 </resources>

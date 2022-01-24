@@ -101,8 +101,10 @@ class StaffFragment : Fragment() {
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
 
-    private fun onItemClickListener(it: Staff) {
-        Toast.makeText(requireContext(), "Go to Staff ${it.staffId}", Toast.LENGTH_SHORT).show()
+    private fun onItemClickListener(staff: Staff) {
+        findNavController().navigate(
+            StaffFragmentDirections.actionStaffFragmentToPersonFragment(staff.staffId)
+        )
     }
 
 }

@@ -34,4 +34,5 @@
     <string name="tv_read_more">читать дальше</string>
     <string name="tv_review_top_label_text">Отзыв</string>
     <string name="tv_staff_label_text">Актеры и создатели</string>
+    <string name="tv_person_top_label_text">Подробно</string>
 </resources>
