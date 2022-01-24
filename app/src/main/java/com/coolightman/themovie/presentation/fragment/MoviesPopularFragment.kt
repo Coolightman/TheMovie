@@ -1,6 +1,5 @@
 package com.coolightman.themovie.presentation.fragment
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -74,7 +73,6 @@ class MoviesPopularFragment : Fragment() {
         createRefreshTimeStamp()
     }
 
-    @SuppressLint("CommitPrefEdits")
     private fun createRefreshTimeStamp() {
         val stamp = System.currentTimeMillis()
         sharedPref.edit().putLong(PREF_POPULAR_LAST_REFRESH, stamp).apply()

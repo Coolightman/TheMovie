@@ -26,6 +26,10 @@ interface RepositoryBindModule {
 
     @ApplicationScope
     @Binds
+    fun bindShortMovieRepository(impl: ShortMovieRepositoryImpl): ShortMovieRepository
+
+    @ApplicationScope
+    @Binds
     fun bindPageRepository(impl: PageRepositoryImpl): PageRepository
 
     @ApplicationScope

@@ -11,7 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.coolightman.themovie.databinding.FragmentMoviesFavoriteBinding
-import com.coolightman.themovie.presentation.adapter.FavoriteMovieAdapter
+import com.coolightman.themovie.domain.entity.ShortMovie
+import com.coolightman.themovie.presentation.adapter.ShortMovieAdapter
+import com.coolightman.themovie.util.ColumnCount.getColumnCount
 
 class MoviesFavoriteFragment : Fragment() {
 
@@ -22,7 +24,7 @@ class MoviesFavoriteFragment : Fragment() {
     private var _binding: FragmentMoviesFavoriteBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var favoriteMovieAdapter: FavoriteMovieAdapter
+    private lateinit var shortMovieAdapter: ShortMovieAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,14 +37,14 @@ class MoviesFavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         createObserver()
-        createAdapter()
+        createRecyclerView()
     }
 
     private fun createObserver() {
         viewModel.getFavoriteMovies().observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
+                shortMovieAdapter.submitList(it)
                 showClueAboutEmptyAdapter(false)
-                favoriteMovieAdapter.submitList(it)
             } else {
                 showClueAboutEmptyAdapter(true)
             }
@@ -55,20 +57,17 @@ class MoviesFavoriteFragment : Fragment() {
         binding.tvClueEmptyAdapter.visibility = visibility
     }
 
-    private fun createAdapter() {
-        favoriteMovieAdapter = FavoriteMovieAdapter { onClickMovie(it.movieId) }
-        binding.rvFavoriteMovies.adapter = favoriteMovieAdapter
-        binding.rvFavoriteMovies.layoutManager =
-            GridLayoutManager(requireContext(), getColumnCount())
-        favoriteMovieAdapter.stateRestorationPolicy =
-            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+    private fun createRecyclerView() {
+        val recycler = binding.rvFavoriteMovies
+        createAdapter()
+        recycler.adapter = shortMovieAdapter
+        recycler.layoutManager = GridLayoutManager(requireContext(), getColumnCount(resources))
     }
 
-    private fun getColumnCount(): Int {
-        val displayWidth = resources.displayMetrics.widthPixels
-        val columns = displayWidth / IMAGE_WIDTH
-        return if (columns > MIN_COLUMN) columns
-        else MIN_COLUMN
+    private fun createAdapter() {
+        shortMovieAdapter = ShortMovieAdapter { onClickMovie(it.movieId) }
+        shortMovieAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
 
     private fun onClickMovie(movieId: Long) {
@@ -84,8 +83,5 @@ class MoviesFavoriteFragment : Fragment() {
 
     companion object {
         fun newInstance() = MoviesFavoriteFragment()
-
-        private const val IMAGE_WIDTH = 360
-        private const val MIN_COLUMN = 2
     }
 }

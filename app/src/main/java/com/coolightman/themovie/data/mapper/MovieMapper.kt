@@ -9,6 +9,7 @@ import com.coolightman.themovie.di.ApplicationScope
 import com.coolightman.themovie.domain.entity.Country
 import com.coolightman.themovie.domain.entity.Genre
 import com.coolightman.themovie.domain.entity.Movie
+import com.coolightman.themovie.domain.entity.ShortMovie
 import com.coolightman.themovie.util.TextFormat
 import javax.inject.Inject
 
@@ -94,29 +95,11 @@ class MovieMapper @Inject constructor() {
         return System.currentTimeMillis()
     }
 
-    fun mapFavoriteDbModelToEntity(dbModel: FavoriteDbModel) = Movie(
+    fun mapFavoriteDbModelToEntity(dbModel: FavoriteDbModel) = ShortMovie(
         movieId = dbModel.movieId,
-        nameOriginal = dbModel.nameOriginal,
-        nameRu = dbModel.nameRu,
-        slogan = dbModel.slogan,
         rating = dbModel.rating,
-        ratingCount = dbModel.ratingCount.toString(),
-        ratingAwait = dbModel.ratingAwait,
-        ratingAwaitCount = dbModel.ratingAwaitCount.toString(),
-        ratingImdb = dbModel.ratingImdb,
-        ratingImdbCount = dbModel.ratingImdbCount.toString(),
-        ratingCritics = dbModel.ratingCritics,
-        ratingCriticsCount = dbModel.ratingCriticsCount.toString(),
         posterPreview = dbModel.posterPreview,
-        poster = dbModel.poster,
-        isFavorite = true,
-        releaseDate = dbModel.releaseDate,
-        duration = dbModel.duration,
-        description = dbModel.description,
-        genres = dbModel.genres.map { genresDbModelToEntity(it) },
-        countries = dbModel.countries.map { countriesDbModelToEntity(it) },
-        webUrl = dbModel.webUrl,
-        ageLimit = dbModel.ageLimit
+        isFavorite = true
     )
 
     fun mapMoviesPageDtoToDbModel(dto: MoviesPageDto): List<ShortMovieDbModel> {
