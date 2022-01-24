@@ -30,6 +30,10 @@ interface RepositoryBindModule {
 
     @ApplicationScope
     @Binds
+    fun bindMovieSearchRepository(impl: MovieSearchRepositoryImpl): MovieSearchRepository
+
+    @ApplicationScope
+    @Binds
     fun bindPageRepository(impl: PageRepositoryImpl): PageRepository
 
     @ApplicationScope
