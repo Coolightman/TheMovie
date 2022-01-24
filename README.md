@@ -22,7 +22,7 @@ You can refresh pages by swipe down, or it will be refreshing by some time when 
 ### Movie details screen
 Here you can see main parts of movie like a poster, some ratings, detail information, frames, facts, videos, staff, reviews and similar movies. Every part is interactive.
 
-<img src="https://user-images.githubusercontent.com/43218153/150192742-fae08f7d-6b5e-415e-a046-4ca679512c79.jpg" alt="drawing" width="270"/>
+<img src="https://user-images.githubusercontent.com/43218153/150844465-85c44254-6934-4164-b297-f3154534dc99.jpg" alt="drawing" width="270"/>
 
 ### From movie details, you can go, for example, to:
 ### Reviews
