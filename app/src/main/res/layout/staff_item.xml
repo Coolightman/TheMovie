@@ -24,6 +24,22 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_name_ru"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="4dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Джим Керри" />
+
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_name_en"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,23 +51,23 @@
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_name_ru"
                 tools:text="Jim Carry" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_name_ru"
+                android:id="@+id/tv_profession"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingStart="8dp"
-                android:paddingTop="4dp"
+                android:paddingTop="12dp"
                 android:paddingEnd="8dp"
-                android:paddingBottom="4dp"
+                android:paddingBottom="12dp"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_name_en"
-                tools:text="Джим Керри" />
+                tools:text="Актёр" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_alias"
@@ -67,21 +83,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_profession"
                 tools:text="Эйс Вентура" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_profession"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingStart="8dp"
-                android:paddingTop="12dp"
-                android:paddingEnd="8dp"
-                android:paddingBottom="12dp"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_name_ru"
-                tools:text="Актёр" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

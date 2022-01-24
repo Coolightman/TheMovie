@@ -110,7 +110,7 @@ class MovieMapper @Inject constructor() {
         length?.let {
             val hours = length / 60
             val minutes = length % 60
-            return String.format("%02d:%02d", hours, minutes)
+            return "$hours ч $minutes мин"
         }
         return ""
     }

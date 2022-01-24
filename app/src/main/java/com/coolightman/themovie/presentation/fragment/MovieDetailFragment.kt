@@ -322,8 +322,7 @@ class MovieDetailFragment : Fragment() {
 
     private fun setReviewTitle(title: String) {
         if (title.isNotEmpty()) {
-            val text = "\"$title\""
-            binding.tvReview1Title.text = text
+            binding.tvReview1Title.text = title
         } else {
             binding.tvReview1Title.visibility = GONE
         }

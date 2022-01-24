@@ -237,6 +237,20 @@
                 android:paddingEnd="16dp">
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_name_ru"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Сосна" />
+
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_name_original"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -246,21 +260,8 @@
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name_ru"
                     tools:text="Sosna" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_name_ru"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_name_original"
-                    tools:text="Сосна" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_slogan"
@@ -272,7 +273,7 @@
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_name_ru"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_name_original"
                     tools:text="Bla bla bla" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -319,7 +320,7 @@
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_duration_label"
-                    tools:text="00:00" />
+                    tools:text="2 ч 15 мин" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_genre_label"
@@ -430,7 +431,8 @@
                     android:paddingEnd="16dp"
                     android:paddingBottom="2dp"
                     android:text="@string/tv_frames_label_text"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_frames"
@@ -469,6 +471,7 @@
                     android:paddingBottom="2dp"
                     android:text="@string/tv_facts_label_text"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -524,7 +527,7 @@
                             android:paddingTop="4dp"
                             android:paddingEnd="16dp"
                             android:paddingBottom="4dp"
-                            android:textSize="14sp"
+                            android:textSize="16sp"
                             tools:text="Some fact 1" />
 
                     </LinearLayout>
@@ -558,7 +561,8 @@
                     android:paddingEnd="16dp"
                     android:paddingBottom="2dp"
                     android:text="@string/tv_videos_label_text"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_videos"
@@ -596,6 +600,7 @@
                     android:paddingBottom="2dp"
                     android:text="@string/tv_staff_label_text"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -619,8 +624,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/tv_videos_label_text"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_staff_label"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/staff_preview_item"
@@ -654,6 +659,7 @@
                     android:paddingBottom="2dp"
                     android:text="@string/tv_reviews_label_text"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -699,7 +705,7 @@
                             android:paddingTop="4dp"
                             android:paddingEnd="16dp"
                             android:paddingBottom="4dp"
-                            android:textSize="16sp"
+                            android:textSize="18sp"
                             tools:text="Good review" />
 
                         <com.google.android.material.textview.MaterialTextView
@@ -710,7 +716,7 @@
                             android:paddingTop="4dp"
                             android:paddingEnd="16dp"
                             android:paddingBottom="4dp"
-                            android:textSize="14sp"
+                            android:textSize="16sp"
                             tools:text="Some review description" />
 
                     </LinearLayout>
@@ -744,7 +750,8 @@
                     android:paddingEnd="16dp"
                     android:paddingBottom="2dp"
                     android:text="@string/tv_similars_label_text"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_similars"
