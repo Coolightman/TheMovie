@@ -37,4 +37,10 @@
     <string name="tv_review_top_label_text">Review</string>
     <string name="tv_staff_label_text">Staff</string>
     <string name="tv_person_top_label_text">Person</string>
+    <string name="tv_birthday_label_text">Birthday</string>
+    <string name="tv_death_label_text">Death</string>
+    <string name="tv_age_label_text">Age</string>
+    <string name="tv_birthplace_label_text">Place of Birth</string>
+    <string name="tv_growth_label_text">Growth</string>
+    <string name="tv_death_place_label_text">Place of death</string>
 </resources>
