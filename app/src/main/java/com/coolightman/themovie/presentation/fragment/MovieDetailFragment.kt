@@ -79,9 +79,15 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieId = args.movieId
+
+        fetchMovieData(movieId)
         createObservers(movieId)
         createRecyclers()
         createListeners(movieId)
+    }
+
+    private fun fetchMovieData(movieId: Long) {
+        viewModel.fetchData(movieId)
     }
 
     private fun createRecyclers() {
@@ -615,7 +621,7 @@ class MovieDetailFragment : Fragment() {
     companion object {
         private const val TIME_SHORT_TOAST = 800L
         private const val NON_TOP_250_place = "0"
-        private const val FIRST_LIST_ITEM = 0
+        private const val BUNDLE_SCROLL_POSITION = "detailScrollYPosition"
         private const val MAX_REVIEW_DESCRIPTION_SIZE = 200
         private const val NUMBER_PREVIEW_STAFF = 6
     }

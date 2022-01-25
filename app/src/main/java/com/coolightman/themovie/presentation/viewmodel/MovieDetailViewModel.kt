@@ -16,6 +16,7 @@ class MovieDetailViewModel @Inject constructor(
     private val getMovieFramesUseCase: GetMovieFramesUseCase,
     private val getMovieVideosUseCase: GetMovieVideosUseCase,
     private val getMovieFactsUseCase: GetMovieFactsUseCase,
+    private val fetchMovieFactsUseCase: FetchMovieFactsUseCase,
     private val getMovieReviewsUseCase: GetMovieReviewsUseCase,
     private val getMovieSimilarsUseCase: GetMovieSimilarsUseCase,
     private val getMovieStaffUseCase: GetMovieStaffUseCase,
@@ -27,10 +28,6 @@ class MovieDetailViewModel @Inject constructor(
     private val handler = CoroutineExceptionHandler { _, throwable ->
         Log.e("Coroutine_exception", "$throwable")
     }
-
-    private val _staff = MutableLiveData<List<Staff>>()
-    val staff: LiveData<List<Staff>>
-        get() = _staff
 
     fun getMovie(movieId: Long): LiveData<Movie> = getMovieUseCase(movieId)
 
@@ -47,6 +44,12 @@ class MovieDetailViewModel @Inject constructor(
     fun getStaff(movieId: Long): LiveData<List<Staff>> = getMovieStaffUseCase(movieId)
 
     fun getTop250Place(movieId: Long): LiveData<String> = getTop250PlaceUseCase(movieId)
+
+    fun fetchData(movieId: Long){
+        viewModelScope.launch(handler) {
+            fetchMovieFactsUseCase(movieId)
+        }
+    }
 
     fun addMovieToFavorite(movieId: Long) {
         viewModelScope.launch(handler) {

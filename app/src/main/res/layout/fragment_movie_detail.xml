@@ -2,12 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scroll_movie_detail"
+    android:id="@+id/scroll_movie_detail_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.fragment.MovieDetailFragment">
 
     <LinearLayout
+        android:id="@+id/layout_movie_detail_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -22,6 +23,7 @@
             app:cardCornerRadius="4dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_poster"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -231,6 +233,7 @@
             app:cardCornerRadius="4dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_description"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingStart="16dp"
@@ -417,6 +420,7 @@
             app:cardCornerRadius="4dp">
 
             <LinearLayout
+                android:id="@+id/layout_frames"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -456,6 +460,7 @@
             app:cardCornerRadius="4dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_facts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -490,6 +495,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_fact1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
@@ -501,6 +507,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_facts_label">
 
                     <LinearLayout
+                        android:id="@+id/layout_fact1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -547,6 +554,7 @@
             app:cardCornerRadius="4dp">
 
             <LinearLayout
+                android:id="@+id/layout_videos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -586,6 +594,7 @@
             app:cardCornerRadius="4dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_staff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
@@ -644,6 +653,7 @@
             app:cardCornerRadius="4dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_reviews"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -691,6 +701,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_reviews_label">
 
                     <LinearLayout
+                        android:id="@+id/layout_review_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -736,6 +747,7 @@
             app:cardCornerRadius="4dp">
 
             <LinearLayout
+                android:id="@+id/layout_similars"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
