@@ -354,6 +354,7 @@ class MovieDetailFragment : Fragment() {
                 checkFactsSize(it)
                 checkSpoiler(fact)
                 binding.tvFact1.text = fact.text
+                binding.cvFacts.visibility = VISIBLE
             } else {
                 binding.cvFacts.visibility = GONE
             }
@@ -402,6 +403,7 @@ class MovieDetailFragment : Fragment() {
         viewModel.getFrames(movieId).observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 frameAdapter.submitList(it)
+                binding.cvFrames.visibility = VISIBLE
             } else {
                 binding.cvFrames.visibility = GONE
             }
