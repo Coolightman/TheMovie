@@ -146,5 +146,19 @@
         <argument
             android:name="personId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_personFragment_to_personFactsFragment"
+            app:destination="@id/personFactsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/personFactsFragment"
+        android:name="com.coolightman.themovie.presentation.fragment.PersonFactsFragment"
+        android:label="fragment_person_facts"
+        tools:layout="@layout/fragment_person_facts" >
+        <argument
+            android:name="personId"
+            app:argType="long" />
     </fragment>
 </navigation>

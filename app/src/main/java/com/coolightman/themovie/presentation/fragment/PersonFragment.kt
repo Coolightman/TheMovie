@@ -2,21 +2,22 @@ package com.coolightman.themovie.presentation.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.coolightman.themovie.App
 import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.FragmentPersonBinding
-import com.coolightman.themovie.domain.entity.Fact
+import com.coolightman.themovie.domain.entity.PersonFilm
+import com.coolightman.themovie.presentation.adapter.FilmographyAdapter
 import com.coolightman.themovie.presentation.viewmodel.PersonViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
 import com.coolightman.themovie.util.ColumnCount.getRandomNumber
@@ -58,7 +59,7 @@ class PersonFragment : Fragment() {
         val personId = args.personId
 
         createObserver(personId)
-        listeners()
+        listeners(personId)
     }
 
     private fun createObserver(personId: Long) {
@@ -73,6 +74,21 @@ class PersonFragment : Fragment() {
             setDeath(it.death)
             setProfession(it.profession)
             setFact(it.facts)
+            setFilmography(it.films)
+        }
+    }
+
+    private fun setFilmography(films: List<PersonFilm>) {
+        val recycler = binding.rvFilmography
+        recycler.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val filmographyAdapter = FilmographyAdapter()
+        recycler.adapter = filmographyAdapter
+        filmographyAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+
+        if (films.isNotEmpty()) {
+            filmographyAdapter.submitList(films)
         }
     }
 
@@ -166,14 +182,16 @@ class PersonFragment : Fragment() {
         }
     }
 
-    private fun listeners() {
+    private fun listeners(personId: Long) {
         with(binding) {
             imgCloseFragment.setOnClickListener {
                 closeFragment()
             }
 
             tvFactsSeeMore.setOnClickListener {
-                Toast.makeText(requireContext(), "Launch all person Facts", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(
+                    PersonFragmentDirections.actionPersonFragmentToPersonFactsFragment(personId)
+                )
             }
         }
     }
