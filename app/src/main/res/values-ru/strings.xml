@@ -38,4 +38,5 @@
     <string name="tv_death_label_text">Умер</string>
     <string name="tv_age_label_text">Возраст</string>
     <string name="tv_growth_label_text">Рост</string>
+    <string name="tv_filmography_label_text">Фильмография</string>
 </resources>

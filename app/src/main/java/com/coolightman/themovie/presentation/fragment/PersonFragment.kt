@@ -2,10 +2,12 @@ package com.coolightman.themovie.presentation.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -14,8 +16,10 @@ import com.bumptech.glide.Glide
 import com.coolightman.themovie.App
 import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.FragmentPersonBinding
+import com.coolightman.themovie.domain.entity.Fact
 import com.coolightman.themovie.presentation.viewmodel.PersonViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
+import com.coolightman.themovie.util.ColumnCount.getRandomNumber
 import javax.inject.Inject
 
 class PersonFragment : Fragment() {
@@ -68,6 +72,24 @@ class PersonFragment : Fragment() {
             setBirthPlace(it.birthplace)
             setDeath(it.death)
             setProfession(it.profession)
+            setFact(it.facts)
+        }
+    }
+
+    private fun setFact(facts: List<String>) {
+        if (facts.isNotEmpty()) {
+            val factRndNumb = getRandomNumber(facts.size)
+            val fact = facts[factRndNumb]
+            checkFactsSize(facts)
+            binding.tvFact1.text = fact
+        } else {
+            binding.cvFacts.visibility = GONE
+        }
+    }
+
+    private fun checkFactsSize(facts: List<String>) {
+        if (facts.size == 1) {
+            binding.tvFactsSeeMore.visibility = GONE
         }
     }
 
@@ -148,6 +170,10 @@ class PersonFragment : Fragment() {
         with(binding) {
             imgCloseFragment.setOnClickListener {
                 closeFragment()
+            }
+
+            tvFactsSeeMore.setOnClickListener {
+                Toast.makeText(requireContext(), "Launch all person Facts", Toast.LENGTH_SHORT).show()
             }
         }
     }

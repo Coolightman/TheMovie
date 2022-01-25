@@ -29,6 +29,7 @@ import com.coolightman.themovie.presentation.adapter.VideoAdapter
 import com.coolightman.themovie.presentation.viewmodel.MovieDetailViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
 import com.coolightman.themovie.util.CardColor.setCardColor
+import com.coolightman.themovie.util.ColumnCount.getRandomNumber
 import com.coolightman.themovie.util.RatingColor.setRatingColor
 import com.coolightman.themovie.util.TextFormat.cutTextSize
 import kotlinx.coroutines.CoroutineScope
@@ -344,17 +345,6 @@ class MovieDetailFragment : Fragment() {
             }
         }
     }
-
-    private fun getRandomNumber(listSize: Int): Int {
-        return if (listSize > 1) {
-            val max = listSize - 1
-            val min = 0
-            (Math.random() * (max - min + 1) + min).toInt()
-        } else {
-            FIRST_LIST_ITEM
-        }
-    }
-
 
     private fun checkFactsSize(it: List<Fact>) {
         if (it.size == 1) {
