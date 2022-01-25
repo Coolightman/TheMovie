@@ -19,8 +19,8 @@ class PersonMapper @Inject constructor() {
         sex = dto.sex,
         posterUrl = dto.posterUrl,
         growth = dto.growth,
-        birthday = dto.birthday,
-        death = dto.death,
+        birthday = convertData(dto.birthday),
+        death = convertData(dto.death),
         age = dto.age,
         birthplace = dto.birthplace,
         deathplace = dto.deathplace,
@@ -28,6 +28,13 @@ class PersonMapper @Inject constructor() {
         facts = dto.facts,
         films = mapFilmsDtoToDbModels(dto.films)
     )
+
+    private fun convertData(date: String?): String? {
+        return if (date != null) {
+            val split = date.split("-")
+            "${split[2]}-${split[1]}-${split[0]}"
+        } else null
+    }
 
     private fun mapFilmsDtoToDbModels(filmsDto: List<PersonFilmsDto>): List<PersonFilmDbModel> {
         return filmsDto.map { mapFilmDtoToDbModel(it) }
