@@ -24,30 +24,9 @@ class StaffAdapter(private val clickListener: (Staff) -> Unit) :
         staff?.let {
             with(holder.binding) {
                 setStaffPoster(this, staff)
-                setNameEn(this, staff.nameEn)
-                setNameRu(this, staff.nameRu)
                 setAlias(this, staff.alias)
-                setProfession(this, staff.professionText)
                 root.setOnClickListener { clickListener(staff) }
             }
-        }
-    }
-
-    private fun setNameEn(binding: StaffItemBinding, nameEn: String) {
-        if (nameEn.isNotEmpty()){
-            binding.tvNameEn.text = nameEn
-            binding.tvNameEn.visibility = VISIBLE
-        } else{
-            binding.tvNameEn.visibility = GONE
-        }
-    }
-
-    private fun setNameRu(binding: StaffItemBinding, nameRu: String) {
-        if (nameRu.isNotEmpty()){
-            binding.tvNameRu.text = nameRu
-            binding.tvNameRu.visibility = VISIBLE
-        } else{
-            binding.tvNameRu.visibility = GONE
         }
     }
 
@@ -61,19 +40,11 @@ class StaffAdapter(private val clickListener: (Staff) -> Unit) :
         }
     }
 
-    private fun setProfession(binding: StaffItemBinding, professionText: String) {
-        if (professionText.isNotEmpty()){
-            binding.tvProfession.text = professionText
-            binding.tvProfession.visibility = VISIBLE
-        } else{
-            binding.tvProfession.visibility = GONE
-        }
-    }
-
     private fun setStaffPoster(binding: StaffItemBinding, staff: Staff) {
         Glide.with(binding.root.context)
             .load(staff.posterUrl)
             .placeholder(R.drawable.placeholder_image)
+            .centerCrop()
             .into(binding.imgPreview)
     }
 }

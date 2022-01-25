@@ -1,25 +1,20 @@
 package com.coolightman.themovie.presentation.fragment
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.coolightman.themovie.App
-import com.coolightman.themovie.R
-import com.coolightman.themovie.databinding.FragmentAllReviewsBinding
 import com.coolightman.themovie.databinding.FragmentStaffBinding
 import com.coolightman.themovie.domain.entity.Staff
-import com.coolightman.themovie.presentation.adapter.ReviewAdapter
 import com.coolightman.themovie.presentation.adapter.StaffAdapter
-import com.coolightman.themovie.presentation.viewmodel.AllReviewsViewModel
 import com.coolightman.themovie.presentation.viewmodel.StaffViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
 import javax.inject.Inject
@@ -89,8 +84,7 @@ class StaffFragment : Fragment() {
     private fun createRecycler() {
         val recycler = binding.rvStaff
         createStaffAdapter(recycler)
-        val layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val layoutManager = GridLayoutManager(requireContext(), COLUMN_NUMBER)
         recycler.layoutManager = layoutManager
     }
 
@@ -105,6 +99,10 @@ class StaffFragment : Fragment() {
         findNavController().navigate(
             StaffFragmentDirections.actionStaffFragmentToPersonFragment(staff.staffId)
         )
+    }
+
+    companion object{
+        private const val COLUMN_NUMBER = 2
     }
 
 }
