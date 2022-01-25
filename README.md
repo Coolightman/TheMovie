@@ -17,7 +17,7 @@ You can refresh pages by swipe down, or it will be refreshing by some time when 
 
 ### Search screen
 
-<img src="https://user-images.githubusercontent.com/43218153/149815394-5aa4ea7d-aed0-448d-a9a5-39e302b41676.jpg" alt="drawing" width="270"/>
+<img src="https://user-images.githubusercontent.com/43218153/151016704-e9593d62-67ec-4eb4-8539-9f6cf7e2fcad.jpg" alt="drawing" width="270"/>
 
 ### Movie details screen
 Here you can see main parts of movie like a poster, some ratings, detail information, frames, facts, videos, staff, reviews and similar movies. Every part is interactive.
@@ -30,7 +30,7 @@ Click on some card is opening detail information about actor.
 
 <img src="https://user-images.githubusercontent.com/43218153/150989925-4d017ce4-af71-42d6-911e-38addd0f0c72.jpg" alt="drawing" width="270"/>
 
-<img src="https://user-images.githubusercontent.com/43218153/150989928-0803886a-224b-4126-9238-7d8e341dc39f.jpg" alt="drawing" width="270"/>
+<img src="https://user-images.githubusercontent.com/43218153/151016694-6e4b0163-578d-440b-92cc-0454f9891897.jpg" alt="drawing" width="270"/>
 
 ### Gallery
 It's opening when click on any frame on movie detail screen. Here is you can continue to swipe already large images and also rotate to landscape if neccessary
