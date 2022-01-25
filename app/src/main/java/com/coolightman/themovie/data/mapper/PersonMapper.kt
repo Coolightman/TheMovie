@@ -7,6 +7,8 @@ import com.coolightman.themovie.data.network.dto.PersonFilmsDto
 import com.coolightman.themovie.di.ApplicationScope
 import com.coolightman.themovie.domain.entity.Person
 import com.coolightman.themovie.domain.entity.PersonFilm
+import com.coolightman.themovie.util.TextFormat.convertData
+import com.coolightman.themovie.util.TextFormat.convertGrowth
 import javax.inject.Inject
 
 @ApplicationScope
@@ -18,7 +20,7 @@ class PersonMapper @Inject constructor() {
         nameEn = dto.nameEn,
         sex = dto.sex,
         posterUrl = dto.posterUrl,
-        growth = dto.growth,
+        growth = convertGrowth(dto.growth),
         birthday = convertData(dto.birthday),
         death = convertData(dto.death),
         age = dto.age,
@@ -28,13 +30,6 @@ class PersonMapper @Inject constructor() {
         facts = dto.facts,
         films = mapFilmsDtoToDbModels(dto.films)
     )
-
-    private fun convertData(date: String?): String? {
-        return if (date != null) {
-            val split = date.split("-")
-            "${split[2]}-${split[1]}-${split[0]}"
-        } else null
-    }
 
     private fun mapFilmsDtoToDbModels(filmsDto: List<PersonFilmsDto>): List<PersonFilmDbModel> {
         return filmsDto.map { mapFilmDtoToDbModel(it) }
@@ -55,7 +50,7 @@ class PersonMapper @Inject constructor() {
         nameEn = dbModel.nameEn,
         sex = dbModel.sex,
         posterUrl = dbModel.posterUrl,
-        growth = dbModel.growth?.toString(),
+        growth = dbModel.growth,
         birthday = dbModel.birthday,
         death = dbModel.death,
         age = dbModel.age?.toString(),

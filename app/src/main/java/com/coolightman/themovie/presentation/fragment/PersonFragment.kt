@@ -67,7 +67,6 @@ class PersonFragment : Fragment() {
             setBirthday(it.birthday)
             setBirthPlace(it.birthplace)
             setDeath(it.death)
-            setDeathPlace(it.deathplace)
             setProfession(it.profession)
         }
     }
@@ -117,7 +116,7 @@ class PersonFragment : Fragment() {
         if (birthday != null) {
             binding.tvBirthday.text = birthday
         } else {
-            binding.layoutBirthday.visibility = GONE
+            binding.tvBirthday.visibility = GONE
         }
     }
 
@@ -125,7 +124,7 @@ class PersonFragment : Fragment() {
         if (birthplace != null) {
             binding.tvBirthplace.text = birthplace
         } else {
-            binding.layoutBirthplace.visibility = GONE
+            binding.tvBirthplace.visibility = GONE
         }
     }
 
@@ -134,14 +133,6 @@ class PersonFragment : Fragment() {
             binding.tvDeath.text = death
         } else {
             binding.layoutDeath.visibility = GONE
-        }
-    }
-
-    private fun setDeathPlace(deathplace: String?) {
-        if (deathplace != null) {
-            binding.tvDeathPlace.text = deathplace
-        } else {
-            binding.layoutDeathPlace.visibility = GONE
         }
     }
 

@@ -35,10 +35,7 @@
     <string name="tv_review_top_label_text">Отзыв</string>
     <string name="tv_staff_label_text">Актеры и создатели</string>
     <string name="tv_person_top_label_text">Подробно</string>
-    <string name="tv_birthday_label_text">Дата рождения</string>
-    <string name="tv_death_label_text">Дата смерти</string>
+    <string name="tv_death_label_text">Умер</string>
     <string name="tv_age_label_text">Возраст</string>
-    <string name="tv_birthplace_label_text">Место рождения</string>
     <string name="tv_growth_label_text">Рост</string>
-    <string name="tv_death_place_label_text">Место смерти</string>
 </resources>

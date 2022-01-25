@@ -66,40 +66,87 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_name_ru"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:padding="4dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guideline_vertical_50"
-            app:layout_constraintTop_toBottomOf="@id/view_top_person"
-            tools:text="Киану Ривз" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_name_en"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="4dp"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guideline_vertical_50"
-            app:layout_constraintTop_toBottomOf="@id/tv_name_ru"
-            tools:text="Keanu Charles Reeves" />
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_margin="4dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline_vertical_50"
-            app:layout_constraintTop_toBottomOf="@id/tv_name_en">
+            app:layout_constraintTop_toBottomOf="@id/view_top_person">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_name_ru"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="4dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="Киану Ривз" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_name_en"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="4dp"
+                android:textSize="16sp"
+                tools:text="Keanu Charles Reeves" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_profession"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:padding="4dp"
+                android:textSize="14sp"
+                tools:text="Actor" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="4dp"
+                android:textSize="14sp"
+                tools:text="02-09-1964" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_birthplace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="4dp"
+                android:textSize="14sp"
+                tools:text="Beirut" />
+
+            <LinearLayout
+                android:id="@+id/layout_death"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_death_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:padding="4dp"
+                    android:text="@string/tv_death_label_text"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_death"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:padding="4dp"
+                    android:textSize="14sp"
+                    tools:text="Never!" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layout_age"
@@ -156,108 +203,6 @@
                     tools:text="186" />
 
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_birthday"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_birthday_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="start"
-                    android:padding="4dp"
-                    android:text="@string/tv_birthday_label_text"
-                    android:textSize="14sp" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_birthday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:padding="4dp"
-                    android:textSize="14sp"
-                    tools:text="02-09-1964" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_birthplace"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_birthplace"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:padding="4dp"
-                    android:textSize="14sp"
-                    tools:text="Beirut" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_death"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_death_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="start"
-                    android:padding="4dp"
-                    android:text="@string/tv_death_label_text"
-                    android:textSize="14sp" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_death"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:padding="4dp"
-                    android:textSize="14sp"
-                    tools:text="Never!" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_death_place"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_death_place"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:padding="4dp"
-                    android:textSize="14sp"
-                    tools:text="Nowhere!" />
-
-            </LinearLayout>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_profession"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="4dp"
-                android:padding="4dp"
-                android:textSize="14sp"
-                tools:text="Actor" />
 
         </LinearLayout>
 

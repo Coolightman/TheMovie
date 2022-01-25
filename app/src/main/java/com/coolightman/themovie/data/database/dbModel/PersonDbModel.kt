@@ -11,7 +11,7 @@ data class PersonDbModel(
     val nameEn: String?,
     val sex: String?,
     val posterUrl: String?,
-    val growth: Int?,
+    val growth: String?,
     val birthday: String?,
     val death: String?,
     val age: Int?,
