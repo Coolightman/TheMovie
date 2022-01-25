@@ -17,7 +17,11 @@ class FactRepositoryImpl @Inject constructor(
 
     override fun getMovieFacts(movieId: Long): LiveData<List<Fact>> =
         Transformations.map(factsDao.getFacts(movieId)) {
-            it?.let { mapper.mapDbModelToListOfFact(it) }
+            if (it != null) {
+                mapper.mapDbModelToListOfFact(it)
+            } else {
+                emptyList()
+            }
         }
 
     override suspend fun fetchMovieFacts(movieId: Long) {
