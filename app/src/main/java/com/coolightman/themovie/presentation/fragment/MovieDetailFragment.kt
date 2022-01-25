@@ -84,10 +84,21 @@ class MovieDetailFragment : Fragment() {
         createObservers(movieId)
         createRecyclers()
         createListeners(movieId)
+        errorsListener()
+    }
+
+    private fun errorsListener() {
+        viewModel.errorMessage.observe(viewLifecycleOwner){
+            if (it.isNotEmpty()){
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                viewModel.resetError()
+            }
+        }
     }
 
     private fun fetchMovieData(movieId: Long) {
-        viewModel.fetchData(movieId)
+        viewModel.fetchFacts(movieId)
+        viewModel.fetchFrames(movieId)
     }
 
     private fun createRecyclers() {
@@ -337,17 +348,14 @@ class MovieDetailFragment : Fragment() {
 
     private fun createFactsObserver(movieId: Long) {
         viewModel.getFacts(movieId).observe(viewLifecycleOwner) {
-            it?.let {
-                if (it.isNotEmpty()) {
-                    Log.d("ObservingFacts", it.toString())
-                    val factRndNumb = getRandomNumber(it.size)
-                    val fact = it[factRndNumb]
-                    checkFactsSize(it)
-                    checkSpoiler(fact)
-                    binding.tvFact1.text = fact.text
-                } else {
-                    binding.cvFacts.visibility = GONE
-                }
+            if (it.isNotEmpty()) {
+                val factRndNumb = getRandomNumber(it.size)
+                val fact = it[factRndNumb]
+                checkFactsSize(it)
+                checkSpoiler(fact)
+                binding.tvFact1.text = fact.text
+            } else {
+                binding.cvFacts.visibility = GONE
             }
         }
     }
@@ -392,14 +400,10 @@ class MovieDetailFragment : Fragment() {
 
     private fun createFramesObserver(movieId: Long) {
         viewModel.getFrames(movieId).observe(viewLifecycleOwner) {
-            it?.let {
-                if (it.isNotEmpty()) {
-                    Log.d("ObservingFrames", it.toString())
-                    frameAdapter.submitList(it)
-                } else {
-                    binding.cvFrames.visibility = GONE
-                }
-
+            if (it.isNotEmpty()) {
+                frameAdapter.submitList(it)
+            } else {
+                binding.cvFrames.visibility = GONE
             }
         }
     }

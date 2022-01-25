@@ -14,6 +14,7 @@ import javax.inject.Inject
 class MovieDetailViewModel @Inject constructor(
     private val getMovieUseCase: GetMovieUseCase,
     private val getMovieFramesUseCase: GetMovieFramesUseCase,
+    private val fetchMovieFramesUseCase: FetchMovieFramesUseCase,
     private val getMovieVideosUseCase: GetMovieVideosUseCase,
     private val getMovieFactsUseCase: GetMovieFactsUseCase,
     private val fetchMovieFactsUseCase: FetchMovieFactsUseCase,
@@ -26,8 +27,13 @@ class MovieDetailViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val handler = CoroutineExceptionHandler { _, throwable ->
-        Log.e("Coroutine_exception", "$throwable")
+        Log.e("Coroutine_exception", throwable.stackTraceToString())
+        onError(throwable.stackTraceToString())
     }
+
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String>
+        get() = _errorMessage
 
     fun getMovie(movieId: Long): LiveData<Movie> = getMovieUseCase(movieId)
 
@@ -45,9 +51,16 @@ class MovieDetailViewModel @Inject constructor(
 
     fun getTop250Place(movieId: Long): LiveData<String> = getTop250PlaceUseCase(movieId)
 
-    fun fetchData(movieId: Long){
+    fun fetchFacts(movieId: Long){
         viewModelScope.launch(handler) {
             fetchMovieFactsUseCase(movieId)
+            fetchMovieFramesUseCase(movieId)
+        }
+    }
+
+    fun fetchFrames(movieId: Long){
+        viewModelScope.launch(handler) {
+            fetchMovieFramesUseCase(movieId)
         }
     }
 
@@ -61,6 +74,14 @@ class MovieDetailViewModel @Inject constructor(
         viewModelScope.launch(handler) {
             removeMovieFromFavoriteUseCase(movieId)
         }
+    }
+
+    private fun onError(message: String) {
+        _errorMessage.postValue(message)
+    }
+
+    fun resetError() {
+        _errorMessage.postValue("")
     }
 
 }
