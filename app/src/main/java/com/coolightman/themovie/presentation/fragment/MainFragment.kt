@@ -54,12 +54,12 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         createSectionsAdapter()
-        errorsListener()
         forLandscape()
         listeners()
     }
 
     private fun listeners() {
+        errorsListener()
         with(binding){
             imgMainSearch.setOnClickListener {
                 findNavController().navigate(

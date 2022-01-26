@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coolightman.themovie.domain.entity.*
 import com.coolightman.themovie.domain.usecase.*
+import com.coolightman.themovie.util.ParseCoroutineException
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,12 +29,14 @@ class MovieDetailViewModel @Inject constructor(
     private val fetchMovieSimilarsUseCase: FetchMovieSimilarsUseCase,
     private val getTop250PlaceUseCase: GetTop250PlaceUseCase,
     private val addMovieToFavoriteUseCase: AddMovieToFavoriteUseCase,
-    private val removeMovieFromFavoriteUseCase: RemoveMovieFromFavoriteUseCase
+    private val removeMovieFromFavoriteUseCase: RemoveMovieFromFavoriteUseCase,
+    private val parseCoroutineException: ParseCoroutineException
 ) : ViewModel() {
 
     private val handler = CoroutineExceptionHandler { _, throwable ->
         Log.e("Coroutine_exception", throwable.stackTraceToString())
-        onError("$throwable")
+        val errorMessage = parseCoroutineException.parseException(throwable)
+        onError(errorMessage)
     }
 
     private var movieId: Long = 0

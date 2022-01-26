@@ -9,6 +9,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -75,6 +76,7 @@ class SearchMovieFragment : Fragment() {
     }
 
     private fun listeners() {
+        errorsListener()
         with(binding) {
             btSearch.setOnClickListener {
                 startSearch()
@@ -88,6 +90,15 @@ class SearchMovieFragment : Fragment() {
                     }
                     else -> false
                 }
+            }
+        }
+    }
+
+    private fun errorsListener() {
+        viewModel.errorMessage.observe(viewLifecycleOwner){
+            if (it.isNotEmpty()){
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                viewModel.resetError()
             }
         }
     }
