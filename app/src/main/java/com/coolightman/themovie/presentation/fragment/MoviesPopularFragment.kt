@@ -79,7 +79,7 @@ class MoviesPopularFragment : Fragment() {
     }
 
     private fun createObserver() {
-        viewModel.getPopularMovies().observe(viewLifecycleOwner) {
+        viewModel.popularMovies.observe(viewLifecycleOwner) {
             if (it.size >= MIN_PAGE_SIZE) {
                 shortMovieAdapter.submitList(it)
             }
