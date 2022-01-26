@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.coolightman.themovie.App
 import com.coolightman.themovie.databinding.FragmentStaffBinding
-import com.coolightman.themovie.domain.entity.Staff
 import com.coolightman.themovie.presentation.adapter.StaffAdapter
 import com.coolightman.themovie.presentation.viewmodel.StaffViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
@@ -55,9 +54,10 @@ class StaffFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieId = args.movieId
+        viewModel.setMovieId(movieId)
 
         createRecycler()
-        createObserver(movieId)
+        createObserver()
         listeners()
     }
 
@@ -73,11 +73,9 @@ class StaffFragment : Fragment() {
         findNavController().popBackStack()
     }
 
-    private fun createObserver(movieId: Long) {
-        viewModel.getStaff(movieId).observe(viewLifecycleOwner) {
-            it?.let {
-                staffAdapter.submitList(it)
-            }
+    private fun createObserver() {
+        viewModel.staff.observe(viewLifecycleOwner) {
+            staffAdapter.submitList(it)
         }
     }
 
@@ -89,19 +87,19 @@ class StaffFragment : Fragment() {
     }
 
     private fun createStaffAdapter(recycler: RecyclerView) {
-        staffAdapter = StaffAdapter { onItemClickListener(it) }
+        staffAdapter = StaffAdapter { onItemClickListener(it.staffId) }
         recycler.adapter = staffAdapter
         staffAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
 
-    private fun onItemClickListener(staff: Staff) {
+    private fun onItemClickListener(staffId: Long) {
         findNavController().navigate(
-            StaffFragmentDirections.actionStaffFragmentToPersonFragment(staff.staffId)
+            StaffFragmentDirections.actionStaffFragmentToPersonFragment(staffId)
         )
     }
 
-    companion object{
+    companion object {
         private const val COLUMN_NUMBER = 2
     }
 

@@ -54,8 +54,9 @@ class PersonFactsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val personId = args.personId
+        viewModel.setPersonId(personId)
 
-        createObserver(personId)
+        createObserver()
         createRecycler()
         listeners()
     }
@@ -72,8 +73,8 @@ class PersonFactsFragment : Fragment() {
         findNavController().popBackStack()
     }
 
-    private fun createObserver(movieId: Long) {
-        viewModel.getPerson(movieId).observe(viewLifecycleOwner) {
+    private fun createObserver() {
+        viewModel.person.observe(viewLifecycleOwner) {
             val list = it.facts
             factsAdapter.submitList(list)
         }

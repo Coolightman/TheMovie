@@ -57,9 +57,10 @@ class GalleryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val movieId = args.movieId
         val position = args.framePosition
+        viewModel.setMovieId(movieId)
 
         createRecycler()
-        createObserver(movieId, position)
+        createObserver(position)
         createListeners()
     }
 
@@ -75,12 +76,10 @@ class GalleryFragment : Fragment() {
         findNavController().popBackStack()
     }
 
-    private fun createObserver(movieId: Long, position: Int) {
-        viewModel.getFrames(movieId).observe(viewLifecycleOwner) {
-            it?.let {
-                galleryAdapter.submitList(it)
-                setLayoutPosition(position)
-            }
+    private fun createObserver(position: Int) {
+        viewModel.frames.observe(viewLifecycleOwner) {
+            galleryAdapter.submitList(it)
+            setLayoutPosition(position)
         }
     }
 

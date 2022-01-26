@@ -57,13 +57,14 @@ class PersonFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val personId = args.personId
+        viewModel.setPersonId(personId)
 
-        createObserver(personId)
+        createObserver()
         listeners(personId)
     }
 
-    private fun createObserver(personId: Long) {
-        viewModel.getPerson(personId).observe(viewLifecycleOwner) {
+    private fun createObserver() {
+        viewModel.person.observe(viewLifecycleOwner) {
             setImage(it.posterUrl)
             setNameRu(it.nameRu)
             setNameEn(it.nameEn)

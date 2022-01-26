@@ -54,9 +54,10 @@ class AllFactsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieId = args.movieId
+        viewModel.setMovieId(movieId)
 
         createRecycler()
-        createObserver(movieId)
+        createObserver()
         createListeners()
     }
 
@@ -72,18 +73,17 @@ class AllFactsFragment : Fragment() {
         findNavController().popBackStack()
     }
 
-    private fun createObserver(movieId: Long) {
-        viewModel.getFacts(movieId).observe(viewLifecycleOwner){
-            it?.let {
-                factsAdapter.submitList(it)
-            }
+    private fun createObserver() {
+        viewModel.facts.observe(viewLifecycleOwner) {
+            factsAdapter.submitList(it)
         }
     }
 
     private fun createRecycler() {
         val recycler = binding.rvAllFacts
         createFactsAdapter(recycler)
-        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recycler.layoutManager = layoutManager
     }
 

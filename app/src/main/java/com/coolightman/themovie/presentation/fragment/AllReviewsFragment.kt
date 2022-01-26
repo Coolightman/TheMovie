@@ -54,9 +54,10 @@ class AllReviewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieId = args.movieId
+        viewModel.setMovieId(movieId)
 
         createRecycler(movieId)
-        createObserver(movieId)
+        createObserver()
         listeners()
     }
 
@@ -96,11 +97,9 @@ class AllReviewsFragment : Fragment() {
         findNavController().popBackStack()
     }
 
-    private fun createObserver(movieId: Long) {
-        viewModel.getReviews(movieId).observe(viewLifecycleOwner) {
-            it?.let {
-                reviewAdapter.submitList(it)
-            }
+    private fun createObserver() {
+        viewModel.reviews.observe(viewLifecycleOwner) {
+            reviewAdapter.submitList(it)
         }
     }
 

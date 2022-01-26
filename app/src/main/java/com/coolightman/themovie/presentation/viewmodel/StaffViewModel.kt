@@ -8,5 +8,13 @@ class StaffViewModel @Inject constructor(
     private val getMovieStaffUseCase: GetMovieStaffUseCase
 ) : ViewModel() {
 
-    fun getStaff(movieId:Long) = getMovieStaffUseCase(movieId)
+    private var movieId: Long = 0
+
+    val staff by lazy {
+        getMovieStaffUseCase(movieId)
+    }
+
+    fun setMovieId(movieId: Long) {
+        this.movieId = movieId
+    }
 }
