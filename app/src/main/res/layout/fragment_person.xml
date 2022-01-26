@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".presentation.fragment.PersonFragment">
 
-
     <View
         android:id="@+id/view_top_person"
         android:layout_width="match_parent"
@@ -41,10 +40,11 @@
     <ScrollView
         android:id="@+id/scroll_person"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_top_person">
+        app:layout_constraintTop_toBottomOf="@id/view_top_person"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -277,7 +277,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="4dp"
-                        android:elevation="4dp"
+                        android:elevation="10dp"
                         app:cardCornerRadius="4dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -308,6 +308,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="4dp"
+                android:layout_marginBottom="8dp"
                 app:cardCornerRadius="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
