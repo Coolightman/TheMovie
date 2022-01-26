@@ -1,9 +1,7 @@
 package com.coolightman.themovie.data.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import androidx.lifecycle.liveData
 import com.coolightman.themovie.data.database.dao.VideosDao
 import com.coolightman.themovie.data.mapper.VideoMapper
 import com.coolightman.themovie.data.network.ApiService
@@ -17,23 +15,20 @@ class VideoRepositoryImpl @Inject constructor(
     private val mapper: VideoMapper
 ) : VideoRepository {
 
-    override fun getMovieVideos(movieId: Long): LiveData<List<Video>> = liveData {
+    override fun getMovieVideos(movieId: Long): LiveData<List<Video>> =
+        Transformations.map(videosDao.getVideos(movieId)) {
+            it?.let { mapper.mapDbModelToListOfVideo(it) } ?: emptyList()
+        }
+
+    override suspend fun fetchMovieVideos(movieId: Long) {
         if (!videosDao.exists(movieId)) {
             loadVideosFromApi(movieId)
         }
-        val list = Transformations.map(videosDao.getVideos(movieId)) {
-            mapper.mapDbModelToListOfVideo(it)
-        }
-        emitSource(list)
     }
 
     private suspend fun loadVideosFromApi(movieId: Long) {
-        try {
-            val videosDto = apiService.loadVideos(movieId)
-            val videosDbModel = mapper.mapDtoToDbModel(videosDto, movieId)
-            videosDao.insert(videosDbModel)
-        } catch (e: Exception) {
-            Log.e("LoadVideoFromApi", "Bad request video in movie $movieId")
-        }
+        val videosDto = apiService.loadVideos(movieId)
+        val videosDbModel = mapper.mapDtoToDbModel(videosDto, movieId)
+        videosDao.insert(videosDbModel)
     }
 }

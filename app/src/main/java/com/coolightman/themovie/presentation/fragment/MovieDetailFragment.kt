@@ -79,9 +79,8 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieId = args.movieId
-        viewModel.setMovieId(movieId)
 
-        fetchMovieData()
+        viewModel.fetchMovieData(movieId)
         createObservers()
         createRecyclers()
         createListeners()
@@ -94,12 +93,6 @@ class MovieDetailFragment : Fragment() {
                 viewModel.resetError()
             }
         }
-    }
-
-    private fun fetchMovieData() {
-        viewModel.fetchMovie()
-        viewModel.fetchFacts()
-        viewModel.fetchFrames()
     }
 
     private fun createRecyclers() {

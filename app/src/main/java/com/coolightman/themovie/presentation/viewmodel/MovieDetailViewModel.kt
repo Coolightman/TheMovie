@@ -16,9 +16,10 @@ class MovieDetailViewModel @Inject constructor(
     private val fetchMovieUseCase: FetchMovieUseCase,
     private val getMovieFramesUseCase: GetMovieFramesUseCase,
     private val fetchMovieFramesUseCase: FetchMovieFramesUseCase,
-    private val getMovieVideosUseCase: GetMovieVideosUseCase,
     private val getMovieFactsUseCase: GetMovieFactsUseCase,
     private val fetchMovieFactsUseCase: FetchMovieFactsUseCase,
+    private val getMovieVideosUseCase: GetMovieVideosUseCase,
+    private val fetchMovieVideosUseCase: FetchMovieVideosUseCase,
     private val getMovieReviewsUseCase: GetMovieReviewsUseCase,
     private val getMovieSimilarsUseCase: GetMovieSimilarsUseCase,
     private val getMovieStaffUseCase: GetMovieStaffUseCase,
@@ -70,25 +71,35 @@ class MovieDetailViewModel @Inject constructor(
         getTop250PlaceUseCase(movieId)
     }
 
-    fun setMovieId(movieId: Long) {
+    fun fetchMovieData(movieId: Long) {
         this.movieId = movieId
+        fetchMovie()
+        fetchFrames()
+        fetchFacts()
+        fetchVideos()
     }
 
-    fun fetchMovie() {
+    private fun fetchMovie() {
         viewModelScope.launch(handler) {
             fetchMovieUseCase(movieId)
         }
     }
 
-    fun fetchFacts() {
+    private fun fetchFrames() {
+        viewModelScope.launch(handler) {
+            fetchMovieFramesUseCase(movieId)
+        }
+    }
+
+    private fun fetchFacts() {
         viewModelScope.launch(handler) {
             fetchMovieFactsUseCase(movieId)
         }
     }
 
-    fun fetchFrames() {
+    private fun fetchVideos() {
         viewModelScope.launch(handler) {
-            fetchMovieFramesUseCase(movieId)
+            fetchMovieVideosUseCase(movieId)
         }
     }
 
