@@ -79,12 +79,12 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieId = args.movieId
+        viewModel.setMovieId(movieId)
 
-        fetchMovieData(movieId)
-        createObservers(movieId)
+        fetchMovieData()
+        createObservers()
         createRecyclers()
-        createListeners(movieId)
-        errorsListener()
+        createListeners()
     }
 
     private fun errorsListener() {
@@ -96,9 +96,10 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun fetchMovieData(movieId: Long) {
-        viewModel.fetchFacts(movieId)
-        viewModel.fetchFrames(movieId)
+    private fun fetchMovieData() {
+        viewModel.fetchMovie()
+        viewModel.fetchFacts()
+        viewModel.fetchFrames()
     }
 
     private fun createRecyclers() {
@@ -190,14 +191,16 @@ class MovieDetailFragment : Fragment() {
         )
     }
 
-    private fun createListeners(movieId: Long) {
+    private fun createListeners() {
+        errorsListener()
+
         with(binding) {
             imgFavorite.setOnClickListener {
                 if (movie.isFavorite) {
-                    viewModel.removeMovieFromFavorite(movieId)
+                    viewModel.removeMovieFromFavorite()
                     shortToast(getString(R.string.favorite_deleted))
                 } else {
-                    viewModel.addMovieToFavorite(movieId)
+                    viewModel.addMovieToFavorite()
                     shortToast(getString(R.string.favorite_added))
                 }
             }
@@ -267,18 +270,18 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun createObservers(movieId: Long) {
-        createMovieObserver(movieId)
-        createFramesObserver(movieId)
-        createFactsObserver(movieId)
-        createReviewsObserver(movieId)
-        createVideosObserver(movieId)
-        createSimilarsObserver(movieId)
-        createStaffObserver(movieId)
+    private fun createObservers() {
+        createMovieObserver()
+        createFramesObserver()
+        createFactsObserver()
+        createVideosObserver()
+        createStaffObserver()
+        createReviewsObserver()
+        createSimilarsObserver()
     }
 
-    private fun createStaffObserver(movieId: Long) {
-        viewModel.getStaff(movieId).observe(viewLifecycleOwner) {
+    private fun createStaffObserver() {
+        viewModel.staff.observe(viewLifecycleOwner) {
             it?.let {
                 if (it.isNotEmpty()) {
                     Log.d("ObservingStaff", it.toString())
@@ -298,8 +301,8 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun createReviewsObserver(movieId: Long) {
-        viewModel.getReviews(movieId).observe(viewLifecycleOwner) {
+    private fun createReviewsObserver() {
+        viewModel.reviews.observe(viewLifecycleOwner) {
             if (it != null) {
                 if (it.isNotEmpty()) {
                     Log.d("ObservingReviews", it.toString())
@@ -346,8 +349,8 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun createFactsObserver(movieId: Long) {
-        viewModel.getFacts(movieId).observe(viewLifecycleOwner) {
+    private fun createFactsObserver() {
+        viewModel.facts.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 val factRndNumb = getRandomNumber(it.size)
                 val fact = it[factRndNumb]
@@ -373,8 +376,8 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun createSimilarsObserver(movieId: Long) {
-        viewModel.getSimilars(movieId).observe(viewLifecycleOwner) {
+    private fun createSimilarsObserver() {
+        viewModel.similars.observe(viewLifecycleOwner) {
             it?.let {
                 if (it.isNotEmpty()) {
                     Log.d("ObservingSimilars", it.toString())
@@ -386,8 +389,8 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun createVideosObserver(movieId: Long) {
-        viewModel.getVideos(movieId).observe(viewLifecycleOwner) {
+    private fun createVideosObserver() {
+        viewModel.videos.observe(viewLifecycleOwner) {
             it?.let {
                 if (it.isNotEmpty()) {
                     Log.d("ObservingVideos", it.toString())
@@ -399,8 +402,8 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun createFramesObserver(movieId: Long) {
-        viewModel.getFrames(movieId).observe(viewLifecycleOwner) {
+    private fun createFramesObserver() {
+        viewModel.frames.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 frameAdapter.submitList(it)
                 binding.cvFrames.visibility = VISIBLE
@@ -410,17 +413,16 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun createMovieObserver(movieId: Long) {
-        viewModel.getMovie(movieId).observe(viewLifecycleOwner) {
+    private fun createMovieObserver() {
+        viewModel.movie.observe(viewLifecycleOwner) {
             it?.let {
-                Log.d("ObservingMovie", it.toString())
                 movie = it
                 setPoster(it.poster)
                 setRating(it)
                 setRatingCount(it)
                 setImdbRating(it)
                 setCriticRating(it)
-                setTop250Place(it)
+                setTop250Place()
                 setFavorite(it.isFavorite)
                 setNameOrigin(it.nameOriginal)
                 setNameRu(it.nameRu)
@@ -435,8 +437,8 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun setTop250Place(movie: Movie) {
-        viewModel.getTop250Place(movie.movieId).observe(viewLifecycleOwner) {
+    private fun setTop250Place() {
+        viewModel.top250Place.observe(viewLifecycleOwner) {
             if (it != NON_TOP_250_place) {
                 binding.tvTop250Place.text = it
                 binding.viewTop250.visibility = VISIBLE

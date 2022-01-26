@@ -13,6 +13,7 @@ import javax.inject.Inject
 
 class MovieDetailViewModel @Inject constructor(
     private val getMovieUseCase: GetMovieUseCase,
+    private val fetchMovieUseCase: FetchMovieUseCase,
     private val getMovieFramesUseCase: GetMovieFramesUseCase,
     private val fetchMovieFramesUseCase: FetchMovieFramesUseCase,
     private val getMovieVideosUseCase: GetMovieVideosUseCase,
@@ -31,46 +32,73 @@ class MovieDetailViewModel @Inject constructor(
         onError(throwable.stackTraceToString())
     }
 
+    private var movieId: Long = 0
+
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getMovie(movieId: Long): LiveData<Movie> = getMovieUseCase(movieId)
+    val movie: LiveData<Movie> by lazy {
+        getMovieUseCase(movieId)
+    }
 
-    fun getFrames(movieId: Long): LiveData<List<Frame>> = getMovieFramesUseCase(movieId)
+    val frames: LiveData<List<Frame>> by lazy {
+        getMovieFramesUseCase(movieId)
+    }
 
-    fun getFacts(movieId: Long): LiveData<List<Fact>> = getMovieFactsUseCase(movieId)
+    val facts: LiveData<List<Fact>> by lazy {
+        getMovieFactsUseCase(movieId)
+    }
 
-    fun getReviews(movieId: Long): LiveData<List<Review>> = getMovieReviewsUseCase(movieId)
+    val videos: LiveData<List<Video>> by lazy {
+        getMovieVideosUseCase(movieId)
+    }
 
-    fun getVideos(movieId: Long): LiveData<List<Video>> = getMovieVideosUseCase(movieId)
+    val staff: LiveData<List<Staff>> by lazy {
+        getMovieStaffUseCase(movieId)
+    }
 
-    fun getSimilars(movieId: Long): LiveData<List<ShortMovie>> = getMovieSimilarsUseCase(movieId)
+    val reviews: LiveData<List<Review>> by lazy {
+        getMovieReviewsUseCase(movieId)
+    }
 
-    fun getStaff(movieId: Long): LiveData<List<Staff>> = getMovieStaffUseCase(movieId)
+    val similars: LiveData<List<ShortMovie>> by lazy {
+        getMovieSimilarsUseCase(movieId)
+    }
 
-    fun getTop250Place(movieId: Long): LiveData<String> = getTop250PlaceUseCase(movieId)
+    val top250Place: LiveData<String> by lazy {
+        getTop250PlaceUseCase(movieId)
+    }
 
-    fun fetchFacts(movieId: Long){
+    fun setMovieId(movieId: Long) {
+        this.movieId = movieId
+    }
+
+    fun fetchMovie() {
+        viewModelScope.launch(handler) {
+            fetchMovieUseCase(movieId)
+        }
+    }
+
+    fun fetchFacts() {
         viewModelScope.launch(handler) {
             fetchMovieFactsUseCase(movieId)
-            fetchMovieFramesUseCase(movieId)
         }
     }
 
-    fun fetchFrames(movieId: Long){
+    fun fetchFrames() {
         viewModelScope.launch(handler) {
             fetchMovieFramesUseCase(movieId)
         }
     }
 
-    fun addMovieToFavorite(movieId: Long) {
+    fun addMovieToFavorite() {
         viewModelScope.launch(handler) {
             addMovieToFavoriteUseCase(movieId)
         }
     }
 
-    fun removeMovieFromFavorite(movieId: Long) {
+    fun removeMovieFromFavorite() {
         viewModelScope.launch(handler) {
             removeMovieFromFavoriteUseCase(movieId)
         }
