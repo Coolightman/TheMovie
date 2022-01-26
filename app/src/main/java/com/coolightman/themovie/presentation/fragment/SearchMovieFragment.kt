@@ -126,12 +126,10 @@ class SearchMovieFragment : Fragment() {
     }
 
     private fun observeList() {
-        viewModel.getMovieSearchList().observe(viewLifecycleOwner) {
-            it?.let {
-                searchMovieAdapter.submitList(it)
-                if (it.isNotEmpty()) {
-                    hideClue()
-                }
+        viewModel.searchResult.observe(viewLifecycleOwner) {
+            searchMovieAdapter.submitList(it)
+            if (it.isNotEmpty()) {
+                hideClue()
             }
         }
     }

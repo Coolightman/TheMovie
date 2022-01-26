@@ -24,7 +24,9 @@ class SearchMovieViewModel @Inject constructor(
     val searchLoaded: LiveData<Boolean>
         get() = _searchLoaded
 
-    fun getMovieSearchList() = getMovieSearchListUseCase()
+    val searchResult by lazy {
+        getMovieSearchListUseCase()
+    }
 
     fun searchMovies(keywords: String) {
         viewModelScope.launch(handler) {

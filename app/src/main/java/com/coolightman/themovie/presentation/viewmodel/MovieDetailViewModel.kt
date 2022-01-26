@@ -33,7 +33,7 @@ class MovieDetailViewModel @Inject constructor(
 
     private val handler = CoroutineExceptionHandler { _, throwable ->
         Log.e("Coroutine_exception", throwable.stackTraceToString())
-        onError(throwable.javaClass.canonicalName ?: "error")
+        onError("$throwable")
     }
 
     private var movieId: Long = 0

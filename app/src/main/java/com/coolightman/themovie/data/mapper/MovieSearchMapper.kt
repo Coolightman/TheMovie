@@ -29,7 +29,11 @@ class MovieSearchMapper @Inject constructor() {
     )
 
 
-    fun mapDbModelToEntity(dbModel: MovieSearchDbModel) = MovieSearch(
+    fun mapDbModelToEntityList(dbModelList: List<MovieSearchDbModel>) = dbModelList.map {
+        mapDbModelToEntity(it)
+    }
+
+    private fun mapDbModelToEntity(dbModel: MovieSearchDbModel) = MovieSearch(
         movieId = dbModel.movieId,
         rating = dbModel.rating,
         posterPreview = dbModel.posterUrlPreview,
