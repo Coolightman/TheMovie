@@ -55,6 +55,12 @@ class ShortMovieRepositoryImpl @Inject constructor(
         shortMovieDao.insertList(crossWithTop250)
     }
 
+    override suspend fun getShortMovieDbModel(movieId: Long): ShortMovieDbModel? =
+        shortMovieDao.getShortMovie(movieId)
+
+    override suspend fun insertShortMovieDbModel(dbModel: ShortMovieDbModel) =
+        shortMovieDao.insertShortMovie(dbModel)
+
     private suspend fun deleteJustPopulars(justPopulars: List<ShortMovieDbModel>) {
         val idList = justPopulars.map { movie -> movie.movieId }
         shortMovieDao.deleteList(idList)

@@ -3,6 +3,7 @@ package com.coolightman.themovie.data.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.coolightman.themovie.data.database.dao.MovieDao
+import com.coolightman.themovie.data.database.dbModel.MovieDbModel
 import com.coolightman.themovie.data.mapper.MovieMapper
 import com.coolightman.themovie.data.network.ApiService
 import com.coolightman.themovie.domain.entity.Movie
@@ -20,12 +21,16 @@ class MovieRepositoryImpl @Inject constructor(
             it?.let { movieMapper.mapDbModelToEntity(it) }
         }
 
-
     override suspend fun fetchMovie(movieId: Long) {
         if (!movieDao.exists(movieId)) {
             loadMovieFromApi(movieId)
         }
     }
+
+    override suspend fun getMovieDbModel(movieId: Long) = movieDao.getMovieModel(movieId)
+
+    override suspend fun insertMovieDbModel(movieDbModel: MovieDbModel) =
+        movieDao.insert(movieDbModel)
 
     private suspend fun loadMovieFromApi(movieId: Long) {
         val movieDto = apiService.loadMovie(movieId)
