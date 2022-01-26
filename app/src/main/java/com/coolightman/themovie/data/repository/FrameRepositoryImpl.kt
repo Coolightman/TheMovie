@@ -17,11 +17,7 @@ class FrameRepositoryImpl @Inject constructor(
 
     override fun getMovieFrames(movieId: Long): LiveData<List<Frame>> =
         Transformations.map(framesDao.getFrames(movieId)) {
-            if (it != null) {
-                mapper.mapDbModelToListOfFrame(it)
-            } else {
-                emptyList()
-            }
+            it?.let { mapper.mapDbModelToListOfFrame(it) } ?: emptyList()
         }
 
     override suspend fun fetchMovieFrames(movieId: Long) {
