@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
@@ -87,8 +86,8 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun errorsListener() {
-        viewModel.errorMessage.observe(viewLifecycleOwner){
-            if (it.isNotEmpty()){
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
                 viewModel.resetError()
             }
@@ -275,15 +274,13 @@ class MovieDetailFragment : Fragment() {
 
     private fun createStaffObserver() {
         viewModel.staff.observe(viewLifecycleOwner) {
-            it?.let {
-                if (it.isNotEmpty()) {
-                    Log.d("ObservingStaff", it.toString())
-                    checkStuffSize(it)
-                    val list = it.take(NUMBER_PREVIEW_STAFF)
-                    staffPreviewAdapter.submitList(list)
-                } else {
-                    binding.cvStaff.visibility = GONE
-                }
+            if (it.isNotEmpty()) {
+                checkStuffSize(it)
+                val list = it.take(NUMBER_PREVIEW_STAFF)
+                staffPreviewAdapter.submitList(list)
+                binding.cvStaff.visibility = VISIBLE
+            } else {
+                binding.cvStaff.visibility = GONE
             }
         }
     }
@@ -296,23 +293,23 @@ class MovieDetailFragment : Fragment() {
 
     private fun createReviewsObserver() {
         viewModel.reviews.observe(viewLifecycleOwner) {
-            if (it != null) {
-                if (it.isNotEmpty()) {
-                    Log.d("ObservingReviews", it.toString())
-                    val reviewRndNumb = getRandomNumber(it.size)
-                    val review = it[reviewRndNumb]
-                    reviewNumber = reviewRndNumb
-                    checkReviewsSize(it)
-                    setReviewTitle(review.title)
-                    setReviewDescription(review.description)
-                    setReviewColor(review.type)
-                } else {
-                    binding.cvReviews.visibility = GONE
-                }
+            if (it.isNotEmpty()) {
+                val reviewRndNumb = getRandomNumber(it.size)
+                reviewNumber = reviewRndNumb
+                val review = it[reviewRndNumb]
+                checkReviewsSize(it)
+                setReview(review)
+                binding.cvReviews.visibility = VISIBLE
             } else {
                 binding.cvReviews.visibility = GONE
             }
         }
+    }
+
+    private fun setReview(review: Review) {
+        setReviewTitle(review.title)
+        setReviewDescription(review.description)
+        setReviewColor(review.type)
     }
 
     private fun checkReviewsSize(it: List<Review>) {
@@ -371,26 +368,22 @@ class MovieDetailFragment : Fragment() {
 
     private fun createSimilarsObserver() {
         viewModel.similars.observe(viewLifecycleOwner) {
-            it?.let {
-                if (it.isNotEmpty()) {
-                    Log.d("ObservingSimilars", it.toString())
-                    similarAdapter.submitList(it)
-                } else {
-                    binding.cvSimilars.visibility = GONE
-                }
+            if (it.isNotEmpty()) {
+                similarAdapter.submitList(it)
+                binding.cvSimilars.visibility = VISIBLE
+            } else {
+                binding.cvSimilars.visibility = GONE
             }
         }
     }
 
     private fun createVideosObserver() {
         viewModel.videos.observe(viewLifecycleOwner) {
-            it?.let {
-                if (it.isNotEmpty()) {
-                    Log.d("ObservingVideos", it.toString())
-                    videoAdapter.submitList(it)
-                } else {
-                    binding.cvVideos.visibility = GONE
-                }
+            if (it.isNotEmpty()) {
+                videoAdapter.submitList(it)
+                binding.cvVideos.visibility = VISIBLE
+            } else {
+                binding.cvVideos.visibility = GONE
             }
         }
     }

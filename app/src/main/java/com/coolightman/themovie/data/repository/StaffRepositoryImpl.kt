@@ -1,9 +1,7 @@
 package com.coolightman.themovie.data.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import androidx.lifecycle.liveData
 import com.coolightman.themovie.data.database.dao.StaffDao
 import com.coolightman.themovie.data.mapper.StaffMapper
 import com.coolightman.themovie.data.network.ApiServiceV1
@@ -17,23 +15,20 @@ class StaffRepositoryImpl @Inject constructor(
     private val mapper: StaffMapper
 ) : StaffRepository {
 
-    override fun getMovieStaff(movieId: Long): LiveData<List<Staff>> = liveData {
-        loadStaffFromApi(movieId)
-        val list = Transformations.map(staffDao.getStaff(movieId)) {
-            it?.let {
-                mapper.mapDbModelListToEntityList(it)
-            }
+    override fun getMovieStaff(movieId: Long): LiveData<List<Staff>> =
+        Transformations.map(staffDao.getStaff(movieId)) {
+            it?.let { mapper.mapDbModelListToEntityList(it) } ?: emptyList()
         }
-        emitSource(list)
+
+    override suspend fun fetchMovieStaff(movieId: Long) {
+        if (!staffDao.exists(movieId)) {
+            loadStaffFromApi(movieId)
+        }
     }
 
     private suspend fun loadStaffFromApi(movieId: Long) {
-        try {
-            val staffDtoList = apiServiceV1.loadStaff(movieId)
-            val staffDbModel = mapper.mapDtoListToDbModelList(staffDtoList, movieId)
-            staffDao.insert(staffDbModel)
-        } catch (e: Exception) {
-            Log.e("LoadStaffFromApi", "Bad request staff in movie $movieId")
-        }
+        val staffDtoList = apiServiceV1.loadStaff(movieId)
+        val staffDbModel = mapper.mapDtoListToDbModelList(staffDtoList, movieId)
+        staffDao.insert(staffDbModel)
     }
 }

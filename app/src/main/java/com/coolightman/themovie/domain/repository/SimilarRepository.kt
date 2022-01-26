@@ -6,4 +6,5 @@ import com.coolightman.themovie.domain.entity.ShortMovie
 interface SimilarRepository {
 
     fun getMovieSimilars(movieId: Long): LiveData<List<ShortMovie>>
+    suspend fun fetchMovieSimilars(movieId: Long)
 }
