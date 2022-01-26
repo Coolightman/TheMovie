@@ -17,13 +17,13 @@ interface ShortMovieDao {
     suspend fun insertShortMovie(shortMovie: ShortMovieDbModel)
 
     @Query("select * from shortmoviedbmodel where movieId = :movieId")
-    suspend fun getShortMovie(movieId: Long): ShortMovieDbModel
+    suspend fun getShortMovie(movieId: Long): ShortMovieDbModel?
 
     @Query("select * from shortmoviedbmodel where topPopularPlace > 0 order by topPopularPlace")
     fun getPopulars(): LiveData<List<ShortMovieDbModel>>
 
     @Query("select * from shortmoviedbmodel where topPopularPlace > 0 order by topPopularPlace")
-    fun getPopularsList(): List<ShortMovieDbModel>
+    suspend fun getPopularsList(): List<ShortMovieDbModel>
 
     @Query("select COUNT(movieId) from shortmoviedbmodel where topPopularPlace > 0")
     suspend fun getPopularCount(): Int
@@ -32,7 +32,7 @@ interface ShortMovieDao {
     fun getTop250(): LiveData<List<ShortMovieDbModel>>
 
     @Query("select * from shortmoviedbmodel where top250Place > 0 order by top250Place")
-    fun getTop250List(): List<ShortMovieDbModel>
+    suspend fun getTop250List(): List<ShortMovieDbModel>
 
     @Query("select COUNT(movieId) from shortmoviedbmodel where top250Place > 0")
     suspend fun getTop250Count(): Int

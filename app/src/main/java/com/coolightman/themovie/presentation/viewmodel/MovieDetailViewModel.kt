@@ -13,51 +13,138 @@ import javax.inject.Inject
 
 class MovieDetailViewModel @Inject constructor(
     private val getMovieUseCase: GetMovieUseCase,
+    private val fetchMovieUseCase: FetchMovieUseCase,
     private val getMovieFramesUseCase: GetMovieFramesUseCase,
-    private val getMovieVideosUseCase: GetMovieVideosUseCase,
+    private val fetchMovieFramesUseCase: FetchMovieFramesUseCase,
     private val getMovieFactsUseCase: GetMovieFactsUseCase,
-    private val getMovieReviewsUseCase: GetMovieReviewsUseCase,
-    private val getMovieSimilarsUseCase: GetMovieSimilarsUseCase,
+    private val fetchMovieFactsUseCase: FetchMovieFactsUseCase,
+    private val getMovieVideosUseCase: GetMovieVideosUseCase,
+    private val fetchMovieVideosUseCase: FetchMovieVideosUseCase,
     private val getMovieStaffUseCase: GetMovieStaffUseCase,
+    private val fetchMovieStaffUseCase: FetchMovieStaffUseCase,
+    private val getMovieReviewsUseCase: GetMovieReviewsUseCase,
+    private val fetchMovieReviewsUseCase: FetchMovieReviewsUseCase,
+    private val getMovieSimilarsUseCase: GetMovieSimilarsUseCase,
+    private val fetchMovieSimilarsUseCase: FetchMovieSimilarsUseCase,
     private val getTop250PlaceUseCase: GetTop250PlaceUseCase,
     private val addMovieToFavoriteUseCase: AddMovieToFavoriteUseCase,
     private val removeMovieFromFavoriteUseCase: RemoveMovieFromFavoriteUseCase
 ) : ViewModel() {
 
     private val handler = CoroutineExceptionHandler { _, throwable ->
-        Log.e("Coroutine_exception", "$throwable")
+        Log.e("Coroutine_exception", throwable.stackTraceToString())
+        onError("$throwable")
     }
 
-    private val _staff = MutableLiveData<List<Staff>>()
-    val staff: LiveData<List<Staff>>
-        get() = _staff
+    private var movieId: Long = 0
 
-    fun getMovie(movieId: Long): LiveData<Movie> = getMovieUseCase(movieId)
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String>
+        get() = _errorMessage
 
-    fun getFrames(movieId: Long): LiveData<List<Frame>> = getMovieFramesUseCase(movieId)
+    val movie: LiveData<Movie> by lazy {
+        getMovieUseCase(movieId)
+    }
 
-    fun getFacts(movieId: Long): LiveData<List<Fact>> = getMovieFactsUseCase(movieId)
+    val frames: LiveData<List<Frame>> by lazy {
+        getMovieFramesUseCase(movieId)
+    }
 
-    fun getReviews(movieId: Long): LiveData<List<Review>> = getMovieReviewsUseCase(movieId)
+    val facts: LiveData<List<Fact>> by lazy {
+        getMovieFactsUseCase(movieId)
+    }
 
-    fun getVideos(movieId: Long): LiveData<List<Video>> = getMovieVideosUseCase(movieId)
+    val videos: LiveData<List<Video>> by lazy {
+        getMovieVideosUseCase(movieId)
+    }
 
-    fun getSimilars(movieId: Long): LiveData<List<ShortMovie>> = getMovieSimilarsUseCase(movieId)
+    val staff: LiveData<List<Staff>> by lazy {
+        getMovieStaffUseCase(movieId)
+    }
 
-    fun getStaff(movieId: Long): LiveData<List<Staff>> = getMovieStaffUseCase(movieId)
+    val reviews: LiveData<List<Review>> by lazy {
+        getMovieReviewsUseCase(movieId)
+    }
 
-    fun getTop250Place(movieId: Long): LiveData<String> = getTop250PlaceUseCase(movieId)
+    val similars: LiveData<List<ShortMovie>> by lazy {
+        getMovieSimilarsUseCase(movieId)
+    }
 
-    fun addMovieToFavorite(movieId: Long) {
+    val top250Place: LiveData<String> by lazy {
+        getTop250PlaceUseCase(movieId)
+    }
+
+    fun fetchMovieData(movieId: Long) {
+        this.movieId = movieId
+        fetchMovie()
+        fetchFrames()
+        fetchFacts()
+        fetchVideos()
+        fetchStaff()
+        fetchReviews()
+        fetchSimilars()
+    }
+
+    private fun fetchMovie() {
+        viewModelScope.launch(handler) {
+            fetchMovieUseCase(movieId)
+        }
+    }
+
+    private fun fetchFrames() {
+        viewModelScope.launch(handler) {
+            fetchMovieFramesUseCase(movieId)
+        }
+    }
+
+    private fun fetchFacts() {
+        viewModelScope.launch(handler) {
+            fetchMovieFactsUseCase(movieId)
+        }
+    }
+
+    private fun fetchVideos() {
+        viewModelScope.launch(handler) {
+            fetchMovieVideosUseCase(movieId)
+        }
+    }
+
+    private fun fetchStaff() {
+        viewModelScope.launch(handler) {
+            fetchMovieStaffUseCase(movieId)
+        }
+    }
+
+    private fun fetchReviews() {
+        viewModelScope.launch(handler) {
+            fetchMovieReviewsUseCase(movieId)
+        }
+    }
+
+    private fun fetchSimilars() {
+        viewModelScope.launch(handler) {
+            fetchMovieSimilarsUseCase(movieId)
+        }
+    }
+
+    fun addMovieToFavorite() {
         viewModelScope.launch(handler) {
             addMovieToFavoriteUseCase(movieId)
         }
     }
 
-    fun removeMovieFromFavorite(movieId: Long) {
+    fun removeMovieFromFavorite() {
         viewModelScope.launch(handler) {
             removeMovieFromFavoriteUseCase(movieId)
         }
+    }
+
+    private fun onError(message: String) {
+        _errorMessage.postValue(message)
+    }
+
+    fun resetError() {
+        _errorMessage.postValue("")
     }
 
 }

@@ -10,7 +10,6 @@ import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.ShortMovieItemBinding
 import com.coolightman.themovie.domain.entity.ShortMovie
 import com.coolightman.themovie.util.RatingColor.setRatingColor
-import com.google.android.material.textview.MaterialTextView
 
 class ShortMovieAdapter(
     private val clickListener: (ShortMovie) -> Unit
@@ -23,27 +22,27 @@ class ShortMovieAdapter(
     }
 
     override fun onBindViewHolder(holder: ShortMovieViewHolder, position: Int) {
-        val movie = getItem(position)
-        movie?.let {
+        val shortMovie = getItem(position)
+        shortMovie?.let {
             with(holder.binding) {
-                setImage(this, movie)
-                setRating(this, movie)
-                setFavorite(this, movie)
-                root.setOnClickListener { clickListener(movie) }
+                setImage(this, shortMovie)
+                setRating(this, shortMovie)
+                setFavorite(this, shortMovie)
+                root.setOnClickListener { clickListener(shortMovie) }
             }
         }
     }
 
-    private fun setImage(binding: ShortMovieItemBinding, movie: ShortMovie) {
+    private fun setImage(binding: ShortMovieItemBinding, shortMovie: ShortMovie) {
         Glide.with(binding.root.context)
-            .load(movie.posterPreview)
+            .load(shortMovie.posterPreview)
             .placeholder(R.drawable.placeholder_image)
             .centerCrop()
             .into(binding.imgPreview)
     }
 
-    private fun setRating(binding: ShortMovieItemBinding, movie: ShortMovie) {
-        val rating = movie.rating
+    private fun setRating(binding: ShortMovieItemBinding, shortMovie: ShortMovie) {
+        val rating = shortMovie.rating
         if (rating != null) {
             binding.tvRating.text = rating
             setRatingColor(binding.tvRating, rating)
@@ -53,8 +52,8 @@ class ShortMovieAdapter(
         }
     }
 
-    private fun setFavorite(binding: ShortMovieItemBinding, movie: ShortMovie) {
-        if (movie.isFavorite) binding.imgFavorite.visibility = VISIBLE
+    private fun setFavorite(binding: ShortMovieItemBinding, shortMovie: ShortMovie) {
+        if (shortMovie.isFavorite) binding.imgFavorite.visibility = VISIBLE
         else binding.imgFavorite.visibility = GONE
     }
 }

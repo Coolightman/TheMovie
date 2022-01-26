@@ -2,12 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scroll_movie_detail"
+    android:id="@+id/scroll_movie_detail_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.fragment.MovieDetailFragment">
 
     <LinearLayout
+        android:id="@+id/layout_movie_detail_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -22,6 +23,7 @@
             app:cardCornerRadius="4dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_poster"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -231,10 +233,25 @@
             app:cardCornerRadius="4dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_description"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_name_ru"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Сосна" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_name_original"
@@ -246,21 +263,8 @@
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name_ru"
                     tools:text="Sosna" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_name_ru"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_name_original"
-                    tools:text="Сосна" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_slogan"
@@ -272,7 +276,7 @@
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_name_ru"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_name_original"
                     tools:text="Bla bla bla" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -319,7 +323,7 @@
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_duration_label"
-                    tools:text="00:00" />
+                    tools:text="2 ч 15 мин" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_genre_label"
@@ -402,7 +406,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_age_limit"
                     tools:text="Bla bla bla" />
 
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
@@ -417,6 +420,7 @@
             app:cardCornerRadius="4dp">
 
             <LinearLayout
+                android:id="@+id/layout_frames"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -430,7 +434,8 @@
                     android:paddingEnd="16dp"
                     android:paddingBottom="2dp"
                     android:text="@string/tv_frames_label_text"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_frames"
@@ -455,6 +460,7 @@
             app:cardCornerRadius="4dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_facts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -469,6 +475,7 @@
                     android:paddingBottom="2dp"
                     android:text="@string/tv_facts_label_text"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -488,6 +495,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_fact1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
@@ -499,6 +507,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_facts_label">
 
                     <LinearLayout
+                        android:id="@+id/layout_fact1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -524,7 +533,7 @@
                             android:paddingTop="4dp"
                             android:paddingEnd="16dp"
                             android:paddingBottom="4dp"
-                            android:textSize="14sp"
+                            android:textSize="16sp"
                             tools:text="Some fact 1" />
 
                     </LinearLayout>
@@ -545,6 +554,7 @@
             app:cardCornerRadius="4dp">
 
             <LinearLayout
+                android:id="@+id/layout_videos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -558,7 +568,8 @@
                     android:paddingEnd="16dp"
                     android:paddingBottom="2dp"
                     android:text="@string/tv_videos_label_text"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_videos"
@@ -583,6 +594,7 @@
             app:cardCornerRadius="4dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_staff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
@@ -596,6 +608,7 @@
                     android:paddingBottom="2dp"
                     android:text="@string/tv_staff_label_text"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -619,8 +632,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/tv_videos_label_text"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_staff_label"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/staff_preview_item"
@@ -640,6 +653,7 @@
             app:cardCornerRadius="4dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_reviews"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -654,6 +668,7 @@
                     android:paddingBottom="2dp"
                     android:text="@string/tv_reviews_label_text"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -686,6 +701,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_reviews_label">
 
                     <LinearLayout
+                        android:id="@+id/layout_review_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -699,7 +715,7 @@
                             android:paddingTop="4dp"
                             android:paddingEnd="16dp"
                             android:paddingBottom="4dp"
-                            android:textSize="16sp"
+                            android:textSize="18sp"
                             tools:text="Good review" />
 
                         <com.google.android.material.textview.MaterialTextView
@@ -710,7 +726,7 @@
                             android:paddingTop="4dp"
                             android:paddingEnd="16dp"
                             android:paddingBottom="4dp"
-                            android:textSize="14sp"
+                            android:textSize="16sp"
                             tools:text="Some review description" />
 
                     </LinearLayout>
@@ -731,6 +747,7 @@
             app:cardCornerRadius="4dp">
 
             <LinearLayout
+                android:id="@+id/layout_similars"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -744,7 +761,8 @@
                     android:paddingEnd="16dp"
                     android:paddingBottom="2dp"
                     android:text="@string/tv_similars_label_text"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_similars"

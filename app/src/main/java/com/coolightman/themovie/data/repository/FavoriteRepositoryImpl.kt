@@ -7,8 +7,6 @@ import com.coolightman.themovie.data.database.dbModel.MovieDbModel
 import com.coolightman.themovie.data.database.dbModel.ShortMovieDbModel
 import com.coolightman.themovie.data.mapper.MovieMapper
 import com.coolightman.themovie.domain.repository.FavoriteRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class FavoriteRepositoryImpl @Inject constructor(
@@ -19,21 +17,21 @@ class FavoriteRepositoryImpl @Inject constructor(
 ) : FavoriteRepository {
 
     override suspend fun addMovieToFavorite(movieId: Long) {
-        withContext(Dispatchers.IO) {
-            val movie = movieDao.getMovieModel(movieId)
-            setMovieIsFavorite(movie, true)
-            createFavorite(movie)
-            val shortMovie = shortMovieDao.getShortMovie(movieId)
-            setShortMovieIsFavorite(shortMovie, true)
-        }
+        val movie = movieDao.getMovieModel(movieId)
+        setMovieIsFavorite(movie, true)
+        createFavorite(movie)
+        val shortMovie = shortMovieDao.getShortMovie(movieId)
+        setShortMovieIsFavorite(shortMovie, true)
     }
 
     private suspend fun setShortMovieIsFavorite(
-        shortMovie: ShortMovieDbModel,
+        shortMovie: ShortMovieDbModel?,
         isFavorite: Boolean
     ) {
-        shortMovie.isFavorite = isFavorite
-        shortMovieDao.insertShortMovie(shortMovie)
+        shortMovie?.let {
+            it.isFavorite = isFavorite
+            shortMovieDao.insertShortMovie(it)
+        }
     }
 
     private suspend fun createFavorite(movie: MovieDbModel) {
@@ -47,12 +45,10 @@ class FavoriteRepositoryImpl @Inject constructor(
     }
 
     override suspend fun removeMovieFromFavorite(movieId: Long) {
-        withContext(Dispatchers.IO) {
-            val movie = movieDao.getMovieModel(movieId)
-            setMovieIsFavorite(movie, false)
-            favoriteDao.remove(movieId)
-            val shortMovie = shortMovieDao.getShortMovie(movieId)
-            setShortMovieIsFavorite(shortMovie, false)
-        }
+        val movie = movieDao.getMovieModel(movieId)
+        setMovieIsFavorite(movie, false)
+        favoriteDao.remove(movieId)
+        val shortMovie = shortMovieDao.getShortMovie(movieId)
+        setShortMovieIsFavorite(shortMovie, false)
     }
 }

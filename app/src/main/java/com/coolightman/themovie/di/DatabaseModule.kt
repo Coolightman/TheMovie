@@ -52,4 +52,8 @@ class DatabaseModule {
     @ApplicationScope
     @Provides
     fun provideStaffDao(db: AppDatabase) = db.staffDao()
+
+    @ApplicationScope
+    @Provides
+    fun providePersonDao(db: AppDatabase) = db.personDao()
 }

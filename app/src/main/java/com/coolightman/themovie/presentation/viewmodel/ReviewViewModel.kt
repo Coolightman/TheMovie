@@ -8,5 +8,13 @@ class ReviewViewModel @Inject constructor(
     private val getMovieReviewsUseCase: GetMovieReviewsUseCase
 ) : ViewModel() {
 
-    fun getReviews(movieId: Long) = getMovieReviewsUseCase(movieId)
+    private var movieId: Long = 0
+
+    val reviews by lazy {
+        getMovieReviewsUseCase(movieId)
+    }
+
+    fun setMovieId(movieId: Long) {
+        this.movieId = movieId
+    }
 }

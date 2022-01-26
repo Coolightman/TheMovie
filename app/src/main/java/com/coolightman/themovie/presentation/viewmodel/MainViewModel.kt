@@ -32,10 +32,17 @@ class MainViewModel @Inject constructor(
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getPopularMovies() = getPopularMoviesUseCase()
-    fun getTop250Movies() = getTop250MoviesUseCase()
-    fun getFavoriteMovies() = getFavoriteMoviesUseCase()
+    val popularMovies by lazy {
+        getPopularMoviesUseCase()
+    }
 
+    val top250Movies by lazy {
+        getTop250MoviesUseCase()
+    }
+
+    val favoriteMovies by lazy {
+        getFavoriteMoviesUseCase()
+    }
 
     fun loadPopularNextPage() {
         viewModelScope.launch(handler) {

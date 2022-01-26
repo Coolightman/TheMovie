@@ -8,5 +8,13 @@ class GalleryViewModel @Inject constructor(
     private val getMovieFramesUseCase: GetMovieFramesUseCase
 ) : ViewModel() {
 
-    fun getFrames(movieId: Long) = getMovieFramesUseCase(movieId)
+    private var movieId: Long = 0
+
+    val frames by lazy {
+        getMovieFramesUseCase(movieId)
+    }
+
+    fun setMovieId(movieId: Long) {
+        this.movieId = movieId
+    }
 }

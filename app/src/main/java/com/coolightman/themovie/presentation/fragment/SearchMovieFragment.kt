@@ -7,6 +7,7 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -76,12 +77,26 @@ class SearchMovieFragment : Fragment() {
     private fun listeners() {
         with(binding) {
             btSearch.setOnClickListener {
-                val keywords = tfSearchKeywords.text
-                hideClue()
-                showProgressBar()
-                viewModel.searchMovies(keywords.toString())
+                startSearch()
+            }
+
+            tfSearchKeywords.setOnEditorActionListener { view, actionId, keyEvent ->
+                return@setOnEditorActionListener when (actionId) {
+                    EditorInfo.IME_ACTION_SEARCH -> {
+                        startSearch()
+                        true
+                    }
+                    else -> false
+                }
             }
         }
+    }
+
+    private fun startSearch() {
+        val keywords = binding.tfSearchKeywords.text
+        hideClue()
+        showProgressBar()
+        viewModel.searchMovies(keywords.toString())
     }
 
     private fun showProgressBar() {
@@ -111,12 +126,10 @@ class SearchMovieFragment : Fragment() {
     }
 
     private fun observeList() {
-        viewModel.getMovieSearchList().observe(viewLifecycleOwner) {
-            it?.let {
-                searchMovieAdapter.submitList(it)
-                if (it.isNotEmpty()){
-                    hideClue()
-                }
+        viewModel.searchResult.observe(viewLifecycleOwner) {
+            searchMovieAdapter.submitList(it)
+            if (it.isNotEmpty()) {
+                hideClue()
             }
         }
     }

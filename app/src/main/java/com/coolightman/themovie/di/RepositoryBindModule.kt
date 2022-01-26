@@ -26,6 +26,14 @@ interface RepositoryBindModule {
 
     @ApplicationScope
     @Binds
+    fun bindShortMovieRepository(impl: ShortMovieRepositoryImpl): ShortMovieRepository
+
+    @ApplicationScope
+    @Binds
+    fun bindMovieSearchRepository(impl: MovieSearchRepositoryImpl): MovieSearchRepository
+
+    @ApplicationScope
+    @Binds
     fun bindPageRepository(impl: PageRepositoryImpl): PageRepository
 
     @ApplicationScope
@@ -43,4 +51,8 @@ interface RepositoryBindModule {
     @ApplicationScope
     @Binds
     fun bindStaffRepository(impl: StaffRepositoryImpl): StaffRepository
+
+    @ApplicationScope
+    @Binds
+    fun bindPersonRepository(impl: PersonRepositoryImpl): PersonRepository
 }

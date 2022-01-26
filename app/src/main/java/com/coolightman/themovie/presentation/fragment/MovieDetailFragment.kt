@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
@@ -29,6 +28,7 @@ import com.coolightman.themovie.presentation.adapter.VideoAdapter
 import com.coolightman.themovie.presentation.viewmodel.MovieDetailViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
 import com.coolightman.themovie.util.CardColor.setCardColor
+import com.coolightman.themovie.util.ColumnCount.getRandomNumber
 import com.coolightman.themovie.util.RatingColor.setRatingColor
 import com.coolightman.themovie.util.TextFormat.cutTextSize
 import kotlinx.coroutines.CoroutineScope
@@ -78,9 +78,20 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieId = args.movieId
-        createObservers(movieId)
+
+        viewModel.fetchMovieData(movieId)
+        createObservers()
         createRecyclers()
-        createListeners(movieId)
+        createListeners()
+    }
+
+    private fun errorsListener() {
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                viewModel.resetError()
+            }
+        }
     }
 
     private fun createRecyclers() {
@@ -105,7 +116,9 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun onStaffClickListener(staff: Staff) {
-        shortToast("Launch Staff ${staff.staffId}")
+        findNavController().navigate(
+            MovieDetailFragmentDirections.actionMovieDetailFragmentToPersonFragment(staff.staffId)
+        )
     }
 
     private fun createSimilarRecycler() {
@@ -170,14 +183,16 @@ class MovieDetailFragment : Fragment() {
         )
     }
 
-    private fun createListeners(movieId: Long) {
+    private fun createListeners() {
+        errorsListener()
+
         with(binding) {
             imgFavorite.setOnClickListener {
                 if (movie.isFavorite) {
-                    viewModel.removeMovieFromFavorite(movieId)
+                    viewModel.removeMovieFromFavorite()
                     shortToast(getString(R.string.favorite_deleted))
                 } else {
-                    viewModel.addMovieToFavorite(movieId)
+                    viewModel.addMovieToFavorite()
                     shortToast(getString(R.string.favorite_added))
                 }
             }
@@ -247,27 +262,25 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun createObservers(movieId: Long) {
-        createMovieObserver(movieId)
-        createFramesObserver(movieId)
-        createFactsObserver(movieId)
-        createReviewsObserver(movieId)
-        createVideosObserver(movieId)
-        createSimilarsObserver(movieId)
-        createStaffObserver(movieId)
+    private fun createObservers() {
+        createMovieObserver()
+        createFramesObserver()
+        createFactsObserver()
+        createVideosObserver()
+        createStaffObserver()
+        createReviewsObserver()
+        createSimilarsObserver()
     }
 
-    private fun createStaffObserver(movieId: Long) {
-        viewModel.getStaff(movieId).observe(viewLifecycleOwner) {
-            it?.let {
-                if (it.isNotEmpty()) {
-                    Log.d("ObservingStaff", it.toString())
-                    checkStuffSize(it)
-                    val list = it.take(NUMBER_PREVIEW_STAFF)
-                    staffPreviewAdapter.submitList(list)
-                } else {
-                    binding.cvStaff.visibility = GONE
-                }
+    private fun createStaffObserver() {
+        viewModel.staff.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                checkStuffSize(it)
+                val list = it.take(NUMBER_PREVIEW_STAFF)
+                staffPreviewAdapter.submitList(list)
+                binding.cvStaff.visibility = VISIBLE
+            } else {
+                binding.cvStaff.visibility = GONE
             }
         }
     }
@@ -278,25 +291,25 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun createReviewsObserver(movieId: Long) {
-        viewModel.getReviews(movieId).observe(viewLifecycleOwner) {
-            if (it != null) {
-                if (it.isNotEmpty()) {
-                    Log.d("ObservingReviews", it.toString())
-                    val reviewRndNumb = getRandomNumber(it.size)
-                    val review = it[reviewRndNumb]
-                    reviewNumber = reviewRndNumb
-                    checkReviewsSize(it)
-                    setReviewTitle(review.title)
-                    setReviewDescription(review.description)
-                    setReviewColor(review.type)
-                } else {
-                    binding.cvReviews.visibility = GONE
-                }
+    private fun createReviewsObserver() {
+        viewModel.reviews.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                val reviewRndNumb = getRandomNumber(it.size)
+                reviewNumber = reviewRndNumb
+                val review = it[reviewRndNumb]
+                checkReviewsSize(it)
+                setReview(review)
+                binding.cvReviews.visibility = VISIBLE
             } else {
                 binding.cvReviews.visibility = GONE
             }
         }
+    }
+
+    private fun setReview(review: Review) {
+        setReviewTitle(review.title)
+        setReviewDescription(review.description)
+        setReviewColor(review.type)
     }
 
     private fun checkReviewsSize(it: List<Review>) {
@@ -320,40 +333,26 @@ class MovieDetailFragment : Fragment() {
 
     private fun setReviewTitle(title: String) {
         if (title.isNotEmpty()) {
-            val text = "\"$title\""
-            binding.tvReview1Title.text = text
+            binding.tvReview1Title.text = title
         } else {
             binding.tvReview1Title.visibility = GONE
         }
     }
 
-    private fun createFactsObserver(movieId: Long) {
-        viewModel.getFacts(movieId).observe(viewLifecycleOwner) {
-            it?.let {
-                if (it.isNotEmpty()) {
-                    Log.d("ObservingFacts", it.toString())
-                    val factRndNumb = getRandomNumber(it.size)
-                    val fact = it[factRndNumb]
-                    checkFactsSize(it)
-                    checkSpoiler(fact)
-                    binding.tvFact1.text = fact.text
-                } else {
-                    binding.cvFacts.visibility = GONE
-                }
+    private fun createFactsObserver() {
+        viewModel.facts.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                val factRndNumb = getRandomNumber(it.size)
+                val fact = it[factRndNumb]
+                checkFactsSize(it)
+                checkSpoiler(fact)
+                binding.tvFact1.text = fact.text
+                binding.cvFacts.visibility = VISIBLE
+            } else {
+                binding.cvFacts.visibility = GONE
             }
         }
     }
-
-    private fun getRandomNumber(listSize: Int): Int {
-        return if (listSize > 1) {
-            val max = listSize - 1
-            val min = 0
-            (Math.random() * (max - min + 1) + min).toInt()
-        } else {
-            FIRST_LIST_ITEM
-        }
-    }
-
 
     private fun checkFactsSize(it: List<Fact>) {
         if (it.size == 1) {
@@ -367,57 +366,49 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun createSimilarsObserver(movieId: Long) {
-        viewModel.getSimilars(movieId).observe(viewLifecycleOwner) {
-            it?.let {
-                if (it.isNotEmpty()) {
-                    Log.d("ObservingSimilars", it.toString())
-                    similarAdapter.submitList(it)
-                } else {
-                    binding.cvSimilars.visibility = GONE
-                }
+    private fun createSimilarsObserver() {
+        viewModel.similars.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                similarAdapter.submitList(it)
+                binding.cvSimilars.visibility = VISIBLE
+            } else {
+                binding.cvSimilars.visibility = GONE
             }
         }
     }
 
-    private fun createVideosObserver(movieId: Long) {
-        viewModel.getVideos(movieId).observe(viewLifecycleOwner) {
-            it?.let {
-                if (it.isNotEmpty()) {
-                    Log.d("ObservingVideos", it.toString())
-                    videoAdapter.submitList(it)
-                } else {
-                    binding.cvVideos.visibility = GONE
-                }
+    private fun createVideosObserver() {
+        viewModel.videos.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                videoAdapter.submitList(it)
+                binding.cvVideos.visibility = VISIBLE
+            } else {
+                binding.cvVideos.visibility = GONE
             }
         }
     }
 
-    private fun createFramesObserver(movieId: Long) {
-        viewModel.getFrames(movieId).observe(viewLifecycleOwner) {
-            it?.let {
-                if (it.isNotEmpty()) {
-                    Log.d("ObservingFrames", it.toString())
-                    frameAdapter.submitList(it)
-                } else {
-                    binding.cvFrames.visibility = GONE
-                }
-
+    private fun createFramesObserver() {
+        viewModel.frames.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                frameAdapter.submitList(it)
+                binding.cvFrames.visibility = VISIBLE
+            } else {
+                binding.cvFrames.visibility = GONE
             }
         }
     }
 
-    private fun createMovieObserver(movieId: Long) {
-        viewModel.getMovie(movieId).observe(viewLifecycleOwner) {
+    private fun createMovieObserver() {
+        viewModel.movie.observe(viewLifecycleOwner) {
             it?.let {
-                Log.d("ObservingMovie", it.toString())
                 movie = it
                 setPoster(it.poster)
                 setRating(it)
                 setRatingCount(it)
                 setImdbRating(it)
                 setCriticRating(it)
-                setTop250Place(it)
+                setTop250Place()
                 setFavorite(it.isFavorite)
                 setNameOrigin(it.nameOriginal)
                 setNameRu(it.nameRu)
@@ -432,8 +423,8 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun setTop250Place(movie: Movie) {
-        viewModel.getTop250Place(movie.movieId).observe(viewLifecycleOwner) {
+    private fun setTop250Place() {
+        viewModel.top250Place.observe(viewLifecycleOwner) {
             if (it != NON_TOP_250_place) {
                 binding.tvTop250Place.text = it
                 binding.viewTop250.visibility = VISIBLE
@@ -624,7 +615,7 @@ class MovieDetailFragment : Fragment() {
     companion object {
         private const val TIME_SHORT_TOAST = 800L
         private const val NON_TOP_250_place = "0"
-        private const val FIRST_LIST_ITEM = 0
+        private const val BUNDLE_SCROLL_POSITION = "detailScrollYPosition"
         private const val MAX_REVIEW_DESCRIPTION_SIZE = 200
         private const val NUMBER_PREVIEW_STAFF = 6
     }

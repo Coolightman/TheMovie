@@ -82,7 +82,7 @@ class MoviesTop250Fragment : Fragment() {
     }
 
     private fun createObserver() {
-        viewModel.getTop250Movies().observe(viewLifecycleOwner) {
+        viewModel.top250Movies.observe(viewLifecycleOwner) {
             if (it.size >= MIN_PAGE_SIZE) {
                 shortMovieAdapter.submitList(it)
             }

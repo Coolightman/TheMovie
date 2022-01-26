@@ -17,6 +17,9 @@ interface StaffDao {
     @Query("select * from staffdbmodel where movieId = :movieId order by importanceNumber")
     fun getStaff(movieId: Long): LiveData<List<StaffDbModel>>
 
+    @Query("select exists(select * from staffdbmodel where movieId = :movieId)")
+    suspend fun exists(movieId: Long): Boolean
+
     @Query("delete from staffdbmodel")
     suspend fun clearTable()
 }

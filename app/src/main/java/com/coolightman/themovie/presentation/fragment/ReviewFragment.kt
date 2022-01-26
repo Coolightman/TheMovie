@@ -10,13 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.coolightman.themovie.App
-import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.FragmentReviewBinding
 import com.coolightman.themovie.domain.entity.ReviewType
 import com.coolightman.themovie.presentation.viewmodel.ReviewViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
 import com.coolightman.themovie.util.CardColor
-import com.coolightman.themovie.util.TextFormat
 import javax.inject.Inject
 
 class ReviewFragment : Fragment() {
@@ -54,8 +52,9 @@ class ReviewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val movieId = args.movieId
         val reviewNumber = args.number
+        viewModel.setMovieId(movieId)
 
-        createObserver(movieId, reviewNumber)
+        createObserver(reviewNumber)
         listeners()
     }
 
@@ -71,15 +70,13 @@ class ReviewFragment : Fragment() {
         findNavController().popBackStack()
     }
 
-    private fun createObserver(movieId: Long, reviewNumber: Int) {
-        viewModel.getReviews(movieId).observe(viewLifecycleOwner){
-            it?.let {
-                val review = it[reviewNumber]
-                setReviewTitle(review.title)
-                setReviewDescription(review.description)
-                setReviewColor(review.type)
-                setReviewAuthor(review.author)
-            }
+    private fun createObserver(reviewNumber: Int) {
+        viewModel.reviews.observe(viewLifecycleOwner) {
+            val review = it[reviewNumber]
+            setReviewTitle(review.title)
+            setReviewDescription(review.description)
+            setReviewColor(review.type)
+            setReviewAuthor(review.author)
         }
     }
 

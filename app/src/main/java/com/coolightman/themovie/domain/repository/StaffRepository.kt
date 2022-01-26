@@ -6,4 +6,5 @@ import com.coolightman.themovie.domain.entity.Staff
 interface StaffRepository {
 
     fun getMovieStaff(movieId: Long): LiveData<List<Staff>>
+    suspend fun fetchMovieStaff(movieId: Long)
 }

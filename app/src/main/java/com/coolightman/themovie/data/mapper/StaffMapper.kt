@@ -11,7 +11,8 @@ class StaffMapper @Inject constructor() {
 
     fun mapDtoListToDbModelList(dto: List<StaffDto>, movieId: Long): List<StaffDbModel> {
         val dbModelsList = mutableListOf<StaffDbModel>()
-        for ((i, item) in dto.withIndex()) {
+        val filtered = dto.filter { it.professionKey == "ACTOR" }
+        for ((i, item) in filtered.withIndex()) {
             val dbModel = StaffDbModel(
                 staffId = item.staffId,
                 movieId = movieId,

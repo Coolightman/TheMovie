@@ -48,4 +48,9 @@ interface ViewModelModule {
     @ViewModelKey(StaffViewModel::class)
     @Binds
     fun bindStaffViewModel(viewModel: StaffViewModel): ViewModel
+
+    @IntoMap
+    @ViewModelKey(PersonViewModel::class)
+    @Binds
+    fun bindPersonViewModel(viewModel: PersonViewModel): ViewModel
 }
