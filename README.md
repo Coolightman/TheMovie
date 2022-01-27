@@ -56,3 +56,6 @@ It will appear on Favorite page of main screen
 And it will be marked on other screens like favorite
 
 <img src="https://user-images.githubusercontent.com/43218153/149816216-c6e86ef1-d902-4862-a6f6-b3cf60708f5f.jpg" alt="drawing" width="270"/>
+
+### Link for APK
+https://drive.google.com/file/d/1QojQViCGjlrDMpTvLT3l2Ui4ApX5raYV/view?usp=sharing
