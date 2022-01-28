@@ -7,6 +7,7 @@ import com.coolightman.themovie.data.mapper.ReviewMapper
 import com.coolightman.themovie.data.network.ApiServiceV1
 import com.coolightman.themovie.domain.entity.Review
 import com.coolightman.themovie.domain.repository.ReviewRepository
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class ReviewRepositoryImpl @Inject constructor(
@@ -27,6 +28,8 @@ class ReviewRepositoryImpl @Inject constructor(
     }
 
     private suspend fun loadReviewsFromApi(movieId: Long) {
+//        Delay needed to fix http 429 from api
+        delay(1000)
         val reviewsDto = apiServiceV1.loadReviews(movieId)
         val reviewsDbModel = mapper.mapDtoToDbModel(reviewsDto)
         reviewsDao.insert(reviewsDbModel)
