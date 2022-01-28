@@ -15,7 +15,7 @@ class FactMapper @Inject constructor() {
     fun mapDtoToDbModel(dto: FactsDto, movieId: Long) = FactsDbModel(
         movieId = movieId,
         items = dto.items
-            .filter { it.text != null && it.spoiler != null }
+            .filter { it.text != null && it.text!!.length <= 300 && it.spoiler != null }
             .map { mapFrameDtoToDbModel(it) }
     )
 
