@@ -84,7 +84,7 @@ class MainViewModel @Inject constructor(
                 clearPopularMoviesUseCase()
             }
             job.join()
-            loadPopularNextPage()
+            loadPopularNextPageUseCase()
         }
     }
 
@@ -94,12 +94,13 @@ class MainViewModel @Inject constructor(
                 clearTop250MoviesUseCase()
             }
             job.join()
-            loadTop250NextPage()
+            loadTop250NextPageUseCase()
         }
     }
 
     private fun onError(message: String) {
         _errorMessage.postValue(message)
+        hideProgress()
     }
 
     fun resetError() {
