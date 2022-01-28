@@ -84,7 +84,7 @@ class MainViewModel @Inject constructor(
                 clearPopularMoviesUseCase()
             }
             job.join()
-            loadPopularNextPageUseCase()
+            loadPopularNextPage()
         }
     }
 
@@ -94,7 +94,7 @@ class MainViewModel @Inject constructor(
                 clearTop250MoviesUseCase()
             }
             job.join()
-            loadTop250NextPageUseCase()
+            loadTop250NextPage()
         }
     }
 
