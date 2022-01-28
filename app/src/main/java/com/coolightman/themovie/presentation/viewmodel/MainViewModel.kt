@@ -32,6 +32,10 @@ class MainViewModel @Inject constructor(
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
+    private val _pageLoading = MutableLiveData<Boolean>()
+    val pageLoading: LiveData<Boolean>
+        get() = _pageLoading
+
     val popularMovies by lazy {
         getPopularMoviesUseCase()
     }
@@ -46,13 +50,31 @@ class MainViewModel @Inject constructor(
 
     fun loadPopularNextPage() {
         viewModelScope.launch(handler) {
-            loadPopularNextPageUseCase()
+            showProgress()
+            val job = launch {
+                loadPopularNextPageUseCase()
+            }
+            job.join()
+            hideProgress()
         }
+    }
+
+    private fun hideProgress() {
+        _pageLoading.postValue(false)
+    }
+
+    private fun showProgress() {
+        _pageLoading.postValue(true)
     }
 
     fun loadTop250NextPage() {
         viewModelScope.launch(handler) {
-            loadTop250NextPageUseCase()
+            showProgress()
+            val job = launch {
+                loadTop250NextPageUseCase()
+            }
+            job.join()
+            hideProgress()
         }
     }
 

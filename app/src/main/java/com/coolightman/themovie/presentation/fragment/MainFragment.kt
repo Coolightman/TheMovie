@@ -55,6 +55,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         createSectionsAdapter()
         forLandscape()
+        observerProgressHide()
         listeners()
     }
 
@@ -67,6 +68,24 @@ class MainFragment : Fragment() {
                 )
             }
         }
+    }
+
+    private fun observerProgressHide() {
+        viewModel.pageLoading.observe(viewLifecycleOwner) {
+            if (it == true) {
+                showProgressBar()
+            } else {
+                hideProgressBar()
+            }
+        }
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBarPageLoad.visibility = View.INVISIBLE
+    }
+
+    private fun showProgressBar() {
+        binding.progressBarPageLoad.visibility = View.VISIBLE
     }
 
     private fun forLandscape() {
