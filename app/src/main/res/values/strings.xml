@@ -41,4 +41,5 @@
     <string name="tv_age_label_text">Age</string>
     <string name="tv_growth_label_text">Growth</string>
     <string name="tv_filmography_label_text">Filmography</string>
+    <string name="main_pages_selector_cd" translatable="false">pages selector</string>
 </resources>

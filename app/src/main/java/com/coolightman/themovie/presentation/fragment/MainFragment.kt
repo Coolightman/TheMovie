@@ -60,7 +60,7 @@ class MainFragment : Fragment() {
 
     private fun listeners() {
         errorsListener()
-        with(binding){
+        with(binding) {
             imgMainSearch.setOnClickListener {
                 findNavController().navigate(
                     MainFragmentDirections.actionMainFragmentToSearchMovieFragment()
@@ -76,8 +76,8 @@ class MainFragment : Fragment() {
     }
 
     private fun errorsListener() {
-        viewModel.errorMessage.observe(viewLifecycleOwner){
-            if (it.isNotEmpty()){
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
                 viewModel.resetError()
             }
@@ -91,7 +91,7 @@ class MainFragment : Fragment() {
 
     private fun createSectionsAdapter() {
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager, lifecycle)
-        val viewPager: ViewPager2 = binding.viewPager
+        val viewPager: ViewPager2 = binding.viewPager2
         viewPager.adapter = sectionsPagerAdapter
 
         val tabs: TabLayout = binding.tabs
