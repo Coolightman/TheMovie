@@ -17,7 +17,7 @@ You can refresh pages by swipe down, or it will be refreshing by some time when 
 
 ### Search screen
 
-<img src="https://user-images.githubusercontent.com/43218153/151016704-e9593d62-67ec-4eb4-8539-9f6cf7e2fcad.jpg" alt="drawing" width="270"/>
+<img src="https://user-images.githubusercontent.com/43218153/151534897-bf924664-3eb9-42c3-8b83-40bee3448674.jpg" alt="drawing" width="270"/>
 
 ### Movie details screen
 Here you can see main parts of movie like a poster, some ratings, detail information, frames, facts, videos, staff, reviews and similar movies. Every part is interactive.
@@ -51,7 +51,7 @@ Also you can add a movie to favorite, by click to star icon
 
 It will appear on Favorite page of main screen
 
-<img src="https://user-images.githubusercontent.com/43218153/149815415-37ec4f69-eb9c-4a61-966c-852aabe23093.jpg" alt="drawing" width="270"/>
+<img src="https://user-images.githubusercontent.com/43218153/151535147-6f53ce45-0324-4f04-b082-af55ae2434f9.jpg" alt="drawing" width="270"/>
 
 And it will be marked on other screens like favorite
 
