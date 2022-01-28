@@ -1,12 +1,12 @@
 package com.coolightman.themovie.presentation.fragment
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +17,7 @@ import com.coolightman.themovie.databinding.FragmentGalleryBinding
 import com.coolightman.themovie.presentation.adapter.GalleryAdapter
 import com.coolightman.themovie.presentation.viewmodel.GalleryViewModel
 import com.coolightman.themovie.presentation.viewmodel.ViewModelFactory
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class GalleryFragment : Fragment() {
@@ -45,6 +46,11 @@ class GalleryFragment : Fragment() {
         super.onAttach(context)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        hideStatusBar()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,11 +63,50 @@ class GalleryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val movieId = args.movieId
         val position = args.framePosition
-        viewModel.setMovieId(movieId)
 
+        if (savedInstanceState == null) {
+            viewModel.setMovieId(movieId)
+            viewModel.setPosition(position)
+        }
+
+        hideStatusBar()
         createRecycler()
-        createObserver(position)
+        createObserver()
         createListeners()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        showStatusBar()
+        rememberLastPosition()
+    }
+
+    private fun rememberLastPosition() {
+        val lastPosition = layoutManager.findLastCompletelyVisibleItemPosition()
+        viewModel.setPosition(lastPosition)
+    }
+
+    private fun hideStatusBar() {
+        val window = requireActivity().window
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+    }
+
+    private fun showStatusBar() {
+        val window = requireActivity().window
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.show(WindowInsets.Type.statusBars())
+        } else {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        }
     }
 
     private fun createListeners() {
@@ -76,10 +121,19 @@ class GalleryFragment : Fragment() {
         findNavController().popBackStack()
     }
 
-    private fun createObserver(position: Int) {
-        viewModel.frames.observe(viewLifecycleOwner) {
-            galleryAdapter.submitList(it)
-            setLayoutPosition(position)
+    private fun createObserver() {
+        lifecycleScope.launch {
+            viewModel.frames.observe(viewLifecycleOwner) {
+                galleryAdapter.submitList(it)
+                setPosition()
+            }
+        }
+
+    }
+
+    private fun setPosition() {
+        viewModel.lastPosition.observe(viewLifecycleOwner) {
+            layoutManager.scrollToPosition(it)
         }
     }
 
@@ -88,10 +142,6 @@ class GalleryFragment : Fragment() {
         createFrameAdapter(recycler)
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         recycler.layoutManager = layoutManager
-    }
-
-    private fun setLayoutPosition(position: Int) {
-        layoutManager.scrollToPosition(position)
     }
 
     private fun createFrameAdapter(recycler: RecyclerView) {
