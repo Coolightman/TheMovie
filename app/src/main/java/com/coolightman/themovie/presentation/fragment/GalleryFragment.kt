@@ -91,10 +91,7 @@ class GalleryFragment : Fragment() {
     }
 
     private fun setLayoutPosition(position: Int) {
-        if (position != prevPosition) {
-            layoutManager.scrollToPosition(position)
-            prevPosition = position
-        }
+        layoutManager.scrollToPosition(position)
     }
 
     private fun createFrameAdapter(recycler: RecyclerView) {
@@ -103,10 +100,6 @@ class GalleryFragment : Fragment() {
         galleryAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         PagerSnapHelper().attachToRecyclerView(recycler)
-    }
-
-    companion object {
-        private var prevPosition = -1
     }
 
 }
