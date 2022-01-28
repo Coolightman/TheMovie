@@ -59,20 +59,9 @@ class SearchMovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        showKeyboardOnInputText()
         createRecycler()
         observers()
         listeners()
-    }
-
-    private fun showKeyboardOnInputText() {
-        binding.tfSearchKeywords.requestFocus()
-        inputMethodManager =
-            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.toggleSoftInput(
-            InputMethodManager.SHOW_FORCED,
-            InputMethodManager.HIDE_IMPLICIT_ONLY
-        )
     }
 
     private fun listeners() {
@@ -169,7 +158,6 @@ class SearchMovieFragment : Fragment() {
     }
 
     private fun onMovieClickListener(movieId: Long) {
-        hideKeyboard()
         launchMovieDetail(movieId)
     }
 
@@ -177,10 +165,6 @@ class SearchMovieFragment : Fragment() {
         findNavController().navigate(
             SearchMovieFragmentDirections.actionSearchMovieFragmentToMovieDetailFragment(movieId)
         )
-    }
-
-    private fun hideKeyboard() {
-        inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
 }

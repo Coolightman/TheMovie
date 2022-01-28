@@ -39,6 +39,22 @@
             tools:visibility="visible" />
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_name_ru"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_preview"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Сосна" />
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_name_en"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -50,23 +66,8 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/img_preview"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_name_ru"
             tools:text="Sosna" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_name_ru"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/img_preview"
-            app:layout_constraintTop_toBottomOf="@id/tv_name_en"
-            tools:text="Сосна" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_year_label"
@@ -79,7 +80,7 @@
             android:text="@string/tv_year_label_text"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@id/img_preview"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name_ru" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_en" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_year"
