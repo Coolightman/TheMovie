@@ -17,8 +17,16 @@ class ParseCoroutineException @Inject constructor(
         return when (throwable) {
             is UnknownHostException -> context.getString(R.string.error_message_unknown_host_exception)
             is SocketTimeoutException -> context.getString(R.string.error_message_socket_timeout_exception)
-            is HttpException -> "Http Exception: ${throwable.code()}"
+            is HttpException -> checkCode(throwable.code())
             else -> "Some exception"
+        }
+    }
+
+//    not showing 404 cause it api bug
+    private fun checkCode(code: Int): String {
+        return when (code) {
+            404 -> return ""
+            else -> "Http Exception: $code"
         }
     }
 }
