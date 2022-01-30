@@ -3,6 +3,7 @@ package com.coolightman.themovie.presentation.fragment
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -77,13 +78,9 @@ class GalleryFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        showStatusBar()
         rememberLastPosition()
+        _binding = null
+        showStatusBar()
     }
 
     private fun rememberLastPosition() {
