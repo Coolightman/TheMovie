@@ -63,6 +63,11 @@ class PersonFragment : Fragment() {
         listeners(personId)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun createObserver() {
         viewModel.person.observe(viewLifecycleOwner) {
             setImage(it.posterUrl)

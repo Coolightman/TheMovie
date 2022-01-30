@@ -64,6 +64,11 @@ class SearchMovieFragment : Fragment() {
         listeners()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun listeners() {
         errorsListener()
         with(binding) {

@@ -58,6 +58,11 @@ class ReviewFragment : Fragment() {
         listeners()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun listeners() {
         with(binding) {
             imgCloseFragment.setOnClickListener {

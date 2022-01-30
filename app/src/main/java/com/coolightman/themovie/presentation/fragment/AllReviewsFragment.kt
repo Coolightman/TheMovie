@@ -61,6 +61,11 @@ class AllReviewsFragment : Fragment() {
         listeners()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun createRecycler(movieId: Long) {
         val recycler = binding.rvAllReviews
         createReviewsAdapter(recycler, movieId)

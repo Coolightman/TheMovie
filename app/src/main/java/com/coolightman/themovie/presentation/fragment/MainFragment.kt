@@ -59,6 +59,11 @@ class MainFragment : Fragment() {
         listeners()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun listeners() {
         errorsListener()
         with(binding) {
@@ -101,11 +106,6 @@ class MainFragment : Fragment() {
                 viewModel.resetError()
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 
     private fun createSectionsAdapter() {

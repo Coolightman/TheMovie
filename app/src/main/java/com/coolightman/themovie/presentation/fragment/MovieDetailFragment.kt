@@ -607,15 +607,14 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 
     companion object {
         private const val TIME_SHORT_TOAST = 800L
         private const val NON_TOP_250_place = "0"
-        private const val BUNDLE_SCROLL_POSITION = "detailScrollYPosition"
         private const val MAX_REVIEW_DESCRIPTION_SIZE = 200
         private const val NUMBER_PREVIEW_STAFF = 6
     }

@@ -61,6 +61,11 @@ class AllFactsFragment : Fragment() {
         createListeners()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun createListeners() {
         with(binding) {
             imgCloseFragment.setOnClickListener {
