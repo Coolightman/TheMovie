@@ -1,798 +1,812 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scroll_movie_detail_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.fragment.MovieDetailFragment">
 
-    <LinearLayout
-        android:id="@+id/layout_movie_detail_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_poster"
+        <ScrollView
+            android:id="@+id/scroll_movie_detail_fragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:cardCornerRadius="4dp">
+            android:layout_height="match_parent"
+            tools:context=".presentation.fragment.MovieDetailFragment">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_poster"
+            <LinearLayout
+                android:id="@+id/layout_movie_detail_main"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/img_poster"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_poster"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/cd_poster"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/placeholder_image_poster" />
-
-                <View
-                    android:id="@+id/view_rating_background"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="-8dp"
-                    android:layout_marginBottom="-4dp"
-                    android:background="@drawable/rounded_corner_view_rating"
-                    app:layout_constraintBottom_toBottomOf="@id/img_favorite"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/tv_rating"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:paddingStart="6dp"
-                    android:paddingTop="3dp"
-                    android:paddingEnd="6dp"
-                    android:paddingBottom="3dp"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="8.6" />
+                    app:cardCornerRadius="4dp">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_rating_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_rating"
-                    app:layout_constraintStart_toStartOf="@+id/tv_rating"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_rating"
-                    tools:ignore="SmallSp"
-                    tools:text="99999" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/img_favorite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@id/tv_rating"
-                    app:layout_constraintStart_toStartOf="@id/tv_rating"
-                    app:layout_constraintTop_toBottomOf="@id/tv_rating_count"
-                    app:srcCompat="@drawable/ic_baseline_star_36"
-                    tools:visibility="visible" />
-
-                <LinearLayout
-                    android:id="@+id/view_imdb"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:background="@drawable/rounded_2_corners_view_rating"
-                    android:orientation="vertical"
-                    android:paddingBottom="2dp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@id/view_rating_background"
-                    app:layout_constraintStart_toStartOf="@id/view_rating_background"
-                    app:layout_constraintTop_toBottomOf="@id/view_rating_background"
-                    tools:visibility="visible">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_imdb_label"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_poster"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="2dp"
-                        android:text="@string/tv_imdb_label_text"
-                        android:textSize="12sp" />
+                        android:layout_height="match_parent">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_rating_imdb"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:paddingStart="6dp"
-                        android:paddingTop="3dp"
-                        android:paddingEnd="6dp"
-                        android:paddingBottom="3dp"
-                        android:textSize="16sp"
-                        tools:text="8.6" />
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_poster"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="@string/cd_poster"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/placeholder_image_poster" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_rating_imdb_count"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textSize="10sp"
-                        tools:ignore="SmallSp"
-                        tools:text="99999" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/view_critics"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:background="@drawable/rounded_2_corners_view_rating"
-                    android:orientation="vertical"
-                    android:paddingBottom="2dp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@id/view_rating_background"
-                    app:layout_constraintStart_toStartOf="@id/view_rating_background"
-                    app:layout_constraintTop_toBottomOf="@id/view_imdb"
-                    tools:visibility="visible">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_critics_label"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="2dp"
-                        android:text="@string/tv_critics_label_text"
-                        android:textSize="12sp" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_rating_critics"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:paddingStart="6dp"
-                        android:paddingTop="3dp"
-                        android:paddingEnd="6dp"
-                        android:paddingBottom="3dp"
-                        android:textSize="16sp"
-                        tools:text="8.6" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_rating_critics_count"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textSize="10sp"
-                        tools:ignore="SmallSp"
-                        tools:text="99999" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/view_top_250"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
-                    android:background="@drawable/rounded_2_1_corners_view_rating"
-                    android:orientation="vertical"
-                    android:paddingStart="2dp"
-                    android:paddingEnd="2dp"
-                    android:paddingBottom="2dp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toStartOf="@id/view_rating_background"
-                    app:layout_constraintTop_toTopOf="@id/view_rating_background"
-                    tools:visibility="visible">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_top_250_place_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingTop="2dp"
-                        android:text="@string/tv_top_250_place_label_text"
-                        android:textColor="@color/gold"
-                        android:textSize="12sp" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_top_250_place"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:paddingStart="6dp"
-                        android:paddingEnd="6dp"
-                        android:textSize="16sp"
-                        tools:text="123" />
-
-                </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:cardCornerRadius="4dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_description"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_name_ru"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:textSize="28sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Сосна" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_name_original"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_name_ru"
-                    tools:text="Sosna" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_slogan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_name_original"
-                    tools:text="Bla bla bla" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_year_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/tv_year_label_text"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_slogan" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_year"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_year_label"
-                    tools:text="2022" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_duration_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/tv_duration_label_text"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_year_label" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_duration"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_duration_label"
-                    tools:text="2 ч 15 мин" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_genre_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/tv_genre_label_text"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_duration_label" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_genre"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_genre_label"
-                    tools:text="Action\nDrama" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_country_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/tv_country_label_text"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_genre" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_country"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_country_label"
-                    tools:text="Belarus\nPoland" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_age_limit_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/tv_age_limits_label_text"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_country" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_age_limit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_age_limit_label"
-                    tools:text="18+" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_age_limit"
-                    tools:text="Bla bla bla" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_frames"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:cardCornerRadius="4dp">
-
-            <LinearLayout
-                android:id="@+id/layout_frames"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_frames_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="16dp"
-                    android:paddingBottom="2dp"
-                    android:text="@string/tv_frames_label_text"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_frames"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/tv_frames_label_text"
-                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/frame_item"
-                    tools:orientation="horizontal" />
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_facts"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:cardCornerRadius="4dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_facts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_facts_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="16dp"
-                    android:paddingBottom="2dp"
-                    android:text="@string/tv_facts_label_text"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_facts_see_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="16dp"
-                    android:paddingBottom="2dp"
-                    android:text="@string/tv_see_more_text"
-                    android:textColor="@color/gold"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cv_fact1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:elevation="4dp"
-                    app:cardCornerRadius="4dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_facts_label">
-
-                    <LinearLayout
-                        android:id="@+id/layout_fact1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        <View
+                            android:id="@+id/view_rating_background"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="-8dp"
+                            android:layout_marginBottom="-4dp"
+                            android:background="@drawable/rounded_corner_view_rating"
+                            app:layout_constraintBottom_toBottomOf="@id/img_favorite"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/tv_rating"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tv_fact_1_warning"
+                            android:id="@+id/tv_rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:paddingStart="6dp"
+                            android:paddingTop="3dp"
+                            android:paddingEnd="6dp"
+                            android:paddingBottom="3dp"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="8.6" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_rating_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            app:layout_constraintEnd_toEndOf="@+id/tv_rating"
+                            app:layout_constraintStart_toStartOf="@+id/tv_rating"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_rating"
+                            tools:ignore="SmallSp"
+                            tools:text="99999" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_favorite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="@id/tv_rating"
+                            app:layout_constraintStart_toStartOf="@id/tv_rating"
+                            app:layout_constraintTop_toBottomOf="@id/tv_rating_count"
+                            app:srcCompat="@drawable/ic_baseline_star_36"
+                            tools:visibility="visible" />
+
+                        <LinearLayout
+                            android:id="@+id/view_imdb"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:background="@drawable/rounded_2_corners_view_rating"
+                            android:orientation="vertical"
+                            android:paddingBottom="2dp"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="@id/view_rating_background"
+                            app:layout_constraintStart_toStartOf="@id/view_rating_background"
+                            app:layout_constraintTop_toBottomOf="@id/view_rating_background"
+                            tools:visibility="visible">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_imdb_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:padding="2dp"
+                                android:text="@string/tv_imdb_label_text"
+                                android:textSize="12sp" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_rating_imdb"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingStart="6dp"
+                                android:paddingTop="3dp"
+                                android:paddingEnd="6dp"
+                                android:paddingBottom="3dp"
+                                android:textSize="16sp"
+                                tools:text="8.6" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_rating_imdb_count"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:textSize="10sp"
+                                tools:ignore="SmallSp"
+                                tools:text="99999" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/view_critics"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:background="@drawable/rounded_2_corners_view_rating"
+                            android:orientation="vertical"
+                            android:paddingBottom="2dp"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="@id/view_rating_background"
+                            app:layout_constraintStart_toStartOf="@id/view_rating_background"
+                            app:layout_constraintTop_toBottomOf="@id/view_imdb"
+                            tools:visibility="visible">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_critics_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:padding="2dp"
+                                android:text="@string/tv_critics_label_text"
+                                android:textSize="12sp" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_rating_critics"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingStart="6dp"
+                                android:paddingTop="3dp"
+                                android:paddingEnd="6dp"
+                                android:paddingBottom="3dp"
+                                android:textSize="16sp"
+                                tools:text="8.6" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_rating_critics_count"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:textSize="10sp"
+                                tools:ignore="SmallSp"
+                                tools:text="99999" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/view_top_250"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="24dp"
+                            android:background="@drawable/rounded_2_1_corners_view_rating"
+                            android:orientation="vertical"
+                            android:paddingStart="2dp"
+                            android:paddingEnd="2dp"
+                            android:paddingBottom="2dp"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toStartOf="@id/view_rating_background"
+                            app:layout_constraintTop_toTopOf="@id/view_rating_background"
+                            tools:visibility="visible">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_top_250_place_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:paddingTop="2dp"
+                                android:text="@string/tv_top_250_place_label_text"
+                                android:textColor="@color/gold"
+                                android:textSize="12sp" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_top_250_place"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingStart="6dp"
+                                android:paddingEnd="6dp"
+                                android:textSize="16sp"
+                                tools:text="123" />
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="4dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_name_ru"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:paddingStart="16dp"
-                            android:paddingTop="4dp"
-                            android:paddingEnd="16dp"
-                            android:paddingBottom="4dp"
-                            android:text="@string/tv_fact_warning_text"
-                            android:textColor="@android:color/holo_red_light"
-                            android:textSize="16sp" />
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Сосна" />
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tv_fact_1"
+                            android:id="@+id/tv_name_original"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:textSize="20sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_name_ru"
+                            tools:text="Sosna" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_slogan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_name_original"
+                            tools:text="Bla bla bla" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_year_label"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:text="@string/tv_year_label_text"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_slogan" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_year"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tv_year_label"
+                            tools:text="2022" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_duration_label"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:text="@string/tv_duration_label_text"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_year_label" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_duration"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tv_duration_label"
+                            tools:text="2 ч 15 мин" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_genre_label"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:text="@string/tv_genre_label_text"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_duration_label" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_genre"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tv_genre_label"
+                            tools:text="Action\nDrama" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_country_label"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:text="@string/tv_country_label_text"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_genre" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_country"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tv_country_label"
+                            tools:text="Belarus\nPoland" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_age_limit_label"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:text="@string/tv_age_limits_label_text"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_country" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_age_limit"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tv_age_limit_label"
+                            tools:text="18+" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_age_limit"
+                            tools:text="Bla bla bla" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_frames"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="4dp">
+
+                    <LinearLayout
+                        android:id="@+id/layout_frames"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_frames_label"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingStart="16dp"
-                            android:paddingTop="4dp"
+                            android:paddingTop="2dp"
                             android:paddingEnd="16dp"
-                            android:paddingBottom="4dp"
+                            android:paddingBottom="2dp"
+                            android:text="@string/tv_frames_label_text"
                             android:textSize="16sp"
-                            tools:text="Some fact 1" />
+                            android:textStyle="bold" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_frames"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/tv_frames_label_text"
+                            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/frame_item"
+                            tools:orientation="horizontal" />
 
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_videos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:cardCornerRadius="4dp">
-
-            <LinearLayout
-                android:id="@+id/layout_videos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_videos_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="16dp"
-                    android:paddingBottom="2dp"
-                    android:text="@string/tv_videos_label_text"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_videos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/tv_videos_label_text"
-                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/video_item"
-                    tools:orientation="horizontal" />
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_staff"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:cardCornerRadius="4dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_staff"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_staff_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="16dp"
-                    android:paddingBottom="2dp"
-                    android:text="@string/tv_staff_label_text"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_staff_see_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="16dp"
-                    android:paddingBottom="2dp"
-                    android:text="@string/tv_see_more_text"
-                    android:textColor="@color/gold"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_staff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/tv_videos_label_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_staff_label"
-                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/staff_preview_item"
-                    tools:orientation="horizontal" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_reviews"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:cardCornerRadius="4dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_reviews"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_reviews_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="16dp"
-                    android:paddingBottom="2dp"
-                    android:text="@string/tv_reviews_label_text"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_reviews_see_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="16dp"
-                    android:paddingBottom="2dp"
-                    android:text="@string/tv_see_more_text"
-                    android:textColor="@color/gold"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cv_review_1"
+                    android:id="@+id/cv_facts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:elevation="4dp"
-                    app:cardBackgroundColor="@color/grayCardBackgroundNeutral"
-                    app:cardCornerRadius="4dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_reviews_label">
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="4dp">
 
-                    <LinearLayout
-                        android:id="@+id/layout_review_1"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_facts"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tv_review_1_title"
-                            android:layout_width="match_parent"
+                            android:id="@+id/tv_facts_label"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
                             android:paddingStart="16dp"
-                            android:paddingTop="4dp"
+                            android:paddingTop="2dp"
                             android:paddingEnd="16dp"
-                            android:paddingBottom="4dp"
-                            android:textSize="18sp"
-                            tools:text="Good review" />
+                            android:paddingBottom="2dp"
+                            android:text="@string/tv_facts_label_text"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tv_review_1_description"
+                            android:id="@+id/tv_facts_see_more"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="16dp"
+                            android:paddingTop="2dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="2dp"
+                            android:text="@string/tv_see_more_text"
+                            android:textColor="@color/gold"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cv_fact1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:elevation="4dp"
+                            app:cardCornerRadius="4dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_facts_label">
+
+                            <LinearLayout
+                                android:id="@+id/layout_fact1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/tv_fact_1_warning"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:paddingStart="16dp"
+                                    android:paddingTop="4dp"
+                                    android:paddingEnd="16dp"
+                                    android:paddingBottom="4dp"
+                                    android:text="@string/tv_fact_warning_text"
+                                    android:textColor="@android:color/holo_red_light"
+                                    android:textSize="16sp" />
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/tv_fact_1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingStart="16dp"
+                                    android:paddingTop="4dp"
+                                    android:paddingEnd="16dp"
+                                    android:paddingBottom="4dp"
+                                    android:textSize="16sp"
+                                    tools:text="Some fact 1" />
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_videos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="4dp">
+
+                    <LinearLayout
+                        android:id="@+id/layout_videos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_videos_label"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingStart="16dp"
-                            android:paddingTop="4dp"
+                            android:paddingTop="2dp"
                             android:paddingEnd="16dp"
-                            android:paddingBottom="4dp"
+                            android:paddingBottom="2dp"
+                            android:text="@string/tv_videos_label_text"
                             android:textSize="16sp"
-                            tools:text="Some review description" />
+                            android:textStyle="bold" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_videos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/tv_videos_label_text"
+                            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/video_item"
+                            tools:orientation="horizontal" />
 
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_similars"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:cardCornerRadius="4dp">
-
-            <LinearLayout
-                android:id="@+id/layout_similars"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_similars_label"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_staff"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="16dp"
-                    android:paddingBottom="2dp"
-                    android:text="@string/tv_similars_label_text"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="4dp">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_similars"
-                    android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_staff"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_staff_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="16dp"
+                            android:paddingTop="2dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="2dp"
+                            android:text="@string/tv_staff_label_text"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_staff_see_more"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="16dp"
+                            android:paddingTop="2dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="2dp"
+                            android:text="@string/tv_see_more_text"
+                            android:textColor="@color/gold"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_staff"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/tv_videos_label_text"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_staff_label"
+                            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/staff_preview_item"
+                            tools:orientation="horizontal" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_reviews"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:contentDescription="@string/tv_videos_label_text"
-                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/short_movie_item"
-                    tools:orientation="horizontal" />
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="4dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_reviews"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_reviews_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="16dp"
+                            android:paddingTop="2dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="2dp"
+                            android:text="@string/tv_reviews_label_text"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_reviews_see_more"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="16dp"
+                            android:paddingTop="2dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="2dp"
+                            android:text="@string/tv_see_more_text"
+                            android:textColor="@color/gold"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cv_review_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:elevation="4dp"
+                            app:cardBackgroundColor="@color/grayCardBackgroundNeutral"
+                            app:cardCornerRadius="4dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_reviews_label">
+
+                            <LinearLayout
+                                android:id="@+id/layout_review_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/tv_review_1_title"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:paddingStart="16dp"
+                                    android:paddingTop="4dp"
+                                    android:paddingEnd="16dp"
+                                    android:paddingBottom="4dp"
+                                    android:textSize="18sp"
+                                    tools:text="Good review" />
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/tv_review_1_description"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingStart="16dp"
+                                    android:paddingTop="4dp"
+                                    android:paddingEnd="16dp"
+                                    android:paddingBottom="4dp"
+                                    android:textSize="16sp"
+                                    tools:text="Some review description" />
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_similars"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="4dp">
+
+                    <LinearLayout
+                        android:id="@+id/layout_similars"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_similars_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="16dp"
+                            android:paddingTop="2dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="2dp"
+                            android:text="@string/tv_similars_label_text"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_similars"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="2dp"
+                            android:contentDescription="@string/tv_videos_label_text"
+                            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/short_movie_item"
+                            tools:orientation="horizontal" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_button_kinopoisk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="#BFFF6600"
+                    android:gravity="center"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:text="@string/tv_button_kinopoisk_text"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:ignore="TextContrastCheck" />
 
             </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        </ScrollView>
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_button_kinopoisk"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="#BFFF6600"
-            android:gravity="center"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:text="@string/tv_button_kinopoisk_text"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:ignore="TextContrastCheck" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    </LinearLayout>
-
-</ScrollView>
+</FrameLayout>

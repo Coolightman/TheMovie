@@ -82,7 +82,7 @@ class MovieDetailFragment : Fragment() {
         viewModel.fetchMovieData(movieId)
         createObservers()
         createRecyclers()
-        createListeners()
+        createListeners(movieId)
     }
 
     private fun errorsListener() {
@@ -91,6 +91,13 @@ class MovieDetailFragment : Fragment() {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
                 viewModel.resetError()
             }
+        }
+    }
+
+    private fun swipeRefreshListener(movieId: Long) {
+        binding.swipeRefreshDetails.setOnRefreshListener {
+            viewModel.fetchMovieData(movieId)
+            binding.swipeRefreshDetails.isRefreshing = false
         }
     }
 
@@ -183,8 +190,9 @@ class MovieDetailFragment : Fragment() {
         )
     }
 
-    private fun createListeners() {
+    private fun createListeners(movieId: Long) {
         errorsListener()
+        swipeRefreshListener(movieId)
 
         with(binding) {
             imgFavorite.setOnClickListener {
