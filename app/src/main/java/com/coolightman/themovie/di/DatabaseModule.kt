@@ -9,51 +9,39 @@ import dagger.Provides
 @Module
 class DatabaseModule {
 
-    @ApplicationScope
     @Provides
     fun provideMovieDatabase(context: Context) = AppDatabase.getMovieDatabase(context)
 
-    @ApplicationScope
     @Provides
     fun provideFactsDao(db: AppDatabase) = db.factsDao()
 
-    @ApplicationScope
     @Provides
     fun provideFavoriteDao(db: AppDatabase) = db.favoriteDao()
 
-    @ApplicationScope
     @Provides
     fun provideFramesDao(db: AppDatabase) = db.framesDao()
 
-    @ApplicationScope
     @Provides
     fun provideMovieDao(db: AppDatabase) = db.movieDao()
 
-    @ApplicationScope
     @Provides
     fun provideShortMovieDao(db: AppDatabase) = db.shortMovieDao()
 
-    @ApplicationScope
     @Provides
     fun provideSimilarsDao(db: AppDatabase) = db.similarsDao()
 
-    @ApplicationScope
     @Provides
     fun provideVideosDao(db: AppDatabase) = db.videosDao()
 
-    @ApplicationScope
     @Provides
     fun provideMovieSearchDao(db: AppDatabase) = db.movieSearchDao()
 
-    @ApplicationScope
     @Provides
     fun provideReviewsDao(db: AppDatabase) = db.reviewsDao()
 
-    @ApplicationScope
     @Provides
     fun provideStaffDao(db: AppDatabase) = db.staffDao()
 
-    @ApplicationScope
     @Provides
     fun providePersonDao(db: AppDatabase) = db.personDao()
 }
