@@ -15,6 +15,7 @@ import javax.inject.Inject
 class MovieDetailViewModel @Inject constructor(
     private val getMovieUseCase: GetMovieUseCase,
     private val fetchMovieUseCase: FetchMovieUseCase,
+    private val fetchMovieNCUseCase: FetchMovieNCUseCase,
     private val getMovieFramesUseCase: GetMovieFramesUseCase,
     private val fetchMovieFramesUseCase: FetchMovieFramesUseCase,
     private val getMovieFactsUseCase: GetMovieFactsUseCase,
@@ -86,6 +87,23 @@ class MovieDetailViewModel @Inject constructor(
         fetchStaff()
         fetchReviews()
         fetchSimilars()
+    }
+
+    fun fetchMovieDataNotCheck(movieId: Long) {
+        this.movieId = movieId
+        fetchMovieNC()
+        fetchFrames()
+        fetchFacts()
+        fetchVideos()
+        fetchStaff()
+        fetchReviews()
+        fetchSimilars()
+    }
+
+    private fun fetchMovieNC() {
+        viewModelScope.launch(handler) {
+            fetchMovieNCUseCase(movieId)
+        }
     }
 
     private fun fetchMovie() {

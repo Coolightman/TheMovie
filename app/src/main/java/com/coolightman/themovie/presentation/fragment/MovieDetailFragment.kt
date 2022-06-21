@@ -96,7 +96,7 @@ class MovieDetailFragment : Fragment() {
 
     private fun swipeRefreshListener(movieId: Long) {
         binding.swipeRefreshDetails.setOnRefreshListener {
-            viewModel.fetchMovieData(movieId)
+            viewModel.fetchMovieDataNotCheck(movieId)
             binding.swipeRefreshDetails.isRefreshing = false
         }
     }

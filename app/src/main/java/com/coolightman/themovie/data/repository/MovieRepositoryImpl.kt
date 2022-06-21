@@ -27,6 +27,10 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun fetchMovieNotCheck(movieId: Long) {
+        loadMovieFromApi(movieId)
+    }
+
     override suspend fun getMovieDbModel(movieId: Long) = movieDao.getMovieModel(movieId)
 
     override suspend fun insertMovieDbModel(movieDbModel: MovieDbModel) =
