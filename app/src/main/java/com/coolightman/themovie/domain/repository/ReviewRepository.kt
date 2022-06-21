@@ -8,4 +8,5 @@ interface ReviewRepository {
 
     fun getMovieReviews(movieId: Long): LiveData<List<Review>>
     suspend fun fetchMovieReviews(movieId: Long)
+    suspend fun refreshMovieReviews(movieId: Long)
 }

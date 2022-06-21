@@ -7,4 +7,5 @@ interface FactRepository {
 
     fun getMovieFacts(movieId: Long): LiveData<List<Fact>>
     suspend fun fetchMovieFacts(movieId: Long)
+    suspend fun refreshMovieFacts(movieId: Long)
 }

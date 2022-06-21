@@ -26,6 +26,10 @@ class SimilarRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun refreshMovieSimilars(movieId: Long) {
+        loadSimilarsFromApi(movieId)
+    }
+
     private suspend fun loadSimilarsFromApi(movieId: Long) {
         val similarsDto = apiService.loadSimilars(movieId)
         val similarsDbModel = mapper.mapDtoToDbModel(similarsDto, movieId)

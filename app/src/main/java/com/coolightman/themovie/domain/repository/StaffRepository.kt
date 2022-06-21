@@ -7,4 +7,5 @@ interface StaffRepository {
 
     fun getMovieStaff(movieId: Long): LiveData<List<Staff>>
     suspend fun fetchMovieStaff(movieId: Long)
+    suspend fun refreshMovieStaff(movieId: Long)
 }

@@ -15,19 +15,25 @@ import javax.inject.Inject
 class MovieDetailViewModel @Inject constructor(
     private val getMovieUseCase: GetMovieUseCase,
     private val fetchMovieUseCase: FetchMovieUseCase,
-    private val fetchMovieNCUseCase: FetchMovieNCUseCase,
+    private val refreshMovieUseCase: RefreshMovieUseCase,
     private val getMovieFramesUseCase: GetMovieFramesUseCase,
     private val fetchMovieFramesUseCase: FetchMovieFramesUseCase,
+    private val refreshMovieFramesUseCase: RefreshMovieFramesUseCase,
     private val getMovieFactsUseCase: GetMovieFactsUseCase,
     private val fetchMovieFactsUseCase: FetchMovieFactsUseCase,
+    private val refreshMovieFactsUseCase: RefreshMovieFactsUseCase,
     private val getMovieVideosUseCase: GetMovieVideosUseCase,
     private val fetchMovieVideosUseCase: FetchMovieVideosUseCase,
+    private val refreshMovieVideosUseCase: RefreshMovieVideosUseCase,
     private val getMovieStaffUseCase: GetMovieStaffUseCase,
     private val fetchMovieStaffUseCase: FetchMovieStaffUseCase,
+    private val refreshMovieStaffUseCase: RefreshMovieStaffUseCase,
     private val getMovieReviewsUseCase: GetMovieReviewsUseCase,
     private val fetchMovieReviewsUseCase: FetchMovieReviewsUseCase,
+    private val refreshMovieReviewsUseCase: RefreshMovieReviewsUseCase,
     private val getMovieSimilarsUseCase: GetMovieSimilarsUseCase,
     private val fetchMovieSimilarsUseCase: FetchMovieSimilarsUseCase,
+    private val refreshMovieSimilarsUseCase: RefreshMovieSimilarsUseCase,
     private val getTop250PlaceUseCase: GetTop250PlaceUseCase,
     private val addMovieToFavoriteUseCase: AddMovieToFavoriteUseCase,
     private val removeMovieFromFavoriteUseCase: RemoveMovieFromFavoriteUseCase,
@@ -89,20 +95,56 @@ class MovieDetailViewModel @Inject constructor(
         fetchSimilars()
     }
 
-    fun fetchMovieDataNotCheck(movieId: Long) {
+    fun refreshMovieData(movieId: Long) {
         this.movieId = movieId
-        fetchMovieNC()
-        fetchFrames()
-        fetchFacts()
-        fetchVideos()
-        fetchStaff()
-        fetchReviews()
-        fetchSimilars()
+        refreshMovie()
+        refreshFrames()
+        refreshFacts()
+        refreshVideos()
+        refreshStaff()
+        refreshReviews()
+        refreshSimilars()
     }
 
-    private fun fetchMovieNC() {
+    private fun refreshSimilars() {
         viewModelScope.launch(handler) {
-            fetchMovieNCUseCase(movieId)
+            refreshMovieSimilarsUseCase(movieId)
+        }
+    }
+
+    private fun refreshReviews() {
+        viewModelScope.launch(handler) {
+            refreshMovieReviewsUseCase(movieId)
+        }
+    }
+
+    private fun refreshStaff() {
+        viewModelScope.launch(handler) {
+            refreshMovieStaffUseCase(movieId)
+        }
+    }
+
+    private fun refreshVideos() {
+        viewModelScope.launch(handler) {
+            refreshMovieVideosUseCase(movieId)
+        }
+    }
+
+    private fun refreshFacts() {
+        viewModelScope.launch(handler) {
+            refreshMovieFactsUseCase(movieId)
+        }
+    }
+
+    private fun refreshFrames() {
+        viewModelScope.launch(handler) {
+            refreshMovieFramesUseCase(movieId)
+        }
+    }
+
+    private fun refreshMovie() {
+        viewModelScope.launch(handler) {
+            refreshMovieUseCase(movieId)
         }
     }
 

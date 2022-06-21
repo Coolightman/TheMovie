@@ -26,6 +26,10 @@ class VideoRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun refreshMovieVideos(movieId: Long) {
+        loadVideosFromApi(movieId)
+    }
+
     private suspend fun loadVideosFromApi(movieId: Long) {
         val videosDto = apiService.loadVideos(movieId)
         val videosDbModel = mapper.mapDtoToDbModel(videosDto, movieId)

@@ -26,6 +26,10 @@ class FrameRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun refreshMovieFrames(movieId: Long) {
+        loadFramesFromApi(movieId)
+    }
+
     private suspend fun loadFramesFromApi(movieId: Long) {
         val framesDto = apiService.loadFrames(movieId)
         val frameDbModel = mapper.mapDtoToDbModel(framesDto, movieId)

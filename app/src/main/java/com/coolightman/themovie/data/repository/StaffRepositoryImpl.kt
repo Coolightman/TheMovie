@@ -26,6 +26,10 @@ class StaffRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun refreshMovieStaff(movieId: Long) {
+        loadStaffFromApi(movieId)
+    }
+
     private suspend fun loadStaffFromApi(movieId: Long) {
         val staffDtoList = apiServiceV1.loadStaff(movieId)
         val staffDbModel = mapper.mapDtoListToDbModelList(staffDtoList, movieId)

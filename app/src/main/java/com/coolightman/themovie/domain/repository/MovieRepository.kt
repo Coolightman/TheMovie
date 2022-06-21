@@ -8,7 +8,7 @@ interface MovieRepository {
 
     fun getMovie(movieId: Long): LiveData<Movie>
     suspend fun fetchMovie(movieId: Long)
-    suspend fun fetchMovieNotCheck(movieId: Long)
+    suspend fun refreshMovie(movieId: Long)
     suspend fun getMovieDbModel(movieId: Long): MovieDbModel
     suspend fun insertMovieDbModel(movieDbModel: MovieDbModel)
 }

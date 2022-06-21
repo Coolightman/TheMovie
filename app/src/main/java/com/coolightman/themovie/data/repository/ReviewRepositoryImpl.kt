@@ -27,6 +27,10 @@ class ReviewRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun refreshMovieReviews(movieId: Long) {
+        loadReviewsFromApi(movieId)
+    }
+
     private suspend fun loadReviewsFromApi(movieId: Long) {
 //        Delay needed to fix http 429 from api
         delay(1000)

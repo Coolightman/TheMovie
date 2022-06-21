@@ -26,6 +26,10 @@ class FactRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun refreshMovieFacts(movieId: Long) {
+        loadFactsFromApi(movieId)
+    }
+
     private suspend fun loadFactsFromApi(movieId: Long) {
         val factsDto = apiService.loadFacts(movieId)
         val factsDbModel = mapper.mapDtoToDbModel(factsDto, movieId)

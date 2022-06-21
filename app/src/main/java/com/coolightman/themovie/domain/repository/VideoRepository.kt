@@ -7,4 +7,5 @@ interface VideoRepository {
 
     fun getMovieVideos(movieId: Long): LiveData<List<Video>>
     suspend fun fetchMovieVideos(movieId: Long)
+    suspend fun refreshMovieVideos(movieId: Long)
 }

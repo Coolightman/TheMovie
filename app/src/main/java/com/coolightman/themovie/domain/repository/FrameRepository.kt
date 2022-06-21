@@ -7,4 +7,5 @@ interface FrameRepository {
 
     fun getMovieFrames(movieId: Long): LiveData<List<Frame>>
     suspend fun fetchMovieFrames(movieId: Long)
+    suspend fun refreshMovieFrames(movieId: Long)
 }

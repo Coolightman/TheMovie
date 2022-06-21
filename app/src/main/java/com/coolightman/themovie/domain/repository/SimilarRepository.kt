@@ -7,4 +7,5 @@ interface SimilarRepository {
 
     fun getMovieSimilars(movieId: Long): LiveData<List<ShortMovie>>
     suspend fun fetchMovieSimilars(movieId: Long)
+    suspend fun refreshMovieSimilars(movieId: Long)
 }

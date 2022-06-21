@@ -27,7 +27,7 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchMovieNotCheck(movieId: Long) {
+    override suspend fun refreshMovie(movieId: Long) {
         loadMovieFromApi(movieId)
     }
 
