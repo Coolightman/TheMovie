@@ -20,7 +20,7 @@ You can refresh pages by swipe down, or it will be refreshing by some time when 
 <img src="https://user-images.githubusercontent.com/43218153/151534897-bf924664-3eb9-42c3-8b83-40bee3448674.jpg" alt="drawing" width="270"/>
 
 ### Movie details screen
-Here you can see main parts of movie like a poster, some ratings, detail information, frames, facts, videos, staff, reviews and similar movies. Every part is interactive.
+Here you can see main parts of movie like a poster, some ratings, detail information, frames, facts, videos, staff, reviews and similar movies. Every part is interactive. You can refresh all movie data by swipe down(upd)
 
 <img src="https://user-images.githubusercontent.com/43218153/150844465-85c44254-6934-4164-b297-f3154534dc99.jpg" alt="drawing" width="270"/>
 
