@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:contentDescription="@string/cd_gallery_frame"
+        android:transitionName="image_big"
         app:srcCompat="@drawable/ic_launcher_foreground" />
 
 </FrameLayout>

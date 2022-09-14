@@ -3,6 +3,7 @@ package com.coolightman.themovie.presentation.fragment
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -50,6 +51,11 @@ class GalleryFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         hideStatusBar()
+        val animation = TransitionInflater.from(requireContext()).inflateTransition(
+            android.R.transition.move
+        )
+        sharedElementEnterTransition = animation
+//        sharedElementReturnTransition = animation
     }
 
     override fun onCreateView(

@@ -9,9 +9,11 @@ import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -175,18 +177,21 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun createFrameAdapter(recycler: RecyclerView) {
-        frameAdapter = FrameAdapter { onFrameItemClickListener(it) }
+        frameAdapter = FrameAdapter {position, bind -> onFrameItemClickListener(position, bind) }
         recycler.adapter = frameAdapter
         frameAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
 
-    private fun onFrameItemClickListener(framePosition: Int) {
+    private fun onFrameItemClickListener(framePosition: Int, bind: AppCompatImageView) {
+        val extras = FragmentNavigatorExtras(bind to "image_big")
+
         findNavController().navigate(
             MovieDetailFragmentDirections.actionMovieDetailFragmentToGalleryFragment(
                 movie.movieId,
                 framePosition
-            )
+            ),
+            extras
         )
     }
 

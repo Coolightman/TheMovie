@@ -2,13 +2,14 @@ package com.coolightman.themovie.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
 import com.coolightman.themovie.R
 import com.coolightman.themovie.databinding.FrameItemBinding
 import com.coolightman.themovie.domain.entity.Frame
 
-class FrameAdapter(private val clickListener: (Int) -> Unit) :
+class FrameAdapter(private val clickListener: (Int, AppCompatImageView) -> Unit) :
     ListAdapter<Frame, FrameViewHolder>(FrameDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FrameViewHolder {
@@ -22,7 +23,8 @@ class FrameAdapter(private val clickListener: (Int) -> Unit) :
         frame?.let {
             with(holder.binding) {
                 setFramePreview(this, frame)
-                root.setOnClickListener { clickListener(position) }
+                val bind = imgFrame
+                root.setOnClickListener { clickListener(position, bind) }
             }
         }
     }
