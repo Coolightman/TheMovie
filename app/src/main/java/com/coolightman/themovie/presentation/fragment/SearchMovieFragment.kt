@@ -76,7 +76,7 @@ class SearchMovieFragment : Fragment() {
                 startSearch()
             }
 
-            tfSearchKeywords.setOnEditorActionListener { view, actionId, keyEvent ->
+            tfSearchKeywords.setOnEditorActionListener { _, actionId, _ ->
                 return@setOnEditorActionListener when (actionId) {
                     EditorInfo.IME_ACTION_SEARCH -> {
                         startSearch()
