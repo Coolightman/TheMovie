@@ -38,9 +38,7 @@ Click on some card is opening detail information about actor.
 ### Gallery
 It's opening when click on any frame on movie detail screen. Here is you can continue to swipe already large images and also rotate to landscape if neccessary
 
-<img src="https://user-images.githubusercontent.com/43218153/151532147-03d8ab52-447f-4b18-9255-41a0735dac14.jpg" alt="drawing" width="270"/>
-
-<img src="https://user-images.githubusercontent.com/43218153/151532158-6d424392-422e-4f1b-9800-c059bececa05.jpg" alt="drawing" width="480"/>
+<img src="https://user-images.githubusercontent.com/43218153/151532147-03d8ab52-447f-4b18-9255-41a0735dac14.jpg" alt="drawing" width="270"/> <img src="https://user-images.githubusercontent.com/43218153/151532158-6d424392-422e-4f1b-9800-c059bececa05.jpg" alt="drawing" width="480"/>
 
 ### Reviews
 Click on some item is opening detail review. Color of card is showing review type(positive, negative or neutral).
