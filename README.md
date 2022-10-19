@@ -7,6 +7,9 @@ A description of the movie include text information, frames, links to the videos
 
 Kotlin, MVVM, Clean Architecture, Android Architecture Components, Retrofit, Room, Dagger, Glide, Coroutine, Navigation, Single Activity App
 
+## Download link for APK
+[Google Drive](https://drive.google.com/drive/folders/1HPXhBCzav3eWRwToZY2OrWAIfCLADOIw?usp=sharing)
+
 ## App screenshots
 
 ### Main screen
@@ -56,6 +59,3 @@ It will appear on Favorite page of main screen
 And it will be marked on other screens like favorite
 
 <img src="https://user-images.githubusercontent.com/43218153/149816216-c6e86ef1-d902-4862-a6f6-b3cf60708f5f.jpg" alt="drawing" width="270"/>
-
-### Link for APK
-https://drive.google.com/drive/folders/1v6m0ZHuLB9xkb3zq8CI2NBG2tB1WUQ4X?usp=sharing
