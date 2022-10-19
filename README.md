@@ -48,14 +48,6 @@ Click on some item is opening detail review. Color of card is showing review typ
 <img src="https://user-images.githubusercontent.com/43218153/149674845-140298ff-00ab-4a31-bfa7-7adf565a75d9.jpg" alt="drawing" width="270"/>
 
 ### Favorite
-Also you can add a movie to favorite, by click to star icon
+Also you can add a movie to favorite, by click to star icon. It will appear on Favorite page of main screen and it will be marked on other screens like favorite
 
-<img src="https://user-images.githubusercontent.com/43218153/149815403-d046d298-421c-472f-a5ca-c3ea487b8f78.jpg" alt="drawing" width="270"/>
-
-It will appear on Favorite page of main screen
-
-<img src="https://user-images.githubusercontent.com/43218153/151535147-6f53ce45-0324-4f04-b082-af55ae2434f9.jpg" alt="drawing" width="270"/>
-
-And it will be marked on other screens like favorite
-
-<img src="https://user-images.githubusercontent.com/43218153/149816216-c6e86ef1-d902-4862-a6f6-b3cf60708f5f.jpg" alt="drawing" width="270"/>
+<img src="https://user-images.githubusercontent.com/43218153/149815403-d046d298-421c-472f-a5ca-c3ea487b8f78.jpg" alt="drawing" width="270"/> <img src="https://user-images.githubusercontent.com/43218153/151535147-6f53ce45-0324-4f04-b082-af55ae2434f9.jpg" alt="drawing" width="270"/> <img src="https://user-images.githubusercontent.com/43218153/149816216-c6e86ef1-d902-4862-a6f6-b3cf60708f5f.jpg" alt="drawing" width="270"/>
